@@ -17,7 +17,7 @@ export const AlvioSuite: React.FC = () => {
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] pointer-events-none"></div>
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[800px] bg-gradient-to-b from-accent-purple/5 to-transparent blur-3xl pointer-events-none"></div>
 
-      <div className="relative z-10 max-w-6xl mx-auto">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6">
         
         {/* Header */}
         <div className="text-center mb-20">
@@ -26,7 +26,7 @@ export const AlvioSuite: React.FC = () => {
                     <BrainCircuit size={12} className="text-gray-900 dark:text-white" />
                     <span className="text-xs font-mono uppercase tracking-widest text-gray-900 dark:text-white">System Architecture</span>
                 </div>
-                <h2 className="text-4xl md:text-6xl font-medium tracking-tight text-gray-900 dark:text-white mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight text-gray-900 dark:text-white mb-6">
                   The Alvio OS.
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">

@@ -92,25 +92,25 @@ export const Hero: React.FC = () => {
             </div>
 
             {/* Main Header - Reduced spacing to mb-4 */}
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-4 leading-[1.05]">
+            <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-4 leading-[1.05]">
               Your Data. <br/>
               Unified for <br/>
               <span className="text-transparent bg-clip-text bg-brand-gradient">
                 {currentText}
               </span>
-              <span className="inline-block w-1.5 h-10 md:h-16 lg:h-20 bg-gray-900 dark:bg-white ml-2 align-middle animate-cursor-blink"></span>
+              <span className="inline-block w-1 sm:w-1.5 h-8 sm:h-10 md:h-16 lg:h-20 bg-gray-900 dark:bg-white ml-1 sm:ml-2 align-middle animate-cursor-blink"></span>
             </h1>
           </FadeIn>
 
           <FadeIn delay={200}>
             {/* Text Carousel Container */}
-            <div className="relative min-h-[160px] md:min-h-[140px] mb-6">
+            <div className="relative min-h-[180px] sm:min-h-[160px] md:min-h-[140px] mb-6">
               {carouselTexts.map((text, index) => (
-                <p 
+                <p
                   key={index}
-                  className={`absolute top-0 left-0 w-full text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl font-light leading-relaxed transition-all duration-700 ease-in-out transform ${
-                    index === activeSlide 
-                      ? 'opacity-100 translate-y-0' 
+                  className={`absolute top-0 left-0 w-full text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-2xl font-light leading-relaxed transition-all duration-700 ease-in-out transform ${
+                    index === activeSlide
+                      ? 'opacity-100 translate-y-0'
                       : 'opacity-0 translate-y-4 pointer-events-none'
                   }`}
                 >
@@ -147,7 +147,7 @@ export const Hero: React.FC = () => {
         </div>
 
         {/* --- RIGHT COLUMN: LIQUID METAL & GLASS FUSION --- */}
-        <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end h-[500px] lg:h-[700px] perspective-1000">
+        <div className="relative order-1 lg:order-2 flex items-center justify-center lg:justify-end h-[300px] sm:h-[400px] lg:h-[700px] perspective-1000">
             
              <div 
                 ref={orbRef}
@@ -155,11 +155,11 @@ export const Hero: React.FC = () => {
                 onMouseLeave={handleOrbLeave}
                 className="relative w-full h-full flex items-center justify-center cursor-pointer z-20"
             >
-                 <FadeIn delay={400} className="relative w-[500px] h-[500px] flex items-center justify-center">
-                    
+                 <FadeIn delay={400} className="relative w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[500px] md:h-[500px] flex items-center justify-center">
+
                     {/* The 3-Layer Container */}
-                    <div 
-                        className="relative w-[340px] h-[340px] md:w-[400px] md:h-[400px] transition-transform duration-200 ease-out transform-style-3d"
+                    <div
+                        className="relative w-[200px] h-[200px] sm:w-[260px] sm:h-[260px] md:w-[340px] md:h-[340px] lg:w-[400px] lg:h-[400px] transition-transform duration-200 ease-out transform-style-3d"
                         style={{
                             transform: `rotateX(${orbTilt.x}deg) rotateY(${orbTilt.y}deg)`,
                         }}

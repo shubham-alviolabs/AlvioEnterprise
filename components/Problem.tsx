@@ -21,7 +21,7 @@ export const Problem: React.FC = () => {
                     <AlertTriangle size={12} className="text-gray-500 dark:text-gray-400" />
                     <span className="text-xs font-mono uppercase tracking-widest text-gray-500 dark:text-gray-400">The Current Reality</span>
                 </div>
-                <h2 className="text-5xl md:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-8 leading-[1.1]">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-8 leading-[1.1]">
                     Intelligence <br/>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 via-gray-700 to-gray-900 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600">Disconnected.</span>
                 </h2>
@@ -87,7 +87,7 @@ export const Problem: React.FC = () => {
         </div>
 
         {/* --- RIGHT COLUMN: THE LIQUID MERCURY VISUAL --- */}
-        <div className="order-1 lg:order-2 relative h-[700px] flex items-center justify-center perspective-1000">
+        <div className="order-1 lg:order-2 relative h-[350px] sm:h-[450px] lg:h-[700px] flex items-center justify-center perspective-1000">
              
              {/* 
                 THE LIQUID MERCURY DROPS
@@ -96,8 +96,8 @@ export const Problem: React.FC = () => {
              */}
 
              {/* BLOB 1: DATA (Top Left) */}
-             <FadeIn delay={200} className="absolute top-[15%] left-[10%]">
-                 <div className={`relative w-48 h-48 transition-transform duration-1000 ease-in-out ${hoveredIndex === 0 ? 'scale-110' : 'scale-100 opacity-60'}`}>
+             <FadeIn delay={200} className="absolute top-[10%] sm:top-[15%] left-[5%] sm:left-[10%]">
+                 <div className={`relative w-24 h-24 sm:w-36 sm:h-36 lg:w-48 lg:h-48 transition-transform duration-1000 ease-in-out ${hoveredIndex === 0 ? 'scale-110' : 'scale-100 opacity-60'}`}>
                      {/* The Liquid Metal Surface */}
                      <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-200 via-gray-400 to-gray-500 dark:from-[#444] dark:via-[#111] dark:to-black shadow-[inset_-10px_-10px_20px_rgba(0,0,0,0.2),inset_5px_5px_15px_rgba(255,255,255,0.8),0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[inset_-10px_-10px_20px_black,inset_5px_5px_15px_rgba(255,255,255,0.2),0_20px_40px_rgba(0,0,0,0.8)] animate-morph overflow-hidden">
                         {/* Specular Highlight (The "Wet" Look) */}
@@ -111,8 +111,8 @@ export const Problem: React.FC = () => {
              </FadeIn>
 
              {/* BLOB 2: LOGIC (Right Center) */}
-             <FadeIn delay={300} className="absolute top-[40%] right-[5%]">
-                 <div className={`relative w-56 h-56 transition-transform duration-1000 ease-in-out ${hoveredIndex === 1 ? 'scale-110' : 'scale-100 opacity-60'}`}>
+             <FadeIn delay={300} className="absolute top-[35%] sm:top-[40%] right-[5%]">
+                 <div className={`relative w-28 h-28 sm:w-40 sm:h-40 lg:w-56 lg:h-56 transition-transform duration-1000 ease-in-out ${hoveredIndex === 1 ? 'scale-110' : 'scale-100 opacity-60'}`}>
                       <div className="absolute inset-0 rounded-full bg-gradient-to-bl from-gray-200 via-gray-400 to-gray-500 dark:from-[#444] dark:via-[#111] dark:to-black shadow-[inset_-10px_10px_20px_rgba(0,0,0,0.2),inset_10px_-5px_15px_rgba(255,255,255,0.8),0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[inset_-10px_10px_20px_black,inset_10px_-5px_15px_rgba(255,255,255,0.2),0_20px_40px_rgba(0,0,0,0.8)] animate-morph overflow-hidden" style={{ animationDelay: '-2s', animationDuration: '10s' }}>
                         <div className="absolute top-[20%] right-[20%] w-20 h-10 bg-white/60 dark:bg-white/30 blur-md rounded-full transform rotate-12"></div>
                         <div className="absolute bottom-0 left-0 w-full h-full bg-gradient-to-tr from-accent-purple/30 to-transparent mix-blend-overlay opacity-50"></div>
@@ -122,8 +122,8 @@ export const Problem: React.FC = () => {
              </FadeIn>
 
              {/* BLOB 3: UI (Bottom Left) */}
-             <FadeIn delay={400} className="absolute bottom-[10%] left-[20%]">
-                 <div className={`relative w-40 h-40 transition-transform duration-1000 ease-in-out ${hoveredIndex === 2 ? 'scale-110' : 'scale-100 opacity-60'}`}>
+             <FadeIn delay={400} className="absolute bottom-[10%] left-[15%] sm:left-[20%]">
+                 <div className={`relative w-20 h-20 sm:w-28 sm:h-28 lg:w-40 lg:h-40 transition-transform duration-1000 ease-in-out ${hoveredIndex === 2 ? 'scale-110' : 'scale-100 opacity-60'}`}>
                       <div className="absolute inset-0 rounded-full bg-gradient-to-t from-gray-200 via-gray-400 to-gray-500 dark:from-[#444] dark:via-[#111] dark:to-black shadow-[inset_0_-10px_20px_rgba(0,0,0,0.2),inset_0_10px_15px_rgba(255,255,255,0.8),0_20px_40px_rgba(0,0,0,0.1)] dark:shadow-[inset_0_-10px_20px_black,inset_0_10px_15px_rgba(255,255,255,0.2),0_20px_40px_rgba(0,0,0,0.8)] animate-morph overflow-hidden" style={{ animationDelay: '-5s', animationDuration: '9s' }}>
                         <div className="absolute top-[10%] left-[50%] -translate-x-1/2 w-12 h-6 bg-white/60 dark:bg-white/30 blur-md rounded-full"></div>
                         <div className="absolute bottom-0 right-0 w-full h-full bg-gradient-to-tl from-accent-orange/30 to-transparent mix-blend-overlay opacity-50"></div>

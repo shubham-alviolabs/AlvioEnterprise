@@ -34,7 +34,7 @@ export const CoreIdea: React.FC = () => {
                     <Cpu size={12} className="text-gray-900 dark:text-white" />
                     <span className="text-xs font-mono uppercase tracking-widest text-gray-900 dark:text-white">The Central Nervous System</span>
                 </div>
-                <h2 className="text-5xl md:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-6">
                   The Alvio <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-600 to-gray-400 dark:from-white dark:via-gray-300 dark:to-gray-500">Engine.</span>
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">
@@ -80,16 +80,16 @@ export const CoreIdea: React.FC = () => {
              </div>
 
              {/* CENTER: THE ENGINE (Liquid Mercury) */}
-             <div className="relative h-[500px] flex items-center justify-center z-10 perspective-1000">
+             <div className="relative h-[300px] sm:h-[400px] lg:h-[500px] flex items-center justify-center z-10 perspective-1000">
                 
                 <FadeIn delay={200} className="relative w-full h-full flex items-center justify-center">
                     
                     {/* Orbital Rings */}
-                    <div className="absolute w-[400px] h-[400px] border border-black/5 dark:border-white/5 rounded-full animate-spin-slow"></div>
-                    <div className="absolute w-[300px] h-[300px] border border-black/5 dark:border-white/5 rounded-full animate-spin-reverse-slow opacity-50"></div>
-                    
+                    <div className="absolute w-[250px] h-[250px] sm:w-[300px] sm:h-[300px] lg:w-[400px] lg:h-[400px] border border-black/5 dark:border-white/5 rounded-full animate-spin-slow"></div>
+                    <div className="absolute w-[180px] h-[180px] sm:w-[220px] sm:h-[220px] lg:w-[300px] lg:h-[300px] border border-black/5 dark:border-white/5 rounded-full animate-spin-reverse-slow opacity-50"></div>
+
                     {/* THE LIQUID CORE */}
-                    <div className={`relative w-64 h-64 transition-transform duration-700 ease-out ${hovered ? 'scale-110' : 'scale-100'}`}>
+                    <div className={`relative w-36 h-36 sm:w-48 sm:h-48 lg:w-64 lg:h-64 transition-transform duration-700 ease-out ${hovered ? 'scale-110' : 'scale-100'}`}>
                         
                         {/* Base Dark Metal */}
                         <div className="absolute inset-0 rounded-full bg-gradient-to-br from-gray-200 via-gray-400 to-gray-500 dark:from-[#333] dark:via-[#000] dark:to-[#111] shadow-[inset_-20px_-20px_50px_rgba(0,0,0,0.1),0_0_50px_rgba(0,0,0,0.1)] dark:shadow-[inset_-20px_-20px_50px_rgba(0,0,0,1),0_0_50px_rgba(255,255,255,0.05)] animate-morph z-10"></div>

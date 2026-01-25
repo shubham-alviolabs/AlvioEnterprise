@@ -84,7 +84,7 @@ export const Integrations: React.FC = () => {
                     <Link2 size={12} className="text-gray-900 dark:text-white" />
                     <span className="text-xs font-mono uppercase tracking-widest text-gray-900 dark:text-white">The Neural Grid</span>
                 </div>
-                <h2 className="text-5xl md:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-6">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-6">
                   180+ Native Integrations. <br/>
                   <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 via-gray-700 to-gray-900 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600">One Neural Index.</span>
                 </h2>

@@ -6,17 +6,17 @@ import { CheckCircle2 } from 'lucide-react';
 export const Individual: React.FC = () => {
   return (
     <Section id="solutions-individual" className="bg-white dark:bg-[#050505] py-0 border-t border-black/5 dark:border-white/5 overflow-hidden transition-colors duration-500">
-      <div className="relative">
+      <div className="relative px-4 sm:px-6">
          {/* Decorative background for Individual section - Orange theme */}
-         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent-orange/5 dark:bg-accent-orange/5 blur-[150px] rounded-full pointer-events-none" />
-         
-         <div className="grid md:grid-cols-2 gap-16 items-center py-32">
+         <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[400px] sm:w-[600px] lg:w-[800px] h-[400px] sm:h-[600px] lg:h-[800px] bg-accent-orange/5 dark:bg-accent-orange/5 blur-[150px] rounded-full pointer-events-none" />
+
+         <div className="grid md:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center py-16 sm:py-24 lg:py-32">
             <FadeIn>
               <div className="flex items-center gap-2 mb-4">
                 <span className="w-2 h-2 bg-accent-orange rounded-full shadow-[0_0_10px_#F97316]"></span>
                 <span className="text-accent-orange font-medium tracking-widest text-xs uppercase">ALVIO for Individuals</span>
               </div>
-              <h2 className="text-4xl md:text-5xl font-medium text-gray-900 dark:text-white mb-6">A personal AI system that <br/>plans, executes, and remembers.</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 dark:text-white mb-6">A personal AI system that <br className="hidden sm:block"/>plans, executes, and remembers.</h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
                 Designed for deep thinking, long-running tasks, and personal workflows. Not just conversational — operational.
               </p>
@@ -37,7 +37,7 @@ export const Individual: React.FC = () => {
             </FadeIn>
 
             <FadeIn delay={200} className="relative group">
-              <div className="glass-panel rounded-2xl p-6 md:p-8 aspect-[4/3] flex flex-col relative z-10 shadow-xl dark:shadow-[0_0_50px_rgba(249,115,22,0.1)] transition-transform duration-700 group-hover:scale-[1.02]">
+              <div className="glass-panel rounded-2xl p-4 sm:p-6 md:p-8 aspect-[4/3] sm:aspect-[4/3] flex flex-col relative z-10 shadow-xl dark:shadow-[0_0_50px_rgba(249,115,22,0.1)] transition-transform duration-700 group-hover:scale-[1.02]">
                  {/* UI Mockup for Individual Interface - Dark Themed inside */}
                  <div className="flex items-center justify-between mb-8 pb-4 border-b border-gray-200 dark:border-white/5">
                     <div className="flex items-center gap-2">
