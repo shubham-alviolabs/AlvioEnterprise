@@ -77,14 +77,15 @@ export const Navbar: React.FC = () => {
   ];
 
   const engineSubItems = [
-    { href: '#engine', id: 'engine', label: 'Core Engine', color: 'from-blue-500 to-cyan-500', icon: '🔍' },
-    { href: '#solutions-enterprise', id: 'solutions-enterprise', label: 'Enterprise', color: 'from-accent-pink to-pink-600', icon: '🏢' },
-    { href: '#integrations', id: 'integrations', label: 'Integrations', color: 'from-green-500 to-emerald-500', icon: '🔗' },
-    { href: '#suite', id: 'suite', label: 'Architecture', color: 'from-accent-purple to-purple-600', icon: '⚡' },
-    { href: '#solutions-individual', id: 'solutions-individual', label: 'Personal', color: 'from-accent-orange to-yellow-500', icon: '👤' },
+    { href: '#engine', id: 'engine', label: 'Core Engine', color: 'from-blue-500 to-cyan-500' },
+    { href: '#solutions-enterprise', id: 'solutions-enterprise', label: 'Enterprise', color: 'from-accent-pink to-pink-600' },
+    { href: '#integrations', id: 'integrations', label: 'Integrations', color: 'from-green-500 to-emerald-500' },
+    { href: '#suite', id: 'suite', label: 'Architecture', color: 'from-accent-purple to-purple-600' },
+    { href: '#solutions-individual', id: 'solutions-individual', label: 'Personal', color: 'from-accent-orange to-yellow-500' },
   ];
 
   const isEngineActive = engineSubItems.some(item => item.id === activeSection);
+  const activeEngineItem = engineSubItems.find(item => item.id === activeSection);
 
   return (
     <nav
@@ -148,6 +149,20 @@ export const Navbar: React.FC = () => {
               }`}
             >
               <span className="relative z-10">Solutions</span>
+
+              {/* Dynamic section indicator */}
+              {activeEngineItem && (
+                <span className="relative z-10 flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-current opacity-40"></span>
+                  <span
+                    key={activeEngineItem.id}
+                    className="text-xs font-medium opacity-70 animate-in fade-in slide-in-from-left-2 duration-300"
+                  >
+                    {activeEngineItem.label}
+                  </span>
+                </span>
+              )}
+
               <ChevronDown
                 size={14}
                 className={`relative z-10 transition-all duration-500 ease-out ${
@@ -190,12 +205,10 @@ export const Navbar: React.FC = () => {
                         {/* Gradient glow on hover */}
                         <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${item.color} blur-2xl -z-10`}></div>
 
-                        {/* Icon */}
-                        <div className={`relative z-10 text-2xl transition-all duration-500 ease-out ${
-                          isActive ? 'scale-110' : 'group-hover:scale-110'
-                        }`}>
-                          {item.icon}
-                        </div>
+                        {/* Gradient dot indicator */}
+                        <div className={`relative z-10 w-2 h-2 rounded-full bg-gradient-to-r ${item.color} transition-all duration-500 ease-out ${
+                          isActive ? 'scale-125 opacity-100' : 'opacity-40 group-hover:opacity-70'
+                        }`}></div>
 
                         {/* Text */}
                         <div className="relative z-10 flex-1">
@@ -346,7 +359,7 @@ export const Navbar: React.FC = () => {
                       : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
                   }`}
                 >
-                  <span>{item.icon}</span>
+                  <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
                   <span>{item.label}</span>
                 </a>
               );
