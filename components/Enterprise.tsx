@@ -123,7 +123,7 @@ export const Enterprise: React.FC = () => {
                               <div className="p-6 border-b border-white/5 bg-[#111]">
                                   <div className="flex items-center gap-4 bg-black border border-accent-pink/50 rounded-lg px-4 py-3 shadow-[0_0_15px_rgba(255,0,128,0.1)]">
                                       <Search className="text-accent-pink w-5 h-5" />
-                                      <span className="text-white text-sm font-medium">Q3 Project Titan contracts > $50k</span>
+                                      <span className="text-white text-sm font-medium">Q3 Project Titan contracts {'>'} $50k</span>
                                       <span className="ml-auto text-xs text-gray-600 border border-gray-800 rounded px-1.5">ESC</span>
                                   </div>
                               </div>
