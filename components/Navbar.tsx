@@ -52,11 +52,13 @@ export const Navbar: React.FC = () => {
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
-        {/* LOGO - Pure Text, Modern, Apple-like */}
+        {/* LOGO */}
         <div className="flex items-center group cursor-pointer" onClick={() => window.location.href = '/'}>
-           <span className="text-2xl md:text-3xl font-light tracking-wide text-gray-900 dark:text-white leading-none hover:opacity-80 transition-opacity" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif', letterSpacing: '0.02em' }}>
-             ALVIO
-           </span>
+           <img
+             src="/logo.png"
+             alt="ALVIO Labs"
+             className="h-8 md:h-10 w-auto hover:opacity-80 transition-opacity"
+           />
         </div>
 
         {/* Desktop Navigation */}
