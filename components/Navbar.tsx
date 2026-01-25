@@ -54,7 +54,7 @@ export const Navbar: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* LOGO - Pure Text, Modern, Apple-like */}
         <div className="flex items-center group cursor-pointer" onClick={() => window.location.href = '/'}>
-           <span className="text-2xl md:text-3xl font-sans font-bold tracking-tighter text-gray-900 dark:text-white leading-none hover:opacity-80 transition-opacity">
+           <span className="text-2xl md:text-3xl font-light tracking-wide text-gray-900 dark:text-white leading-none hover:opacity-80 transition-opacity" style={{ fontFamily: '-apple-system, BlinkMacSystemFont, "SF Pro Display", system-ui, sans-serif', letterSpacing: '0.02em' }}>
              ALVIO
            </span>
         </div>
