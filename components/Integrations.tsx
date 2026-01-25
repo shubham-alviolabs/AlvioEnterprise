@@ -226,23 +226,23 @@ export const Integrations: React.FC = () => {
                      <div className="flex-1 relative z-10 flex flex-col justify-center">
                         <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                              <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <div className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#13B5EA] transition-colors">{icons.xero}</div>
+                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#13B5EA] transition-colors">{icons.xero}</svg>
                                   <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">Xero</span>
                              </div>
                              <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <div className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#2CA01C] transition-colors">{icons.quickbooks}</div>
+                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#2CA01C] transition-colors">{icons.quickbooks}</svg>
                                   <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">QuickBooks</span>
                              </div>
                              <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <div className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#00D639] transition-colors">{icons.sage}</div>
+                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#00D639] transition-colors">{icons.sage}</svg>
                                   <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">Sage</span>
                              </div>
                              <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <div className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-blue-400 transition-colors">{icons.netsuite}</div>
+                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-blue-400 transition-colors">{icons.netsuite}</svg>
                                   <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">NetSuite</span>
                              </div>
                              <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <div className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#FFC107] transition-colors">{icons.zoho}</div>
+                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#FFC107] transition-colors">{icons.zoho}</svg>
                                   <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">Zoho</span>
                              </div>
                              <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24 opacity-60">
