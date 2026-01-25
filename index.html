@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ALVIO LABS | The Intelligence Engine</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      // Initialize theme: Default to DARK, only use light if explicitly set in localStorage
+      if (localStorage.theme === 'light') {
+        document.documentElement.classList.remove('dark')
+      } else {
+        document.documentElement.classList.add('dark')
+      }
+
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['SF Pro Display', 'Inter', 'system-ui', 'sans-serif'],
+              mono: ['JetBrains Mono', 'monospace'],
+              brand: ['Space Grotesk', 'sans-serif'],
+            },
+            colors: {
+              alvio: {
+                950: '#000000', 
+                900: '#050505',
+                800: '#0a0a0a',
+                100: '#ffffff',
+              },
+              accent: {
+                orange: '#FF6B00', // Vivid Orange
+                pink: '#FF0080',   // Cyber Pink
+                purple: '#7928CA', // Deep Purple
+                blue: '#4F46E5',   // Electric Blue
+              }
+            },
+            animation: {
+              'spin-slow': 'spin 15s linear infinite',
+              'spin-reverse-slow': 'spin-reverse 15s linear infinite',
+              'spin-slower': 'spin 25s linear infinite',
+              'float-slow': 'float 8s ease-in-out infinite',
+              'float-medium': 'float 6s ease-in-out infinite',
+              'float-fast': 'float 4s ease-in-out infinite',
+              'pulse-glow': 'pulse-glow 4s ease-in-out infinite',
+              'beam-flow': 'beam-flow 2s linear infinite',
+              'pop-in': 'pop-in 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+              'slide-up-fade': 'slide-up-fade 0.8s ease-out forwards',
+              'aurora': 'aurora 60s linear infinite',
+              'shimmer': 'shimmer 2s linear infinite',
+              'grid-move': 'grid-move 20s linear infinite',
+              'blob': 'blob 7s infinite',
+              'blob-delay': 'blob 7s infinite 2s',
+              'morph': 'morph 8s ease-in-out infinite',
+              'scatter-1': 'scatter-1 12s ease-in-out infinite',
+              'scatter-2': 'scatter-2 12s ease-in-out infinite',
+              'scatter-3': 'scatter-3 12s ease-in-out infinite',
+              'eclipse-pulse': 'eclipse-pulse 12s ease-in-out infinite',
+              'fusion-bloom': 'fusion-bloom 12s ease-in-out infinite',
+              'cursor-blink': 'cursor-blink 1s step-end infinite',
+              'orbit-1': 'orbit-1 20s linear infinite',
+              'orbit-2': 'orbit-2 25s linear infinite',
+              'orbit-3': 'orbit-3 30s linear infinite',
+            },
+            keyframes: {
+              'spin-reverse': {
+                '0%': { transform: 'rotate(360deg)' },
+                '100%': { transform: 'rotate(0deg)' },
+              },
+              float: {
+                '0%, 100%': { transform: 'translateY(0)' },
+                '50%': { transform: 'translateY(-15px)' },
+              },
+              'pulse-glow': {
+                '0%, 100%': { opacity: 0.5, transform: 'scale(1)' },
+                '50%': { opacity: 0.8, transform: 'scale(1.05)' },
+              },
+              'beam-flow': {
+                '0%': { strokeDashoffset: '20' },
+                '100%': { strokeDashoffset: '0' },
+              },
+              'pop-in': {
+                '0%': { opacity: 0, transform: 'scale(0.9) translateY(20px)' },
+                '100%': { opacity: 1, transform: 'scale(1) translateY(0)' },
+              },
+              'slide-up-fade': {
+                '0%': { opacity: 0, transform: 'translateY(20px)' },
+                '100%': { opacity: 1, transform: 'translateY(0)' },
+              },
+              aurora: {
+                '0%': { backgroundPosition: '50% 50%, 50% 50%' },
+                '100%': { backgroundPosition: '350% 50%, 350% 50%' },
+              },
+              shimmer: {
+                from: { backgroundPosition: '0 0' },
+                to: { backgroundPosition: '-200% 0' },
+              },
+              'grid-move': {
+                '0%': { backgroundPosition: '0 0' },
+                '100%': { backgroundPosition: '0 100px' },
+              },
+              blob: {
+                '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                '100%': { transform: 'translate(0px, 0px) scale(1)' },
+              },
+              morph: {
+                '0%, 100%': { borderRadius: '60% 40% 30% 70% / 60% 30% 70% 40%' },
+                '50%': { borderRadius: '30% 60% 70% 40% / 50% 60% 30% 60%' },
+              },
+              'scatter-1': {
+                 '0%, 100%': { borderRadius: '70% 30% 30% 70% / 60% 40% 60% 40%', transform: 'translate(-20px, -10px) rotate(0deg)' },
+                 '50%': { borderRadius: '50% 50% 50% 50% / 50% 50% 50% 50%', transform: 'translate(0, 0) rotate(180deg)' }, 
+              },
+              'scatter-2': {
+                 '0%, 100%': { borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%', transform: 'translate(20px, 15px) rotate(0deg)' },
+                 '50%': { borderRadius: '50% 50% 50% 50% / 50% 50% 50% 50%', transform: 'translate(0, 0) rotate(180deg)' }, 
+              },
+              'scatter-3': {
+                 '0%, 100%': { borderRadius: '50% 50% 20% 80% / 25% 80% 20% 75%', transform: 'translate(-5px, 25px) rotate(0deg)' },
+                 '50%': { borderRadius: '50% 50% 50% 50% / 50% 50% 50% 50%', transform: 'translate(0, 0) rotate(180deg)' }, 
+              },
+              'eclipse-pulse': {
+                '0%, 45%, 55%, 100%': { opacity: '0', transform: 'scale(0.9)' },
+                '50%': { opacity: '1', transform: 'scale(1.05)', boxShadow: '0 0 100px rgba(255,255,255,0.6), inset 0 0 20px white' },
+              },
+              'fusion-bloom': {
+                '0%, 40%': { opacity: '0', transform: 'scale(0.95)' },
+                '50%': { opacity: '0.6', transform: 'scale(1.05)', filter: 'blur(15px)' }, /* Gentle peak */
+                '60%, 100%': { opacity: '0', transform: 'scale(1.1)' }
+              },
+              'cursor-blink': {
+                '0%, 100%': { opacity: '1' },
+                '50%': { opacity: '0' }
+              },
+              'orbit-1': {
+                '0%': { transform: 'rotate(0deg) translateX(100px) rotate(0deg)' },
+                '100%': { transform: 'rotate(360deg) translateX(100px) rotate(-360deg)' },
+              },
+               'orbit-2': {
+                '0%': { transform: 'rotate(120deg) translateX(120px) rotate(-120deg)' },
+                '100%': { transform: 'rotate(480deg) translateX(120px) rotate(-480deg)' },
+              },
+               'orbit-3': {
+                '0%': { transform: 'rotate(240deg) translateX(90px) rotate(-240deg)' },
+                '100%': { transform: 'rotate(600deg) translateX(90px) rotate(-600deg)' },
+              }
+            },
+            backgroundImage: {
+              'brand-gradient': 'linear-gradient(to right, #FF6B00, #FF0080, #7928CA)',
+              'glass-gradient': 'linear-gradient(180deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%)',
+              'aurora-gradient': 'linear-gradient(to top right, #000000 0%, #1a0b2e 40%, #000000 100%)',
+              'metallic-gradient': 'linear-gradient(145deg, #1a1a1a, #0a0a0a)',
+              'fluid-mesh': 'radial-gradient(at 0% 0%, rgba(255,107,0,0.5) 0px, transparent 50%), radial-gradient(at 100% 0%, rgba(121,40,202,0.5) 0px, transparent 50%), radial-gradient(at 100% 100%, rgba(255,0,128,0.5) 0px, transparent 50%), radial-gradient(at 0% 100%, rgba(79,70,229,0.5) 0px, transparent 50%)',
+            }
+          },
+        },
+      }
+    </script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+      
+      body {
+        /* Default background set via Tailwind classes in App.tsx */
+        font-family: 'Inter', sans-serif;
+        overflow-x: hidden;
+        -webkit-font-smoothing: antialiased;
+      }
+      
+      .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 4px 24px -1px rgba(0, 0, 0, 0.2);
+      }
+       /* Enhanced Glass Card */
+      .glass-card {
+        background: rgba(20, 20, 20, 0.6);
+        backdrop-filter: blur(40px);
+        -webkit-backdrop-filter: blur(40px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+      }
+      
+      /* Light mode overrides */
+      html:not(.dark) .glass-panel {
+        background: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+      html:not(.dark) .glass-card {
+        background: rgba(255, 255, 255, 0.7);
+        border: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.05);
+      }
+
+      /* Premium Metallic Card Effect */
+      .metallic-card {
+        background: linear-gradient(180deg, rgba(20,20,20,0.95) 0%, rgba(5,5,5,0.98) 100%);
+        backdrop-filter: blur(20px);
+        box-shadow: 
+          0 20px 40px -10px rgba(0,0,0,0.8),
+          inset 0 1px 0 rgba(255,255,255,0.15);
+        position: relative;
+        overflow: hidden;
+      }
+      html:not(.dark) .metallic-card {
+        background: linear-gradient(180deg, #ffffff 0%, #f3f4f6 100%);
+        box-shadow: 
+          0 20px 40px -10px rgba(0,0,0,0.1),
+          inset 0 1px 0 rgba(255,255,255,0.8);
+      }
+      
+      .metallic-sheen::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+        transform: skewX(-20deg);
+        animation: metallic-shine 6s infinite;
+      }
+
+      @keyframes metallic-shine {
+        0%, 100% { left: -100%; }
+        20% { left: 200%; }
+      }
+      
+      .perspective-container {
+        perspective: 1200px;
+        transform-style: preserve-3d;
+      }
+
+      .card-3d {
+        transform-style: preserve-3d;
+        transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      
+      /* Infinite Grid Floor */
+      .grid-floor {
+        background-size: 60px 60px;
+        background-image: 
+          linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        transform: perspective(800px) rotateX(60deg) scale(3);
+        transform-origin: 50% 0;
+        animation: grid-move 10s linear infinite;
+        mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 60%, transparent 100%);
+      }
+      html:not(.dark) .grid-floor {
+         background-image: 
+          linear-gradient(to right, rgba(0, 0, 0, 0.05) 1px, transparent 1px),
+          linear-gradient(to bottom, rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+      }
+
+      /* Glowing Beam */
+      .beam-path {
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.5));
+      }
+
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #000;
+      }
+      html:not(.dark) ::-webkit-scrollbar-track {
+        background: #fff;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #333;
+        border-radius: 3px;
+      }
+      html:not(.dark) ::-webkit-scrollbar-thumb {
+        background: #ccc;
+      }
+    </style>
+    <script type="importmap">
+    {
+      "imports": {
+        "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+        "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+        "react": "https://esm.sh/react@^19.2.3",
+        "react/": "https://esm.sh/react@^19.2.3/",
+        "react-router-dom": "https://esm.sh/react-router-dom@6.22.3"
+      }
+    }
+    </script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>
