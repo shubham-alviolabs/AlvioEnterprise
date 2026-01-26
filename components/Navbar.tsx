@@ -16,6 +16,7 @@ export const Navbar: React.FC = () => {
   const solutionsRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<HTMLDivElement>(null);
   const autoScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
+  const location = useLocation();
 
   useEffect(() => {
     // Check initial theme
@@ -175,7 +176,6 @@ export const Navbar: React.FC = () => {
     },
   ];
 
-  const location = useLocation();
   const isSolutionsActive = solutionsSubItems.some(item => activeSection === item.id);
   const isEngineActive = engineSubItems.some(item => location.pathname === item.href);
 
