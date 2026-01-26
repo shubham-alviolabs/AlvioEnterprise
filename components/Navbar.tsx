@@ -7,11 +7,13 @@ export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginMenuOpen, setLoginMenuOpen] = useState(false);
-  const [engineMenuOpen, setEngineMenuOpen] = useState(false);
+  const [solutionsMenuOpen, setSolutionsMenuOpen] = useState(false);
+  const [platformMenuOpen, setPlatformMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const loginRef = useRef<HTMLDivElement>(null);
-  const engineRef = useRef<HTMLDivElement>(null);
+  const solutionsRef = useRef<HTMLDivElement>(null);
+  const platformRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // Check initial theme
@@ -48,8 +50,11 @@ export const Navbar: React.FC = () => {
       if (loginRef.current && !loginRef.current.contains(event.target as Node)) {
         setLoginMenuOpen(false);
       }
-      if (engineRef.current && !engineRef.current.contains(event.target as Node)) {
-        setEngineMenuOpen(false);
+      if (solutionsRef.current && !solutionsRef.current.contains(event.target as Node)) {
+        setSolutionsMenuOpen(false);
+      }
+      if (platformRef.current && !platformRef.current.contains(event.target as Node)) {
+        setPlatformMenuOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -77,16 +82,22 @@ export const Navbar: React.FC = () => {
     { href: '#problem', id: 'problem', label: 'Problem', color: 'from-accent-orange to-red-500' },
   ];
 
-  const engineSubItems = [
-    { href: '/enterprise-search', id: 'search', label: 'Enterprise Search', color: 'from-accent-pink to-pink-600', isRoute: true },
-    { href: '/apps', id: 'apps', label: 'App Builder', color: 'from-accent-orange to-orange-600', isRoute: true },
-    { href: '/agents', id: 'agents', label: 'Workflow Agents', color: 'from-accent-purple to-purple-600', isRoute: true },
+  const solutionsSubItems = [
     { href: '#integrations', id: 'integrations', label: 'Integrations', color: 'from-green-500 to-emerald-500', isRoute: false },
     { href: '#suite', id: 'suite', label: 'Architecture', color: 'from-blue-500 to-cyan-500', isRoute: false },
   ];
 
-  const isEngineActive = engineSubItems.some(item => item.id === activeSection);
-  const activeEngineItem = engineSubItems.find(item => item.id === activeSection);
+  const platformSubItems = [
+    { href: '/enterprise-search', id: 'search', label: 'Enterprise Search', color: 'from-accent-pink to-pink-600', isRoute: true },
+    { href: '/apps', id: 'apps', label: 'App Builder', color: 'from-accent-orange to-orange-600', isRoute: true },
+    { href: '/agents', id: 'agents', label: 'Workflow Agents', color: 'from-accent-purple to-purple-600', isRoute: true },
+  ];
+
+  const isSolutionsActive = solutionsSubItems.some(item => item.id === activeSection);
+  const activeSolutionsItem = solutionsSubItems.find(item => item.id === activeSection);
+
+  const isPlatformActive = platformSubItems.some(item => item.id === activeSection);
+  const activePlatformItem = platformSubItems.find(item => item.id === activeSection);
 
   return (
     <nav
@@ -138,13 +149,13 @@ export const Navbar: React.FC = () => {
             );
           })}
 
-          {/* Engine Dropdown with Sub-items */}
-          <div className="relative" ref={engineRef}>
+          {/* Solutions Dropdown */}
+          <div className="relative" ref={solutionsRef}>
             <button
-              onMouseEnter={() => setEngineMenuOpen(true)}
-              onClick={() => setEngineMenuOpen(!engineMenuOpen)}
+              onMouseEnter={() => setSolutionsMenuOpen(true)}
+              onClick={() => setSolutionsMenuOpen(!solutionsMenuOpen)}
               className={`group relative px-5 py-2.5 text-sm font-medium transition-all duration-500 ease-out rounded-full flex items-center gap-1.5 ${
-                isEngineActive
+                isSolutionsActive
                   ? 'text-gray-900 dark:text-white'
                   : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
               }`}
@@ -152,14 +163,14 @@ export const Navbar: React.FC = () => {
               <span className="relative z-10">Solutions</span>
 
               {/* Dynamic section indicator */}
-              {activeEngineItem && (
+              {activeSolutionsItem && (
                 <span className="relative z-10 flex items-center gap-1.5">
                   <span className="w-1 h-1 rounded-full bg-current opacity-40"></span>
                   <span
-                    key={activeEngineItem.id}
+                    key={activeSolutionsItem.id}
                     className="text-xs font-medium opacity-70 animate-in fade-in slide-in-from-left-2 duration-300"
                   >
-                    {activeEngineItem.label}
+                    {activeSolutionsItem.label}
                   </span>
                 </span>
               )}
@@ -167,29 +178,29 @@ export const Navbar: React.FC = () => {
               <ChevronDown
                 size={14}
                 className={`relative z-10 transition-all duration-500 ease-out ${
-                  engineMenuOpen ? 'rotate-180' : 'rotate-0'
+                  solutionsMenuOpen ? 'rotate-180' : 'rotate-0'
                 }`}
               />
 
               {/* Active state background */}
-              {isEngineActive && (
+              {isSolutionsActive && (
                 <div className="absolute inset-0 bg-black/5 dark:bg-white/10 rounded-full transition-all duration-500 ease-out"></div>
               )}
 
               {/* Bottom indicator for active state */}
-              <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full transition-all duration-500 ease-out bg-gradient-to-r from-blue-500 via-accent-pink to-accent-purple ${
-                isEngineActive ? 'w-[60%] opacity-100' : 'w-0 opacity-0'
+              <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full transition-all duration-500 ease-out bg-gradient-to-r from-green-500 to-blue-500 ${
+                isSolutionsActive ? 'w-[60%] opacity-100' : 'w-0 opacity-0'
               }`}></div>
             </button>
 
             {/* Premium Dropdown Menu */}
-            {engineMenuOpen && (
+            {solutionsMenuOpen && (
               <div
                 className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-80"
-                onMouseLeave={() => setEngineMenuOpen(false)}
+                onMouseLeave={() => setSolutionsMenuOpen(false)}
               >
                 <div className="bg-white/95 dark:bg-black/95 backdrop-blur-3xl border border-black/5 dark:border-white/10 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/50 overflow-hidden p-2 animate-in fade-in slide-in-from-top-2 duration-500">
-                  {engineSubItems.map((item, index) => {
+                  {solutionsSubItems.map((item, index) => {
                     const isActive = activeSection === item.id;
                     const className = `group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
                       isActive
@@ -221,26 +232,116 @@ export const Navbar: React.FC = () => {
                       </>
                     );
 
-                    return item.isRoute ? (
-                      <Link
-                        key={item.href}
-                        to={item.href}
-                        onClick={() => setEngineMenuOpen(false)}
-                        className={className}
-                        style={{ animationDelay: `${index * 50}ms` }}
-                      >
-                        {content}
-                      </Link>
-                    ) : (
+                    return (
                       <a
                         key={item.href}
                         href={item.href}
-                        onClick={() => setEngineMenuOpen(false)}
+                        onClick={() => setSolutionsMenuOpen(false)}
                         className={className}
                         style={{ animationDelay: `${index * 50}ms` }}
                       >
                         {content}
                       </a>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
+
+          {/* Platform Dropdown */}
+          <div className="relative" ref={platformRef}>
+            <button
+              onMouseEnter={() => setPlatformMenuOpen(true)}
+              onClick={() => setPlatformMenuOpen(!platformMenuOpen)}
+              className={`group relative px-5 py-2.5 text-sm font-medium transition-all duration-500 ease-out rounded-full flex items-center gap-1.5 ${
+                isPlatformActive
+                  ? 'text-gray-900 dark:text-white'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              }`}
+            >
+              <span className="relative z-10">Platform</span>
+
+              {/* Dynamic section indicator */}
+              {activePlatformItem && (
+                <span className="relative z-10 flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-current opacity-40"></span>
+                  <span
+                    key={activePlatformItem.id}
+                    className="text-xs font-medium opacity-70 animate-in fade-in slide-in-from-left-2 duration-300"
+                  >
+                    {activePlatformItem.label}
+                  </span>
+                </span>
+              )}
+
+              <ChevronDown
+                size={14}
+                className={`relative z-10 transition-all duration-500 ease-out ${
+                  platformMenuOpen ? 'rotate-180' : 'rotate-0'
+                }`}
+              />
+
+              {/* Active state background */}
+              {isPlatformActive && (
+                <div className="absolute inset-0 bg-black/5 dark:bg-white/10 rounded-full transition-all duration-500 ease-out"></div>
+              )}
+
+              {/* Bottom indicator for active state */}
+              <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full transition-all duration-500 ease-out bg-gradient-to-r from-accent-pink via-accent-orange to-accent-purple ${
+                isPlatformActive ? 'w-[60%] opacity-100' : 'w-0 opacity-0'
+              }`}></div>
+            </button>
+
+            {/* Premium Dropdown Menu */}
+            {platformMenuOpen && (
+              <div
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-80"
+                onMouseLeave={() => setPlatformMenuOpen(false)}
+              >
+                <div className="bg-white/95 dark:bg-black/95 backdrop-blur-3xl border border-black/5 dark:border-white/10 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/50 overflow-hidden p-2 animate-in fade-in slide-in-from-top-2 duration-500">
+                  {platformSubItems.map((item, index) => {
+                    const isActive = activeSection === item.id;
+                    const className = `group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
+                      isActive
+                        ? 'bg-black/5 dark:bg-white/10'
+                        : 'hover:bg-black/5 dark:hover:bg-white/5'
+                    }`;
+
+                    const content = (
+                      <>
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${item.color} blur-2xl -z-10`}></div>
+                        <div className={`relative z-10 w-2 h-2 rounded-full bg-gradient-to-r ${item.color} transition-all duration-500 ease-out ${
+                          isActive ? 'scale-125 opacity-100' : 'opacity-40 group-hover:opacity-70'
+                        }`}></div>
+                        <div className="relative z-10 flex-1">
+                          <div className={`text-sm font-semibold transition-all duration-500 ease-out ${
+                            isActive
+                              ? 'text-gray-900 dark:text-white'
+                              : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white'
+                          }`}>
+                            {item.label}
+                          </div>
+                        </div>
+                        {isActive && (
+                          <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color} animate-pulse`}></div>
+                        )}
+                        <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r-full bg-gradient-to-b ${item.color} transition-all duration-500 ease-out ${
+                          isActive ? 'opacity-100' : 'opacity-0'
+                        }`}></div>
+                      </>
+                    );
+
+                    return (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        onClick={() => setPlatformMenuOpen(false)}
+                        className={className}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        {content}
+                      </Link>
                     );
                   })}
                 </div>
@@ -356,7 +457,7 @@ export const Navbar: React.FC = () => {
 
           <div className="pl-4">
             <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Solutions</div>
-            {engineSubItems.map((item) => {
+            {solutionsSubItems.map((item) => {
               const isActive = activeSection === item.id;
               const className = `flex items-center gap-3 text-base font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
                 isActive
@@ -364,31 +465,40 @@ export const Navbar: React.FC = () => {
                   : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
               }`;
 
-              const content = (
-                <>
-                  <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
-                  <span>{item.label}</span>
-                </>
-              );
-
-              return item.isRoute ? (
-                <Link
-                  key={item.href}
-                  to={item.href}
-                  onClick={() => setMobileMenuOpen(false)}
-                  className={className}
-                >
-                  {content}
-                </Link>
-              ) : (
+              return (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
                   className={className}
                 >
-                  {content}
+                  <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
+                  <span>{item.label}</span>
                 </a>
+              );
+            })}
+          </div>
+
+          <div className="pl-4">
+            <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Platform</div>
+            {platformSubItems.map((item) => {
+              const isActive = activeSection === item.id;
+              const className = `flex items-center gap-3 text-base font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
+                isActive
+                  ? 'text-gray-900 dark:text-white border-current'
+                  : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
+              }`;
+
+              return (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={className}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
+                  <span>{item.label}</span>
+                </Link>
               );
             })}
           </div>
