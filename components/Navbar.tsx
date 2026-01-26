@@ -7,10 +7,12 @@ export const Navbar: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginMenuOpen, setLoginMenuOpen] = useState(false);
+  const [solutionsMenuOpen, setSolutionsMenuOpen] = useState(false);
   const [engineMenuOpen, setEngineMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
   const loginRef = useRef<HTMLDivElement>(null);
+  const solutionsRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -21,7 +23,7 @@ export const Navbar: React.FC = () => {
       setIsScrolled(window.scrollY > 50);
 
       // Detect active section for scroll spy
-      const sections = ['problem', 'engine', 'solutions-enterprise', 'integrations', 'suite', 'solutions-individual'];
+      const sections = ['problem', 'solutions-enterprise', 'integrations', 'suite', 'solutions-individual'];
       const scrollPosition = window.scrollY + 200;
 
       for (const section of sections) {
@@ -48,6 +50,9 @@ export const Navbar: React.FC = () => {
       if (loginRef.current && !loginRef.current.contains(event.target as Node)) {
         setLoginMenuOpen(false);
       }
+      if (solutionsRef.current && !solutionsRef.current.contains(event.target as Node)) {
+        setSolutionsMenuOpen(false);
+      }
       if (engineRef.current && !engineRef.current.contains(event.target as Node)) {
         setEngineMenuOpen(false);
       }
@@ -73,14 +78,39 @@ export const Navbar: React.FC = () => {
   };
 
   const mainNavLinks = [
-    { href: '#solutions-enterprise', id: 'solutions-enterprise', label: 'Solutions', color: 'from-accent-pink to-pink-600', isRoute: false },
-    { href: '#engine', id: 'engine', label: 'How it Works', color: 'from-blue-500 to-cyan-500', isRoute: false },
-    { href: '#integrations', id: 'integrations', label: 'Integrations', color: 'from-green-500 to-emerald-500', isRoute: false },
+    { href: '/', id: 'home', label: 'Home', color: 'from-gray-400 to-gray-600', isRoute: true },
+    { href: '#problem', id: 'problem', label: 'Problem', color: 'from-accent-orange to-red-500', isRoute: false },
   ];
 
-  const navLinksAfterEngine = [
-    { href: '#suite', id: 'suite', label: 'Architecture', color: 'from-accent-purple to-purple-600', isRoute: false },
-    { href: '#solutions-individual', id: 'solutions-individual', label: 'Alvio Chat', color: 'from-blue-400 to-blue-600', isRoute: false },
+  const solutionsSubItems = [
+    {
+      href: '#solutions-enterprise',
+      id: 'solutions-enterprise',
+      label: 'Four Ways ALVIO Helps',
+      color: 'from-accent-pink to-pink-600',
+      description: 'Transform how your team works'
+    },
+    {
+      href: '#integrations',
+      id: 'integrations',
+      label: 'Integrations',
+      color: 'from-green-500 to-emerald-500',
+      description: 'Connect all your tools'
+    },
+    {
+      href: '#suite',
+      id: 'suite',
+      label: 'Architecture',
+      color: 'from-accent-purple to-purple-600',
+      description: 'Enterprise-grade platform'
+    },
+    {
+      href: '#solutions-individual',
+      id: 'solutions-individual',
+      label: 'Alvio Chat',
+      color: 'from-blue-400 to-blue-600',
+      description: 'Personal AI assistant'
+    },
   ];
 
   const engineSubItems = [
@@ -108,6 +138,7 @@ export const Navbar: React.FC = () => {
   ];
 
   const location = useLocation();
+  const isSolutionsActive = solutionsSubItems.some(item => activeSection === item.id);
   const isEngineActive = engineSubItems.some(item => location.pathname === item.href);
 
   return (
@@ -162,6 +193,175 @@ export const Navbar: React.FC = () => {
               </a>
             );
           })}
+
+          {/* Solutions Dropdown */}
+          <div className="relative" ref={solutionsRef}>
+            <button
+              onMouseEnter={() => setSolutionsMenuOpen(true)}
+              onClick={() => setSolutionsMenuOpen(!solutionsMenuOpen)}
+              className={`group relative px-5 py-2.5 text-sm font-medium transition-all duration-500 ease-out rounded-full flex items-center gap-1.5 ${
+                isSolutionsActive
+                  ? 'text-gray-900 dark:text-white'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              }`}
+            >
+              <span className="relative z-10">Solutions</span>
+
+              <ChevronDown
+                size={14}
+                className={`relative z-10 transition-all duration-500 ease-out ${
+                  solutionsMenuOpen ? 'rotate-180' : 'rotate-0'
+                }`}
+              />
+
+              {/* Active state background */}
+              {isSolutionsActive && (
+                <div className="absolute inset-0 bg-black/5 dark:bg-white/10 rounded-full transition-all duration-500 ease-out"></div>
+              )}
+
+              {/* Hover gradient glow - multicolor for Solutions */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r from-accent-pink via-green-500 to-blue-500 blur-xl -z-10 scale-150"></div>
+
+              {/* Bottom indicator for active state */}
+              <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full transition-all duration-500 ease-out bg-gradient-to-r from-accent-pink via-green-500 to-blue-500 ${
+                isSolutionsActive ? 'w-[60%] opacity-100' : 'w-0 opacity-0'
+              }`}></div>
+            </button>
+
+            {/* Premium Liquid Mercury Retina Dropdown for Solutions */}
+            {solutionsMenuOpen && (
+              <div
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[420px]"
+                onMouseLeave={() => setSolutionsMenuOpen(false)}
+              >
+                <div className="bg-white/80 dark:bg-black/80 backdrop-blur-3xl border border-black/10 dark:border-white/20 rounded-3xl shadow-[0_20px_70px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_rgba(0,0,0,0.9)] overflow-hidden p-4 animate-in fade-in slide-in-from-top-2 duration-500">
+                  {solutionsSubItems.map((item, index) => {
+                    const isActive = activeSection === item.id;
+
+                    return (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setSolutionsMenuOpen(false)}
+                        className={`group relative flex items-center gap-4 p-5 rounded-2xl transition-all duration-700 ease-out mb-2 last:mb-0 ${
+                          isActive
+                            ? 'bg-gradient-to-r from-black/10 to-transparent dark:from-white/15 dark:to-transparent'
+                            : 'hover:bg-black/5 dark:hover:bg-white/10'
+                        }`}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        {/* Liquid gradient glow on hover - Mercury effect */}
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out bg-gradient-to-r ${item.color} blur-3xl -z-10 scale-150`}></div>
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-50 transition-all duration-700 ease-out bg-gradient-to-br ${item.color} blur-xl`}></div>
+
+                        {/* Liquid Mercury Icon Container */}
+                        <div className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-700 ease-out group-hover:scale-110 overflow-hidden">
+                          {/* Glass morphism layers */}
+                          <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-20 dark:opacity-30 group-hover:opacity-40 transition-all duration-700`}></div>
+                          <div className="absolute inset-0 bg-white/40 dark:bg-white/10 backdrop-blur-md"></div>
+                          <div className={`absolute inset-0 border border-white/40 dark:border-white/20 rounded-2xl`}></div>
+
+                          {/* Liquid shimmer effect */}
+                          <div className={`absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-transparent opacity-50 group-hover:opacity-100 transition-all duration-700`}></div>
+                          <div className={`absolute -inset-1 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-30 blur-md transition-all duration-700`}></div>
+
+                          {/* Icon SVGs with custom designs */}
+                          <div className="relative z-10">
+                            {item.id === 'solutions-enterprise' && (
+                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                                <defs>
+                                  <linearGradient id="enterpriseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#FF0080" />
+                                    <stop offset="100%" stopColor="#FF1493" />
+                                  </linearGradient>
+                                </defs>
+                                <rect x="6" y="8" width="20" height="18" rx="2" stroke="url(#enterpriseGrad)" strokeWidth="2" fill="none" opacity="0.9"/>
+                                <path d="M6 12 L26 12" stroke="url(#enterpriseGrad)" strokeWidth="2" opacity="0.9"/>
+                                <circle cx="10" cy="10" r="1" fill="url(#enterpriseGrad)" opacity="0.7"/>
+                                <circle cx="13" cy="10" r="1" fill="url(#enterpriseGrad)" opacity="0.7"/>
+                                <circle cx="16" cy="10" r="1" fill="url(#enterpriseGrad)" opacity="0.7"/>
+                                <rect x="10" y="16" width="12" height="2" rx="1" fill="url(#enterpriseGrad)" opacity="0.5"/>
+                                <rect x="10" y="20" width="8" height="2" rx="1" fill="url(#enterpriseGrad)" opacity="0.5"/>
+                              </svg>
+                            )}
+                            {item.id === 'integrations' && (
+                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                                <defs>
+                                  <linearGradient id="integrationsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#10B981" />
+                                    <stop offset="100%" stopColor="#059669" />
+                                  </linearGradient>
+                                </defs>
+                                <circle cx="8" cy="16" r="4" stroke="url(#integrationsGrad)" strokeWidth="2" fill="url(#integrationsGrad)" opacity="0.3"/>
+                                <circle cx="24" cy="16" r="4" stroke="url(#integrationsGrad)" strokeWidth="2" fill="url(#integrationsGrad)" opacity="0.3"/>
+                                <path d="M12 16 L20 16" stroke="url(#integrationsGrad)" strokeWidth="2.5" strokeLinecap="round" opacity="0.9"/>
+                                <circle cx="16" cy="16" r="2" fill="url(#integrationsGrad)" opacity="0.9"/>
+                              </svg>
+                            )}
+                            {item.id === 'suite' && (
+                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                                <defs>
+                                  <linearGradient id="suiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#7928CA" />
+                                    <stop offset="100%" stopColor="#9333EA" />
+                                  </linearGradient>
+                                </defs>
+                                <rect x="4" y="4" width="24" height="24" rx="3" stroke="url(#suiteGrad)" strokeWidth="2" fill="none" opacity="0.9"/>
+                                <path d="M4 12 L28 12" stroke="url(#suiteGrad)" strokeWidth="2" opacity="0.7"/>
+                                <path d="M12 12 L12 28" stroke="url(#suiteGrad)" strokeWidth="2" opacity="0.7"/>
+                                <circle cx="8" cy="8" r="1.5" fill="url(#suiteGrad)" opacity="0.8"/>
+                                <rect x="16" y="16" width="8" height="2" rx="1" fill="url(#suiteGrad)" opacity="0.5"/>
+                                <rect x="16" y="20" width="6" height="2" rx="1" fill="url(#suiteGrad)" opacity="0.5"/>
+                              </svg>
+                            )}
+                            {item.id === 'solutions-individual' && (
+                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                                <defs>
+                                  <linearGradient id="chatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#3B82F6" />
+                                    <stop offset="100%" stopColor="#2563EB" />
+                                  </linearGradient>
+                                </defs>
+                                <path d="M6 8 C6 6 7 5 9 5 L23 5 C25 5 26 6 26 8 L26 20 C26 22 25 23 23 23 L14 23 L8 27 L8 23 C6 23 6 22 6 20 Z" stroke="url(#chatGrad)" strokeWidth="2" fill="url(#chatGrad)" opacity="0.2"/>
+                                <path d="M10 12 L22 12" stroke="url(#chatGrad)" strokeWidth="2" strokeLinecap="round" opacity="0.9"/>
+                                <path d="M10 16 L18 16" stroke="url(#chatGrad)" strokeWidth="2" strokeLinecap="round" opacity="0.9"/>
+                              </svg>
+                            )}
+                          </div>
+                        </div>
+
+                        {/* Text */}
+                        <div className="relative z-10 flex-1">
+                          <div className={`text-lg font-bold transition-all duration-500 ease-out mb-0.5 ${
+                            isActive
+                              ? 'text-gray-900 dark:text-white'
+                              : 'text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white'
+                          }`}>
+                            {item.label}
+                          </div>
+                          <div className="text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-all duration-500">
+                            {item.description}
+                          </div>
+                        </div>
+
+                        {/* Arrow indicator with liquid effect */}
+                        <div className={`relative z-10 transition-all duration-500 ease-out ${
+                          isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
+                        }`}>
+                          <ChevronDown size={18} className="-rotate-90" />
+                        </div>
+
+                        {/* Left border highlight with liquid shine */}
+                        <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-14 w-1.5 rounded-r-full bg-gradient-to-b ${item.color} transition-all duration-500 ease-out shadow-lg ${
+                          isActive ? 'opacity-100 shadow-current' : 'opacity-0'
+                        }`}></div>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Engine Dropdown */}
           <div className="relative" ref={engineRef}>
@@ -311,32 +511,6 @@ export const Navbar: React.FC = () => {
               </div>
             )}
           </div>
-
-          {/* Links After Engine */}
-          {navLinksAfterEngine.map((link) => {
-            const isActive = activeSection === link.id;
-
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                className={`group relative px-5 py-2.5 text-sm font-medium transition-all duration-500 ease-out rounded-full ${
-                  isActive
-                    ? 'text-gray-900 dark:text-white'
-                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
-                }`}
-              >
-                <span className="relative z-10">{link.label}</span>
-                {isActive && (
-                  <div className="absolute inset-0 bg-black/5 dark:bg-white/10 rounded-full transition-all duration-500 ease-out"></div>
-                )}
-                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${link.color} blur-xl -z-10 scale-150`}></div>
-                <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full transition-all duration-500 ease-out bg-gradient-to-r ${link.color} ${
-                  isActive ? 'w-[60%] opacity-100' : 'w-0 opacity-0'
-                }`}></div>
-              </a>
-            );
-          })}
         </div>
 
         <div className="hidden lg:flex items-center gap-4">
@@ -458,24 +632,27 @@ export const Navbar: React.FC = () => {
             );
           })}
 
-          {navLinksAfterEngine.map((link) => {
-            const isActive = activeSection === link.id;
+          <div className="pl-4">
+            <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Solutions</div>
+            {solutionsSubItems.map((item) => {
+              const isActive = activeSection === item.id;
 
-            return (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className={`relative text-lg font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out block ${
-                  isActive
-                    ? 'text-gray-900 dark:text-white border-current'
-                    : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
-                }`}
-              >
-                {link.label}
-              </a>
-            );
-          })}
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 text-base font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
+                    isActive
+                      ? 'text-gray-900 dark:text-white border-current'
+                      : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
+                  }`}
+                >
+                  <span>{item.label}</span>
+                </a>
+              );
+            })}
+          </div>
 
           <div className="pl-4">
             <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Engine</div>
