@@ -30,7 +30,7 @@ export const Problem: React.FC = () => {
                 </p>
             </FadeIn>
 
-            <div className="space-y-6">
+            <div className="space-y-4 sm:space-y-6">
                  {[
                     {
                         id: 0,
@@ -38,7 +38,7 @@ export const Problem: React.FC = () => {
                         subtitle: "Inaccessible",
                         desc: "Your knowledge is trapped in static files and closed APIs, creating 'Dark Data' that AI cannot reach.",
                         icon: Database,
-                        color: "bg-accent-pink" 
+                        color: "bg-accent-pink"
                     },
                     {
                         id: 1,
@@ -58,26 +58,25 @@ export const Problem: React.FC = () => {
                     }
                  ].map((item, i) => (
                      <FadeIn key={i} delay={i * 100}>
-                         <div 
+                         <div
                             onMouseEnter={() => setHoveredIndex(i)}
                             onMouseLeave={() => setHoveredIndex(null)}
-                            className={`group relative p-8 rounded-2xl bg-white dark:bg-gradient-to-b dark:from-[#111] dark:to-black border border-gray-200 dark:border-white/10 overflow-hidden transition-all duration-500 hover:border-gray-300 dark:hover:border-white/20 shadow-sm hover:shadow-md dark:shadow-none`}
+                            className={`group relative p-4 sm:p-6 lg:p-8 rounded-xl sm:rounded-2xl bg-white dark:bg-gradient-to-b dark:from-[#111] dark:to-black border border-gray-200 dark:border-white/10 overflow-hidden transition-all duration-500 hover:border-gray-300 dark:hover:border-white/20 shadow-sm hover:shadow-md dark:shadow-none`}
                          >
-                            {/* Metallic Liquid Hover Effect */}
                             <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
                                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-black/[0.03] dark:via-white/[0.03] to-transparent -translate-x-full group-hover:animate-shimmer" style={{ animationDuration: '1.5s' }}></div>
                             </div>
-                            
-                            <div className="relative z-10 flex items-start gap-6">
-                                <div className={`w-12 h-12 rounded-full ${item.color}/10 border border-${item.color}/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-500`}>
-                                    <item.icon className={`${item.color.replace('bg-', 'text-')} opacity-80`} size={20} />
+
+                            <div className="relative z-10 flex flex-col sm:flex-row items-start gap-3 sm:gap-4 lg:gap-6">
+                                <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-full ${item.color}/10 border border-${item.color}/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-500`}>
+                                    <item.icon className={`${item.color.replace('bg-', 'text-')} opacity-80`} size={18} />
                                 </div>
-                                <div>
-                                    <div className="flex items-center gap-3 mb-2">
-                                        <h3 className="text-xl font-bold text-gray-900 dark:text-white">{item.title}</h3>
-                                        <span className="text-[10px] font-mono uppercase tracking-widest text-gray-500 border border-gray-200 dark:border-white/10 px-2 py-0.5 rounded-full">{item.subtitle}</span>
+                                <div className="flex-1 min-w-0">
+                                    <div className="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-3 mb-2">
+                                        <h3 className="text-base sm:text-lg lg:text-xl font-bold text-gray-900 dark:text-white">{item.title}</h3>
+                                        <span className="text-[9px] sm:text-[10px] font-mono uppercase tracking-widest text-gray-500 border border-gray-200 dark:border-white/10 px-2 py-0.5 rounded-full w-fit">{item.subtitle}</span>
                                     </div>
-                                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-sm">{item.desc}</p>
+                                    <p className="text-gray-600 dark:text-gray-400 leading-relaxed text-xs sm:text-sm">{item.desc}</p>
                                 </div>
                             </div>
                          </div>

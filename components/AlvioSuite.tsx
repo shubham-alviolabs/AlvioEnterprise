@@ -118,30 +118,31 @@ export const AlvioSuite: React.FC = () => {
 
             {/* --- LAYER 3: INTELLIGENCE (NEXUS + MODEL GARDEN) --- */}
             <FadeIn delay={200}>
-                <div className="border border-black/10 dark:border-white/10 bg-gray-50 dark:bg-[#0A0A0A] rounded-xl p-6 flex flex-col md:flex-row items-center justify-between gap-6 relative overflow-hidden group">
+                <div className="border border-black/10 dark:border-white/10 bg-gray-50 dark:bg-[#0A0A0A] rounded-xl p-4 sm:p-6 flex flex-col gap-4 sm:gap-6 relative overflow-hidden group">
                      <div className="absolute top-1/2 left-[-120px] -translate-y-1/2 text-xs font-mono text-blue-500 uppercase tracking-widest hidden xl:block text-right w-[100px]">
                         Intelligence
                     </div>
-                    {/* Background sheen */}
                     <div className="absolute inset-0 bg-gradient-to-r from-blue-500/5 via-transparent to-blue-500/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    
-                    <div className="flex items-center gap-6 w-full">
-                        <div className="p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.1)]">
-                            <Cpu size={28} />
+
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-6 w-full">
+                        <div className="p-3 sm:p-4 rounded-xl bg-blue-500/10 border border-blue-500/20 text-blue-500 shadow-[0_0_20px_rgba(59,130,246,0.1)] flex-shrink-0">
+                            <Cpu size={24} className="sm:w-7 sm:h-7" />
                         </div>
-                        <div className="flex-1">
-                            <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 flex items-center gap-3">
-                                Alvio Nexus 
-                                <span className="text-xs bg-black/5 dark:bg-white/10 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full border border-black/10 dark:border-white/10 font-normal">Native Models</span>
-                                <span className="text-xs text-gray-400 dark:text-gray-500 font-normal">+</span>
-                                <span className="text-sm font-normal text-gray-600 dark:text-gray-300">Model Garden</span>
-                            </h3>
-                            <div className="grid md:grid-cols-2 gap-4">
-                                <div className="text-sm text-gray-600 dark:text-gray-400">
+                        <div className="flex-1 min-w-0">
+                            <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 mb-3">
+                                <h3 className="text-lg sm:text-xl font-bold text-gray-900 dark:text-white">Alvio Nexus</h3>
+                                <div className="flex flex-wrap items-center gap-2">
+                                    <span className="text-[10px] sm:text-xs bg-black/5 dark:bg-white/10 text-gray-600 dark:text-gray-300 px-2 py-0.5 rounded-full border border-black/10 dark:border-white/10 font-normal">Native Models</span>
+                                    <span className="text-xs text-gray-400 dark:text-gray-500 font-normal">+</span>
+                                    <span className="text-xs sm:text-sm font-normal text-gray-600 dark:text-gray-300">Model Garden</span>
+                                </div>
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400">
                                     <strong className="text-blue-500 block mb-1">Proprietary:</strong>
                                     Nexus-7B (Reasoning), Nexus-Flash (Speed)
                                 </div>
-                                <div className="text-sm text-gray-600 dark:text-gray-400 pl-4 border-l border-black/10 dark:border-white/10">
+                                <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-400 sm:pl-4 sm:border-l border-black/10 dark:border-white/10">
                                     <strong className="text-gray-900 dark:text-white block mb-1">Supported:</strong>
                                     Google Vertex, AWS, Azure, OpenAI, Claude, OpenRouter, Together AI
                                 </div>

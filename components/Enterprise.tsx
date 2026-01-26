@@ -56,29 +56,27 @@ export const Enterprise: React.FC = () => {
         </FadeIn>
 
         {/* Liquid Tabs Navigation */}
-        <div className="flex justify-center mb-12 sm:mb-24 overflow-x-auto px-4 -mx-4 sm:mx-0 sm:px-0">
-            <div className="flex gap-2 p-1.5 rounded-full border border-black/5 dark:border-white/10 bg-white dark:bg-white/[0.02] backdrop-blur-xl shadow-sm dark:shadow-none min-w-max">
+        <div className="flex justify-center mb-8 sm:mb-12 lg:mb-24 px-2">
+            <div className="grid grid-cols-2 sm:flex gap-2 p-1.5 sm:p-2 rounded-2xl sm:rounded-full border border-black/5 dark:border-white/10 bg-white dark:bg-white/[0.02] backdrop-blur-xl shadow-sm dark:shadow-none w-full sm:w-auto">
                 {tabs.map((tab) => (
                     <button
                         key={tab.id}
                         onClick={() => setActiveTab(tab.id as any)}
-                        className={`group relative px-3 sm:px-6 py-2 sm:py-2.5 rounded-full text-xs sm:text-sm font-medium transition-all duration-500 overflow-hidden flex items-center gap-1.5 sm:gap-2 whitespace-nowrap ${
+                        className={`group relative px-3 sm:px-4 lg:px-6 py-2.5 sm:py-2.5 rounded-xl sm:rounded-full text-[11px] sm:text-xs lg:text-sm font-medium transition-all duration-500 overflow-hidden flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 ${
                             activeTab === tab.id
                             ? 'text-black dark:text-white shadow-md dark:shadow-[0_0_20px_rgba(255,255,255,0.1)]'
                             : 'text-gray-500 dark:text-gray-400 hover:text-black dark:hover:text-white'
                         }`}
                     >
-                        {/* Active Liquid Background */}
                         {activeTab === tab.id && (
                              <div className={`absolute inset-0 opacity-10 dark:opacity-20 ${tab.bg}`}></div>
                         )}
-                         {/* Active Border Glow */}
                         {activeTab === tab.id && (
-                             <div className={`absolute inset-0 rounded-full border ${tab.border} opacity-20 dark:opacity-50`}></div>
+                             <div className={`absolute inset-0 rounded-xl sm:rounded-full border ${tab.border} opacity-20 dark:opacity-50`}></div>
                         )}
-                        
-                        <tab.icon size={14} className={`relative z-10 ${activeTab === tab.id ? tab.color : 'group-hover:text-black dark:group-hover:text-white transition-colors'}`} />
-                        <span className="relative z-10">{tab.label}</span>
+
+                        <tab.icon size={14} className={`relative z-10 flex-shrink-0 ${activeTab === tab.id ? tab.color : 'group-hover:text-black dark:group-hover:text-white transition-colors'}`} />
+                        <span className="relative z-10 truncate">{tab.label}</span>
                     </button>
                 ))}
             </div>
