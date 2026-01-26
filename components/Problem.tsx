@@ -7,25 +7,25 @@ export const Problem: React.FC = () => {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <Section id="problem" className="bg-gray-50 dark:bg-black relative overflow-hidden py-32 border-t border-black/5 dark:border-white/5 transition-colors duration-500">
-      
+    <Section id="problem" className="bg-gray-50 dark:bg-black relative overflow-hidden py-16 sm:py-24 lg:py-32 border-t border-black/5 dark:border-white/5 transition-colors duration-500">
+
       {/* Ambient Background - Deep Void */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.02)_0%,rgba(0,0,0,0)_70%)] dark:bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.03)_0%,rgba(0,0,0,0)_70%)] pointer-events-none"></div>
-      
-      <div className="relative z-10 max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
-        
+
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 grid lg:grid-cols-2 gap-12 sm:gap-16 lg:gap-20 items-center">
+
         {/* --- LEFT COLUMN: CONTENT --- */}
         <div className="order-2 lg:order-1">
             <FadeIn>
-                 <div className="inline-flex items-center gap-2 px-3 py-1 mb-8 rounded-full border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-md">
+                 <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 sm:mb-8 rounded-full border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-md">
                     <AlertTriangle size={12} className="text-gray-500 dark:text-gray-400" />
                     <span className="text-xs font-mono uppercase tracking-widest text-gray-500 dark:text-gray-400">The Current Reality</span>
                 </div>
-                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-8 leading-[1.1]">
+                <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-6 sm:mb-8 leading-[1.1]">
                     Intelligence <br/>
                     <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 via-gray-700 to-gray-900 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600">Disconnected.</span>
                 </h2>
-                <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 font-light leading-relaxed max-w-lg">
+                <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 mb-8 sm:mb-12 font-light leading-relaxed max-w-lg">
                     Before fusion, there is fragmentation. Your data, logic, and interface exist as isolated liquid islands—heavy, dark, and unable to communicate.
                 </p>
             </FadeIn>
@@ -87,7 +87,7 @@ export const Problem: React.FC = () => {
         </div>
 
         {/* --- RIGHT COLUMN: THE LIQUID MERCURY VISUAL --- */}
-        <div className="order-1 lg:order-2 relative h-[350px] sm:h-[450px] lg:h-[700px] flex items-center justify-center perspective-1000">
+        <div className="order-1 lg:order-2 relative h-[300px] sm:h-[400px] md:h-[500px] lg:h-[650px] flex items-center justify-center perspective-1000">
              
              {/* 
                 THE LIQUID MERCURY DROPS

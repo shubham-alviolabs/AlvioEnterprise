@@ -193,26 +193,26 @@ export const Integrations: React.FC = () => {
 
             {/* 5. FINANCIAL INTELLIGENCE (FEATURED METALLIC LIQUID GOLD CARD) */}
             <FadeIn delay={500} className="md:col-span-2">
-                 <div className="h-full relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1c1c1c] dark:via-[#0a0a0a] dark:to-black border border-gray-200 dark:border-white/10 rounded-3xl p-10 flex flex-col md:flex-row gap-10 group shadow-lg dark:shadow-2xl">
-                     
+                 <div className="h-full relative overflow-hidden bg-white dark:bg-gradient-to-br dark:from-[#1c1c1c] dark:via-[#0a0a0a] dark:to-black border border-gray-200 dark:border-white/10 rounded-3xl p-6 sm:p-8 lg:p-10 flex flex-col md:flex-row gap-8 lg:gap-10 group shadow-lg dark:shadow-2xl">
+
                      {/* METALLIC LIQUID MERCURY EFFECT - GOLD/SILVER (Dark Mode Only) */}
                      <div className="absolute inset-0 opacity-0 dark:opacity-40 group-hover:dark:opacity-60 transition-opacity duration-1000">
                          <div className="absolute top-[-50%] right-[-20%] w-[600px] h-[600px] bg-gradient-to-b from-gray-200 via-gray-500 to-gray-800 rounded-full blur-[100px] mix-blend-overlay animate-blob"></div>
                          <div className="absolute bottom-[-20%] left-[-20%] w-[500px] h-[500px] bg-gradient-to-t from-gray-500 via-gray-700 to-black rounded-full blur-[80px] mix-blend-color-dodge animate-blob-delay"></div>
                      </div>
-                     
+
                      {/* Liquid Chrome Surface Shine */}
                      <div className="absolute inset-0 bg-gradient-to-br from-black/5 dark:from-white/10 via-transparent to-transparent opacity-30 pointer-events-none"></div>
 
                      {/* Content Left */}
                      <div className="flex-1 relative z-10 flex flex-col justify-center">
-                        <div className="flex items-center gap-3 mb-6">
-                            <div className="p-3 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-100 dark:to-gray-400 text-black border border-gray-200 dark:border-white/50 shadow-md">
-                                <CreditCard size={24} />
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mb-6">
+                            <div className="p-2.5 sm:p-3 rounded-xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-100 dark:to-gray-400 text-black border border-gray-200 dark:border-white/50 shadow-md flex-shrink-0">
+                                <CreditCard size={20} className="sm:w-6 sm:h-6" />
                             </div>
-                            <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white tracking-tight">Financial Intelligence</h3>
+                            <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 dark:text-white tracking-tight leading-tight">Financial Intelligence</h3>
                         </div>
-                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-8 max-w-lg text-lg font-light">
+                        <p className="text-gray-600 dark:text-gray-300 leading-relaxed mb-6 sm:mb-8 text-base sm:text-lg font-light">
                             <span className="text-black dark:text-white font-medium">The only AI engine with native accounting connectors.</span><br/>
                             Most AI stops at text. Alvio understands ledgers, invoices, and cash flow, enabling financial agents that actually work.
                         </p>
@@ -224,30 +224,30 @@ export const Integrations: React.FC = () => {
 
                      {/* Content Right (Accounting Logos including Zoho) */}
                      <div className="flex-1 relative z-10 flex flex-col justify-center">
-                        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#13B5EA] transition-colors">{icons.xero}</svg>
-                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">Xero</span>
+                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-2 sm:p-3 flex flex-col items-center justify-center gap-1.5 sm:gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-20 sm:h-24">
+                                  <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-8 sm:h-8 fill-current text-gray-400 group-hover/item:text-[#13B5EA] transition-colors">{icons.xero}</svg>
+                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-[10px] sm:text-xs">Xero</span>
                              </div>
-                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#2CA01C] transition-colors">{icons.quickbooks}</svg>
-                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">QuickBooks</span>
+                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-2 sm:p-3 flex flex-col items-center justify-center gap-1.5 sm:gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-20 sm:h-24">
+                                  <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-8 sm:h-8 fill-current text-gray-400 group-hover/item:text-[#2CA01C] transition-colors">{icons.quickbooks}</svg>
+                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-[10px] sm:text-xs">QuickBooks</span>
                              </div>
-                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#00D639] transition-colors">{icons.sage}</svg>
-                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">Sage</span>
+                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-2 sm:p-3 flex flex-col items-center justify-center gap-1.5 sm:gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-20 sm:h-24">
+                                  <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-8 sm:h-8 fill-current text-gray-400 group-hover/item:text-[#00D639] transition-colors">{icons.sage}</svg>
+                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-[10px] sm:text-xs">Sage</span>
                              </div>
-                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-blue-400 transition-colors">{icons.netsuite}</svg>
-                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">NetSuite</span>
+                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-2 sm:p-3 flex flex-col items-center justify-center gap-1.5 sm:gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-20 sm:h-24">
+                                  <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-8 sm:h-8 fill-current text-gray-400 group-hover/item:text-blue-400 transition-colors">{icons.netsuite}</svg>
+                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-[10px] sm:text-xs">NetSuite</span>
                              </div>
-                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24">
-                                  <svg viewBox="0 0 24 24" className="w-8 h-8 fill-current text-gray-400 group-hover/item:text-[#FFC107] transition-colors">{icons.zoho}</svg>
-                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-xs">Zoho</span>
+                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-2 sm:p-3 flex flex-col items-center justify-center gap-1.5 sm:gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-20 sm:h-24">
+                                  <svg viewBox="0 0 24 24" className="w-6 h-6 sm:w-8 sm:h-8 fill-current text-gray-400 group-hover/item:text-[#FFC107] transition-colors">{icons.zoho}</svg>
+                                  <span className="text-gray-600 dark:text-gray-200 font-medium text-[10px] sm:text-xs">Zoho</span>
                              </div>
-                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-3 flex flex-col items-center justify-center gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-24 opacity-60">
-                                  <div className="w-8 h-8 rounded-full border border-dashed border-gray-400 dark:border-gray-600 flex items-center justify-center text-gray-500 text-xs">+</div>
-                                  <span className="text-gray-500 dark:text-gray-400 font-medium text-xs">More</span>
+                             <div className="bg-gray-50 dark:bg-black/40 border border-gray-200 dark:border-white/10 rounded-xl p-2 sm:p-3 flex flex-col items-center justify-center gap-1.5 sm:gap-2 hover:bg-white dark:hover:bg-white/5 transition-all duration-300 group/item backdrop-blur-md shadow-sm dark:shadow-lg text-center h-20 sm:h-24 opacity-60">
+                                  <div className="w-6 h-6 sm:w-8 sm:h-8 rounded-full border border-dashed border-gray-400 dark:border-gray-600 flex items-center justify-center text-gray-500 text-xs">+</div>
+                                  <span className="text-gray-500 dark:text-gray-400 font-medium text-[10px] sm:text-xs">More</span>
                              </div>
                         </div>
                      </div>
