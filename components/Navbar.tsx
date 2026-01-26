@@ -85,50 +85,35 @@ export const Navbar: React.FC = () => {
 
   const solutionsSubItems = [
     { href: '#core-idea', id: 'core-idea', label: 'How it Works', color: 'from-blue-400 to-cyan-400', isRoute: false, type: 'section' },
-    {
-      label: 'Platform',
-      color: 'from-accent-pink via-accent-orange to-accent-purple',
-      type: 'group',
-      items: [
-        { href: '/enterprise-search', id: 'search', label: 'Enterprise Search', color: 'from-accent-pink to-pink-600', isRoute: true },
-        { href: '/apps', id: 'apps', label: 'App Builder', color: 'from-accent-orange to-orange-600', isRoute: true },
-        { href: '/agents', id: 'agents', label: 'Workflow Agents', color: 'from-accent-purple to-purple-600', isRoute: true },
-      ]
-    },
+    { href: '#solutions-enterprise', id: 'solutions-enterprise', label: 'For Enterprise', color: 'from-accent-purple to-purple-600', isRoute: false, type: 'section' },
+    { href: '#solutions-individual', id: 'solutions-individual', label: 'For Individuals', color: 'from-accent-orange to-orange-600', isRoute: false, type: 'section' },
     { href: '#integrations', id: 'integrations', label: 'Integrations', color: 'from-green-500 to-emerald-500', isRoute: false, type: 'section' },
     { href: '#suite', id: 'suite', label: 'Architecture', color: 'from-blue-500 to-cyan-500', isRoute: false, type: 'section' },
   ];
 
-  // Check if any solution section or platform page is active
-  const isSolutionsActive = solutionsSubItems.some(item => {
-    if (item.type === 'section') return item.id === activeSection;
-    if (item.type === 'group') {
-      return item.items?.some((subItem: any) =>
-        (location.pathname === subItem.href) || (activeSection === subItem.id)
-      );
-    }
-    return false;
-  }) || ['/enterprise-search', '/apps', '/agents'].includes(location.pathname);
+  const platformSubItems = [
+    { href: '/enterprise-search', id: 'search', label: 'Enterprise Search', color: 'from-accent-pink to-pink-600', isRoute: true },
+    { href: '/apps', id: 'apps', label: 'App Builder', color: 'from-accent-orange to-orange-600', isRoute: true },
+    { href: '/agents', id: 'agents', label: 'Workflow Agents', color: 'from-accent-purple to-purple-600', isRoute: true },
+  ];
 
-  // Get active solution item label
-  const getActiveSolutionsLabel = () => {
-    // Check section items
-    const sectionItem = solutionsSubItems.find(item => item.type === 'section' && item.id === activeSection);
-    if (sectionItem) return sectionItem.label;
+  // Check if any solution section is active
+  const isSolutionsActive = solutionsSubItems.some(item => item.id === activeSection);
+  const activeSolutionsItem = solutionsSubItems.find(item => item.id === activeSection);
 
-    // Check platform group items
-    const platformGroup = solutionsSubItems.find(item => item.type === 'group');
-    if (platformGroup?.items) {
-      const platformItem = platformGroup.items.find((item: any) =>
-        (location.pathname === item.href) || (activeSection === item.id)
-      );
-      if (platformItem) return platformItem.label;
-    }
+  // Check if any platform page is active
+  const isPlatformActive = platformSubItems.some(item =>
+    (location.pathname === item.href) || (activeSection === item.id)
+  ) || ['/enterprise-search', '/apps', '/agents'].includes(location.pathname);
 
-    return null;
+  const getCurrentPlatformItem = () => {
+    if (location.pathname === '/enterprise-search') return platformSubItems.find(item => item.id === 'search');
+    if (location.pathname === '/apps') return platformSubItems.find(item => item.id === 'apps');
+    if (location.pathname === '/agents') return platformSubItems.find(item => item.id === 'agents');
+    return platformSubItems.find(item => item.id === activeSection);
   };
 
-  const activeSolutionsLabel = getActiveSolutionsLabel();
+  const activePlatformItem = getCurrentPlatformItem();
 
   return (
     <nav
@@ -197,14 +182,14 @@ export const Navbar: React.FC = () => {
               <span className="relative z-10">Solutions</span>
 
               {/* Dynamic section indicator */}
-              {activeSolutionsLabel && (
+              {activeSolutionsItem && (
                 <span className="relative z-10 flex items-center gap-1.5">
                   <span className="w-1 h-1 rounded-full bg-current opacity-40"></span>
                   <span
-                    key={activeSolutionsLabel}
+                    key={activeSolutionsItem.id}
                     className="text-xs font-medium opacity-70 animate-in fade-in slide-in-from-left-2 duration-300"
                   >
-                    {activeSolutionsLabel}
+                    {activeSolutionsItem.label}
                   </span>
                 </span>
               )}
@@ -244,80 +229,120 @@ export const Navbar: React.FC = () => {
                   </div>
 
                   {solutionsSubItems.map((item, index) => {
-                    // Handle section type items
-                    if (item.type === 'section') {
-                      const isActive = activeSection === item.id;
-                      return (
-                        <a
-                          key={item.href}
-                          href={item.href}
-                          onClick={() => setSolutionsMenuOpen(false)}
-                          className={`group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
-                            isActive ? 'bg-black/5 dark:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/5'
-                          }`}
-                          style={{ animationDelay: `${index * 50}ms` }}
-                        >
-                          <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${item.color} blur-2xl -z-10`}></div>
-                          <div className={`relative z-10 w-2 h-2 rounded-full bg-gradient-to-r ${item.color} transition-all duration-500 ease-out ${
-                            isActive ? 'scale-125 opacity-100' : 'opacity-40 group-hover:opacity-70'
-                          }`}></div>
-                          <div className="relative z-10 flex-1">
-                            <div className={`text-sm font-semibold transition-all duration-500 ease-out ${
-                              isActive ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white'
-                            }`}>
-                              {item.label}
-                            </div>
+                    const isActive = activeSection === item.id;
+                    return (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setSolutionsMenuOpen(false)}
+                        className={`group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
+                          isActive ? 'bg-black/5 dark:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/5'
+                        }`}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${item.color} blur-2xl -z-10`}></div>
+                        <div className={`relative z-10 w-2 h-2 rounded-full bg-gradient-to-r ${item.color} transition-all duration-500 ease-out ${
+                          isActive ? 'scale-125 opacity-100' : 'opacity-40 group-hover:opacity-70'
+                        }`}></div>
+                        <div className="relative z-10 flex-1">
+                          <div className={`text-sm font-semibold transition-all duration-500 ease-out ${
+                            isActive ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white'
+                          }`}>
+                            {item.label}
                           </div>
-                          {isActive && <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color} animate-pulse`}></div>}
-                          <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r-full bg-gradient-to-b ${item.color} transition-all duration-500 ease-out ${
-                            isActive ? 'opacity-100' : 'opacity-0'
-                          }`}></div>
-                        </a>
-                      );
-                    }
-
-                    // Handle group type items (Platform)
-                    if (item.type === 'group') {
-                      return (
-                        <div key={`group-${index}`} className="mt-2">
-                          <div className="px-4 py-2">
-                            <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider flex items-center gap-2">
-                              <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color}`}></div>
-                              {item.label}
-                            </div>
-                          </div>
-                          {item.items?.map((subItem: any, subIndex: number) => {
-                            const isActive = (location.pathname === subItem.href) || (activeSection === subItem.id);
-                            return (
-                              <Link
-                                key={subItem.href}
-                                to={subItem.href}
-                                onClick={() => setSolutionsMenuOpen(false)}
-                                className={`group relative flex items-center gap-4 p-3 pl-8 rounded-2xl transition-all duration-500 ease-out ${
-                                  isActive ? 'bg-black/5 dark:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/5'
-                                }`}
-                                style={{ animationDelay: `${(index + subIndex) * 50}ms` }}
-                              >
-                                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${subItem.color} blur-2xl -z-10`}></div>
-                                <div className={`relative z-10 w-1.5 h-1.5 rounded-full bg-gradient-to-r ${subItem.color} transition-all duration-500 ease-out ${
-                                  isActive ? 'scale-125 opacity-100' : 'opacity-40 group-hover:opacity-70'
-                                }`}></div>
-                                <div className="relative z-10 flex-1">
-                                  <div className={`text-xs font-semibold transition-all duration-500 ease-out ${
-                                    isActive ? 'text-gray-900 dark:text-white' : 'text-gray-600 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white'
-                                  }`}>
-                                    {subItem.label}
-                                  </div>
-                                </div>
-                                {isActive && <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${subItem.color} animate-pulse`}></div>}
-                              </Link>
-                            );
-                          })}
                         </div>
-                      );
-                    }
+                        {isActive && <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color} animate-pulse`}></div>}
+                        <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r-full bg-gradient-to-b ${item.color} transition-all duration-500 ease-out ${
+                          isActive ? 'opacity-100' : 'opacity-0'
+                        }`}></div>
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
+          </div>
 
-                    return null;
+          {/* Platform Dropdown */}
+          <div className="relative" ref={platformRef}>
+            <button
+              onMouseEnter={() => setPlatformMenuOpen(true)}
+              onClick={() => setPlatformMenuOpen(!platformMenuOpen)}
+              className={`group relative px-5 py-2.5 text-sm font-medium transition-all duration-500 ease-out rounded-full flex items-center gap-1.5 ${
+                isPlatformActive
+                  ? 'text-gray-900 dark:text-white'
+                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+              }`}
+            >
+              <span className="relative z-10">Platform</span>
+
+              {/* Dynamic section indicator */}
+              {activePlatformItem && (
+                <span className="relative z-10 flex items-center gap-1.5">
+                  <span className="w-1 h-1 rounded-full bg-current opacity-40"></span>
+                  <span
+                    key={activePlatformItem.id}
+                    className="text-xs font-medium opacity-70 animate-in fade-in slide-in-from-left-2 duration-300"
+                  >
+                    {activePlatformItem.label}
+                  </span>
+                </span>
+              )}
+
+              <ChevronDown
+                size={14}
+                className={`relative z-10 transition-all duration-500 ease-out ${
+                  platformMenuOpen ? 'rotate-180' : 'rotate-0'
+                }`}
+              />
+
+              {/* Active state background */}
+              {isPlatformActive && (
+                <div className="absolute inset-0 bg-black/5 dark:bg-white/10 rounded-full transition-all duration-500 ease-out"></div>
+              )}
+
+              {/* Bottom indicator for active state */}
+              <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full transition-all duration-500 ease-out bg-gradient-to-r from-accent-pink via-accent-orange to-accent-purple ${
+                isPlatformActive ? 'w-[60%] opacity-100' : 'w-0 opacity-0'
+              }`}></div>
+            </button>
+
+            {/* Premium Dropdown Menu */}
+            {platformMenuOpen && (
+              <div
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-80"
+                onMouseLeave={() => setPlatformMenuOpen(false)}
+              >
+                <div className="bg-white/95 dark:bg-black/95 backdrop-blur-3xl border border-black/5 dark:border-white/10 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/50 overflow-hidden p-2 animate-in fade-in slide-in-from-top-2 duration-500">
+                  {platformSubItems.map((item, index) => {
+                    const isActive = (location.pathname === item.href) || (activeSection === item.id);
+                    return (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        onClick={() => setPlatformMenuOpen(false)}
+                        className={`group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
+                          isActive ? 'bg-black/5 dark:bg-white/10' : 'hover:bg-black/5 dark:hover:bg-white/5'
+                        }`}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${item.color} blur-2xl -z-10`}></div>
+                        <div className={`relative z-10 w-2 h-2 rounded-full bg-gradient-to-r ${item.color} transition-all duration-500 ease-out ${
+                          isActive ? 'scale-125 opacity-100' : 'opacity-40 group-hover:opacity-70'
+                        }`}></div>
+                        <div className="relative z-10 flex-1">
+                          <div className={`text-sm font-semibold transition-all duration-500 ease-out ${
+                            isActive ? 'text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white'
+                          }`}>
+                            {item.label}
+                          </div>
+                        </div>
+                        {isActive && <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color} animate-pulse`}></div>}
+                        <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r-full bg-gradient-to-b ${item.color} transition-all duration-500 ease-out ${
+                          isActive ? 'opacity-100' : 'opacity-0'
+                        }`}></div>
+                      </Link>
+                    );
                   })}
                 </div>
               </div>
@@ -435,57 +460,45 @@ export const Navbar: React.FC = () => {
 
           <div className="pl-4">
             <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Solutions</div>
-            {solutionsSubItems.map((item, idx) => {
-              // Handle section type items
-              if (item.type === 'section') {
-                const isActive = activeSection === item.id;
-                return (
-                  <a
-                    key={item.href}
-                    href={item.href}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`flex items-center gap-3 text-base font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
-                      isActive
-                        ? 'text-gray-900 dark:text-white border-current'
-                        : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
-                    }`}
-                  >
-                    <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
-                    <span>{item.label}</span>
-                  </a>
-                );
-              }
+            {solutionsSubItems.map((item) => {
+              const isActive = activeSection === item.id;
+              return (
+                <a
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 text-base font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
+                    isActive
+                      ? 'text-gray-900 dark:text-white border-current'
+                      : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
+                  <span>{item.label}</span>
+                </a>
+              );
+            })}
+          </div>
 
-              // Handle group type items (Platform)
-              if (item.type === 'group') {
-                return (
-                  <div key={`mobile-group-${idx}`} className="mt-3">
-                    <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 pl-4">
-                      {item.label}
-                    </div>
-                    {item.items?.map((subItem: any) => {
-                      const isActive = (location.pathname === subItem.href) || (activeSection === subItem.id);
-                      return (
-                        <Link
-                          key={subItem.href}
-                          to={subItem.href}
-                          onClick={() => setMobileMenuOpen(false)}
-                          className={`flex items-center gap-3 text-sm font-medium py-2 pl-8 border-l-2 transition-all duration-500 ease-out ${
-                            isActive
-                              ? 'text-gray-900 dark:text-white border-current'
-                              : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
-                          }`}
-                        >
-                          <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${subItem.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
-                          <span>{subItem.label}</span>
-                        </Link>
-                      );
-                    })}
-                  </div>
-                );
-              }
-
-              return null;
+          <div className="pl-4">
+            <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Platform</div>
+            {platformSubItems.map((item) => {
+              const isActive = (location.pathname === item.href) || (activeSection === item.id);
+              return (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 text-base font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
+                    isActive
+                      ? 'text-gray-900 dark:text-white border-current'
+                      : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
+                  }`}
+                >
+                  <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
+                  <span>{item.label}</span>
+                </Link>
+              );
             })}
           </div>
 
