@@ -16,6 +16,11 @@ import {
   Image as ImageIcon, Video, Music, Folder, Terminal, GitBranch,
   Package, Layers, Box, Command
 } from 'lucide-react';
+import {
+  GitHubIcon, SlackIcon, GoogleDriveIcon, NotionIcon, SalesforceIcon,
+  ConfluenceIcon, FigmaIcon, ZoomIcon, HubSpotIcon, BambooHRIcon,
+  ChurnZeroIcon, VantaIcon, LessonlyIcon, GoogleSheetsIcon
+} from '../components/BrandIcons';
 
 export const EnterpriseSearchPage: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -23,17 +28,26 @@ export const EnterpriseSearchPage: React.FC = () => {
   const [activeExample, setActiveExample] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [activeTab, setActiveTab] = useState<'all' | 'code' | 'docs' | 'people' | 'data'>('all');
-  const [activeView, setActiveView] = useState(0);
+  const [searchStage, setSearchStage] = useState(0);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [documentsFound, setDocumentsFound] = useState(0);
+
+  const searchStages = [
+    { label: 'Connecting to sources...', icon: Globe },
+    { label: 'Searching documents...', icon: FileSearch },
+    { label: 'Analyzing content...', icon: Brain },
+    { label: 'Generating answer...', icon: Sparkles }
+  ];
 
   const searchExamples = [
     {
       query: "What's our Q4 revenue target and how are we tracking?",
       answer: "Q4 2024 target is $12.5M (35% growth vs Q3). Currently at $8.2M with 6 weeks remaining. On track for 98% attainment based on weighted pipeline of $6.8M and historical close rates of 62%. Top risk: Enterprise deals averaging 2 weeks longer than forecast.",
       sources: [
-        { name: "Q4 Business Plan.pdf", app: "Google Drive", icon: "📄", time: "Updated 2 days ago", relevance: 98 },
-        { name: "#finance-team channel", app: "Slack", icon: "💬", time: "Message from Sarah Chen, 3 hours ago", relevance: 95 },
-        { name: "Board Meeting Notes - Nov 2024", app: "Notion", icon: "📝", time: "Edited by Mike Torres yesterday", relevance: 92 },
-        { name: "Q4 Sales Dashboard", app: "Salesforce", icon: "☁️", time: "Live data", relevance: 96 }
+        { name: "Q4 Business Plan.pdf", app: "Google Drive", Icon: GoogleDriveIcon, time: "Updated 2 days ago", relevance: 98 },
+        { name: "#finance-team channel", app: "Slack", Icon: SlackIcon, time: "Message from Sarah Chen, 3 hours ago", relevance: 95 },
+        { name: "Board Meeting Notes - Nov 2024", app: "Notion", Icon: NotionIcon, time: "Edited by Mike Torres yesterday", relevance: 92 },
+        { name: "Q4 Sales Dashboard", app: "Salesforce", Icon: SalesforceIcon, time: "Live data", relevance: 96 }
       ],
       relatedQuestions: [
         "Which deals are at risk of slipping to Q1?",
@@ -45,10 +59,10 @@ export const EnterpriseSearchPage: React.FC = () => {
       query: "Who knows about the Kubernetes migration and what decisions were made?",
       answer: "Sarah Chen (DevOps Lead) and Mike Torres (Senior Engineer) led the K8s migration from AWS ECS in Q3 2024. Key decisions: chose GKE over EKS for better autopilot capabilities, implemented Istio for service mesh, moved to ArgoCD for GitOps. Migration completed Oct 15th, reduced infrastructure costs by 32%. Main trade-off was increased operational complexity.",
       sources: [
-        { name: "Team Directory", app: "BambooHR", icon: "👥", time: "Current roster", relevance: 88 },
-        { name: "K8s Migration RFC", app: "GitHub", icon: "🐙", time: "Merged 8 weeks ago", relevance: 98 },
-        { name: "Infrastructure Architecture Review", app: "Confluence", icon: "📘", time: "Last updated Oct 10", relevance: 94 },
-        { name: "#devops channel discussion", app: "Slack", icon: "💬", time: "Thread from Sept 12-Oct 15", relevance: 91 }
+        { name: "Team Directory", app: "BambooHR", Icon: BambooHRIcon, time: "Current roster", relevance: 88 },
+        { name: "K8s Migration RFC", app: "GitHub", Icon: GitHubIcon, time: "Merged 8 weeks ago", relevance: 98 },
+        { name: "Infrastructure Architecture Review", app: "Confluence", Icon: ConfluenceIcon, time: "Last updated Oct 10", relevance: 94 },
+        { name: "#devops channel discussion", app: "Slack", Icon: SlackIcon, time: "Thread from Sept 12-Oct 15", relevance: 91 }
       ],
       relatedQuestions: [
         "What's our current infrastructure cost?",
@@ -60,10 +74,10 @@ export const EnterpriseSearchPage: React.FC = () => {
       query: "Show me all contracts expiring this quarter and renewal risk level",
       answer: "8 contracts expire Q1 2024 totaling $2.58M ARR. High risk (3): Acme Corp ($840K, NPS 6, low engagement), TechFlow ($420K, executive sponsor left), DataViz ($180K, support ticket volume up 340%). Medium risk (2): CloudScale ($380K), DevTools Inc ($290K). Low risk (3): remaining $470K combined. Renewal team has action plans for all high-risk accounts.",
       sources: [
-        { name: "Contracts Database - Q1 Renewals", app: "Salesforce", icon: "☁️", time: "Updated hourly", relevance: 99 },
-        { name: "Customer Health Scores", app: "ChurnZero", icon: "📊", time: "Real-time", relevance: 96 },
-        { name: "Legal Tracker - Renewal Status", app: "Google Sheets", icon: "📊", time: "Updated this morning", relevance: 93 },
-        { name: "Renewal Pipeline Review", app: "HubSpot", icon: "🎯", time: "Meeting notes from yesterday", relevance: 89 }
+        { name: "Contracts Database - Q1 Renewals", app: "Salesforce", Icon: SalesforceIcon, time: "Updated hourly", relevance: 99 },
+        { name: "Customer Health Scores", app: "ChurnZero", Icon: ChurnZeroIcon, time: "Real-time", relevance: 96 },
+        { name: "Legal Tracker - Renewal Status", app: "Google Sheets", Icon: GoogleSheetsIcon, time: "Updated this morning", relevance: 93 },
+        { name: "Renewal Pipeline Review", app: "HubSpot", Icon: HubSpotIcon, time: "Meeting notes from yesterday", relevance: 89 }
       ],
       relatedQuestions: [
         "What's our overall renewal rate?",
@@ -75,10 +89,10 @@ export const EnterpriseSearchPage: React.FC = () => {
       query: "What was decided in yesterday's product sync about the mobile redesign?",
       answer: "Team approved new mobile dashboard design with 3 key changes: (1) Move navigation to bottom bar for thumb accessibility, (2) Implement dark mode as default with light mode toggle, (3) Add haptic feedback for key actions. Launch date set for March 15th. Action items: Alex (design system updates by Feb 1), Jordan (iOS implementation Feb 1-28), Casey (Android implementation Feb 1-28). Engineering flagged concern about haptic API inconsistencies on older Android devices—Alex to research fallback options.",
       sources: [
-        { name: "Product Sync Recording (47:32)", app: "Zoom", icon: "🎥", time: "Yesterday 2:00 PM", relevance: 99 },
-        { name: "Meeting Notes: Mobile Redesign", app: "Notion", icon: "📝", time: "Edited by Alex Kim yesterday", relevance: 97 },
-        { name: "#product thread", app: "Slack", icon: "💬", time: "Follow-up discussion yesterday 3-5 PM", relevance: 94 },
-        { name: "Mobile Redesign Figma", app: "Figma", icon: "🎨", time: "Updated yesterday", relevance: 92 }
+        { name: "Product Sync Recording (47:32)", app: "Zoom", Icon: ZoomIcon, time: "Yesterday 2:00 PM", relevance: 99 },
+        { name: "Meeting Notes: Mobile Redesign", app: "Notion", Icon: NotionIcon, time: "Edited by Alex Kim yesterday", relevance: 97 },
+        { name: "#product thread", app: "Slack", Icon: SlackIcon, time: "Follow-up discussion yesterday 3-5 PM", relevance: 94 },
+        { name: "Mobile Redesign Figma", app: "Figma", Icon: FigmaIcon, time: "Updated yesterday", relevance: 92 }
       ],
       relatedQuestions: [
         "Show me the mobile redesign mockups",
@@ -90,10 +104,10 @@ export const EnterpriseSearchPage: React.FC = () => {
       query: "What are our security guidelines for handling customer PII data?",
       answer: "PII must be: (1) Encrypted at rest using AES-256 with keys rotated every 90 days, (2) Encrypted in transit via TLS 1.3+, (3) Access logged with immutable audit trail, (4) Retained per GDPR requirements with automated 30-day deletion after customer request, (5) Never logged to application logs or analytics, (6) Accessible only via authenticated API with row-level security. Engineers must complete PII handling training (renewed annually). Database access requires VP approval and security team review. Last audit: Dec 2024 (zero findings).",
       sources: [
-        { name: "Security Policy v4.2 - Data Protection", app: "Confluence", icon: "📘", time: "Last reviewed Nov 15", relevance: 99 },
-        { name: "GDPR Compliance Handbook", app: "Google Drive", icon: "📄", time: "Updated Oct 2024", relevance: 96 },
-        { name: "Security Training Materials", app: "Lessonly", icon: "🎓", time: "Course completion required", relevance: 91 },
-        { name: "SOC 2 Audit Report", app: "Vanta", icon: "🔒", time: "Certified Dec 2024", relevance: 88 }
+        { name: "Security Policy v4.2 - Data Protection", app: "Confluence", Icon: ConfluenceIcon, time: "Last reviewed Nov 15", relevance: 99 },
+        { name: "GDPR Compliance Handbook", app: "Google Drive", Icon: GoogleDriveIcon, time: "Updated Oct 2024", relevance: 96 },
+        { name: "Security Training Materials", app: "Lessonly", Icon: LessonlyIcon, time: "Course completion required", relevance: 91 },
+        { name: "SOC 2 Audit Report", app: "Vanta", Icon: VantaIcon, time: "Certified Dec 2024", relevance: 88 }
       ],
       relatedQuestions: [
         "How do I request database access?",
@@ -103,41 +117,58 @@ export const EnterpriseSearchPage: React.FC = () => {
     }
   ];
 
-  const enterpriseViews = [
-    {
-      title: "Unified Search Interface",
-      description: "One search bar for your entire organization",
-      searches: [
-        { query: "authentication service deployment", type: "Code", results: 847 },
-        { query: "Q4 revenue targets", type: "Finance", results: 23 },
-        { query: "Sarah Chen kubernetes", type: "People", results: 156 }
-      ]
-    },
-    {
-      title: "Intelligent Filtering",
-      description: "Smart filters that understand context",
-      searches: [
-        { query: "contracts expiring", filters: ["Date: This Quarter", "Type: Legal", "Risk: High"], results: 8 },
-        { query: "API documentation", filters: ["Source: GitHub", "Language: TypeScript", "Updated: Last 30 days"], results: 342 }
-      ]
-    },
-    {
-      title: "Cross-Platform Context",
-      description: "See the full story across all your tools",
-      searches: [
-        { query: "mobile redesign decision", contexts: ["Slack (12 messages)", "Zoom (2 recordings)", "Figma (4 designs)", "Notion (3 docs)"], results: 21 }
-      ]
-    }
-  ];
-
   useEffect(() => {
     if (searchQuery) {
       setIsSearching(true);
+      setShowResults(false);
+      setSearchStage(0);
+      setLoadingProgress(0);
+      setDocumentsFound(0);
+
+      const stageInterval = setInterval(() => {
+        setSearchStage((prev) => {
+          if (prev >= searchStages.length - 1) {
+            clearInterval(stageInterval);
+            return prev;
+          }
+          return prev + 1;
+        });
+      }, 400);
+
+      const progressInterval = setInterval(() => {
+        setLoadingProgress((prev) => {
+          if (prev >= 100) {
+            clearInterval(progressInterval);
+            return 100;
+          }
+          return prev + 8;
+        });
+      }, 50);
+
+      const docsInterval = setInterval(() => {
+        setDocumentsFound((prev) => {
+          if (prev >= 847) {
+            clearInterval(docsInterval);
+            return 847;
+          }
+          return prev + 42;
+        });
+      }, 60);
+
       const timer = setTimeout(() => {
         setIsSearching(false);
         setShowResults(true);
-      }, 1200);
-      return () => clearTimeout(timer);
+        clearInterval(stageInterval);
+        clearInterval(progressInterval);
+        clearInterval(docsInterval);
+      }, 2000);
+
+      return () => {
+        clearTimeout(timer);
+        clearInterval(stageInterval);
+        clearInterval(progressInterval);
+        clearInterval(docsInterval);
+      };
     } else {
       setShowResults(false);
     }
@@ -152,77 +183,8 @@ export const EnterpriseSearchPage: React.FC = () => {
     return () => clearInterval(interval);
   }, [searchQuery]);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveView((prev) => (prev + 1) % enterpriseViews.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, []);
-
   const currentExample = searchExamples[activeExample];
-
-  const securityFeatures = [
-    {
-      icon: Lock,
-      title: "Automatic Permission Inheritance",
-      desc: "Every search result respects source system permissions. Users only see what they already have access to."
-    },
-    {
-      icon: History,
-      title: "Complete Audit Trail",
-      desc: "Track every search query, result access, and user action with immutable audit logs."
-    },
-    {
-      icon: Eye,
-      title: "Content-Level Security",
-      desc: "Security applied at document, message, and field level—not just folder or channel."
-    },
-    {
-      icon: Key,
-      title: "SSO & Identity Federation",
-      desc: "Integrate with Okta, Azure AD, Google Workspace, and other identity providers."
-    },
-    {
-      icon: Shield,
-      title: "SOC 2 Type II Certified",
-      desc: "Independently audited security controls and data handling processes."
-    },
-    {
-      icon: Database,
-      title: "Data Encryption",
-      desc: "AES-256 encryption at rest, TLS 1.3 in transit. Keys managed in secure hardware (HSM)."
-    },
-    {
-      icon: Globe,
-      title: "Data Residency Controls",
-      desc: "Choose where your data lives: US, EU, UK, or deploy in your own cloud (VPC)."
-    },
-    {
-      icon: Scan,
-      title: "DLP & Sensitive Data Detection",
-      desc: "Automatically detect and protect credit cards, SSNs, API keys, and custom patterns."
-    },
-    {
-      icon: FileWarning,
-      title: "Retention & Deletion Policies",
-      desc: "Automated data lifecycle management aligned with your compliance requirements."
-    },
-    {
-      icon: Activity,
-      title: "Real-Time Threat Detection",
-      desc: "Monitor for unusual access patterns, bulk downloads, and suspicious behavior."
-    },
-    {
-      icon: ClipboardCheck,
-      title: "Compliance Frameworks",
-      desc: "Pre-built controls for GDPR, HIPAA, SOC 2, ISO 27001, and more."
-    },
-    {
-      icon: Settings,
-      title: "Admin Controls & Policies",
-      desc: "Granular controls over what's indexed, who can search, and retention policies."
-    }
-  ];
+  const CurrentStageIcon = searchStages[searchStage]?.icon || Sparkles;
 
   return (
     <div className="min-h-screen bg-[#fafafa] dark:bg-[#000000] text-gray-900 dark:text-white">
@@ -268,17 +230,85 @@ export const EnterpriseSearchPage: React.FC = () => {
                         style={{ caretColor: '#007AFF' }}
                       />
                       {isSearching && (
-                        <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-2 duration-300">
+                        <div className="flex items-center gap-3 animate-in fade-in slide-in-from-right-2 duration-300">
                           <div className="relative">
                             <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
                             <div className="absolute inset-0 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
                           </div>
-                          <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Searching...</span>
                         </div>
                       )}
                     </div>
 
-                    {(showResults || !searchQuery) && (
+                    {isSearching && (
+                      <div className="p-6 space-y-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20 animate-pulse">
+                            <CurrentStageIcon className="text-white" size={20} strokeWidth={2} />
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                              {searchStages[searchStage]?.label}
+                            </div>
+                            <div className="relative h-1.5 bg-gray-200 dark:bg-white/[0.08] rounded-full overflow-hidden">
+                              <div
+                                className="absolute inset-y-0 left-0 bg-gradient-to-r from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 rounded-full transition-all duration-200 ease-out"
+                                style={{ width: `${loadingProgress}%` }}
+                              />
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-3 gap-3 pt-2">
+                          <div className="p-3 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Database size={14} className="text-blue-500" />
+                              <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">Sources</span>
+                            </div>
+                            <div className="text-lg font-bold text-gray-900 dark:text-white">12</div>
+                          </div>
+                          <div className="p-3 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
+                            <div className="flex items-center gap-2 mb-1">
+                              <FileSearch size={14} className="text-green-500" />
+                              <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">Documents</span>
+                            </div>
+                            <div className="text-lg font-bold text-gray-900 dark:text-white">{documentsFound}</div>
+                          </div>
+                          <div className="p-3 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
+                            <div className="flex items-center gap-2 mb-1">
+                              <Zap size={14} className="text-orange-500" />
+                              <span className="text-xs font-semibold text-gray-500 dark:text-gray-400">Speed</span>
+                            </div>
+                            <div className="text-lg font-bold text-gray-900 dark:text-white">{(loadingProgress / 50).toFixed(1)}s</div>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2 pt-2">
+                          <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">Scanning platforms</div>
+                          <div className="flex flex-wrap gap-2">
+                            {[
+                              { Icon: SlackIcon, name: 'Slack', color: 'text-[#E01E5A]' },
+                              { Icon: GitHubIcon, name: 'GitHub', color: 'text-gray-900 dark:text-white' },
+                              { Icon: GoogleDriveIcon, name: 'Drive', color: 'text-[#0066DA]' },
+                              { Icon: NotionIcon, name: 'Notion', color: 'text-gray-900 dark:text-white' },
+                              { Icon: SalesforceIcon, name: 'Salesforce', color: 'text-[#00A1E0]' },
+                              { Icon: ConfluenceIcon, name: 'Confluence', color: 'text-[#0052CC]' }
+                            ].map((platform, i) => (
+                              <div
+                                key={i}
+                                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] animate-in fade-in zoom-in-95 duration-300"
+                                style={{ animationDelay: `${i * 100}ms` }}
+                              >
+                                <platform.Icon className={`w-4 h-4 ${platform.color}`} />
+                                <span className="text-xs font-medium text-gray-700 dark:text-gray-300">{platform.name}</span>
+                                <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      </div>
+                    )}
+
+                    {(showResults || !searchQuery) && !isSearching && (
                       <div className="p-6 space-y-6 animate-in fade-in slide-in-from-bottom-3 duration-500">
                         <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50/50 to-gray-50/30 dark:from-blue-500/5 dark:to-transparent border border-blue-100/50 dark:border-blue-400/10">
                           <div className="flex items-start gap-4 p-6">
@@ -303,7 +333,9 @@ export const EnterpriseSearchPage: React.FC = () => {
                                     key={i}
                                     className="flex items-center gap-3 p-3 rounded-xl bg-white/80 dark:bg-white/[0.05] backdrop-blur-sm border border-gray-200/50 dark:border-white/[0.08] hover:bg-gray-50/80 dark:hover:bg-white/[0.08] hover:border-gray-300/50 dark:hover:border-white/[0.12] transition-all duration-200 cursor-pointer group/source"
                                   >
-                                    <span className="text-xl group-hover/source:scale-110 transition-transform duration-200">{source.icon}</span>
+                                    <div className="w-8 h-8 rounded-lg bg-white dark:bg-black/30 border border-gray-200/50 dark:border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover/source:scale-110 group-hover/source:shadow-md transition-all duration-200">
+                                      <source.Icon className="w-5 h-5" />
+                                    </div>
                                     <div className="flex-1 min-w-0">
                                       <div className="flex items-center gap-2 mb-1">
                                         <div className="text-sm font-semibold text-gray-900 dark:text-white truncate">
@@ -477,16 +509,18 @@ export const EnterpriseSearchPage: React.FC = () => {
 
                       <div className="space-y-2">
                         {[
-                          { icon: "🐙", title: "K8s Migration RFC", app: "GitHub", time: "8 weeks ago", relevance: 98 },
-                          { icon: "📘", title: "Infrastructure Architecture Review", app: "Confluence", time: "Oct 10", relevance: 94 },
-                          { icon: "💬", title: "#devops: Migration discussion thread", app: "Slack", time: "Sept 12-Oct 15", relevance: 91 },
-                          { icon: "👥", title: "Sarah Chen - DevOps Lead", app: "BambooHR", time: "Active", relevance: 88 }
+                          { Icon: GitHubIcon, title: "K8s Migration RFC", app: "GitHub", time: "8 weeks ago", relevance: 98 },
+                          { Icon: ConfluenceIcon, title: "Infrastructure Architecture Review", app: "Confluence", time: "Oct 10", relevance: 94 },
+                          { Icon: SlackIcon, title: "#devops: Migration discussion thread", app: "Slack", time: "Sept 12-Oct 15", relevance: 91 },
+                          { Icon: BambooHRIcon, title: "Sarah Chen - DevOps Lead", app: "BambooHR", time: "Active", relevance: 88 }
                         ].map((result, i) => (
                           <div
                             key={i}
                             className="flex items-center gap-3 p-3 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] hover:bg-gray-100/80 dark:hover:bg-white/[0.06] border border-transparent hover:border-gray-200/50 dark:hover:border-white/[0.08] transition-all duration-200 cursor-pointer group"
                           >
-                            <span className="text-2xl">{result.icon}</span>
+                            <div className="w-8 h-8 rounded-lg bg-white dark:bg-black/30 border border-gray-200/50 dark:border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-200">
+                              <result.Icon className="w-5 h-5" />
+                            </div>
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2 mb-1">
                                 <div className="text-sm font-semibold text-gray-900 dark:text-white truncate">{result.title}</div>
@@ -550,17 +584,19 @@ export const EnterpriseSearchPage: React.FC = () => {
                         <div className="space-y-2">
                           <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Sources Across Your Stack</div>
                           {[
-                            { name: "Salesforce", icon: "☁️", files: 3, color: "blue" },
-                            { name: "HubSpot", icon: "🎯", files: 2, color: "orange" },
-                            { name: "Google Sheets", icon: "📊", files: 1, color: "green" },
-                            { name: "Slack", icon: "💬", files: 8, color: "purple" }
+                            { Icon: SalesforceIcon, name: "Salesforce", files: 3 },
+                            { Icon: HubSpotIcon, name: "HubSpot", files: 2 },
+                            { Icon: GoogleSheetsIcon, name: "Google Sheets", files: 1 },
+                            { Icon: SlackIcon, name: "Slack", files: 8 }
                           ].map((source, i) => (
                             <div
                               key={i}
                               className="flex items-center justify-between p-3 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] hover:bg-gray-100/80 dark:hover:bg-white/[0.06] border border-transparent hover:border-gray-200/50 dark:hover:border-white/[0.08] transition-all duration-200 cursor-pointer group"
                             >
                               <div className="flex items-center gap-3">
-                                <span className="text-2xl">{source.icon}</span>
+                                <div className="w-8 h-8 rounded-lg bg-white dark:bg-black/30 border border-gray-200/50 dark:border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-200">
+                                  <source.Icon className="w-5 h-5" />
+                                </div>
                                 <div>
                                   <div className="text-sm font-semibold text-gray-900 dark:text-white">{source.name}</div>
                                   <div className="text-xs text-gray-500 dark:text-gray-400">{source.files} relevant items</div>
