@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Section } from './ui/Section';
 import { FadeIn } from './ui/FadeIn';
-import { 
-  Search, Layout, Zap, MessageSquare, 
+import {
+  Search, Layout, Zap, MessageSquare,
   ArrowRight, ShieldCheck, MoreHorizontal, Paperclip
 } from 'lucide-react';
 
@@ -109,9 +110,9 @@ export const Enterprise: React.FC = () => {
                                 </li>
                             ))}
                         </ul>
-                         <button className="group flex items-center gap-2 text-gray-900 dark:text-white border-b border-black/10 dark:border-white/20 pb-1 hover:border-accent-pink transition-colors">
-                            <span>Explore Integrations</span> <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                        </button>
+                         <Link to="/enterprise-search" className="group flex items-center gap-2 text-gray-900 dark:text-white border-b border-black/10 dark:border-white/20 pb-1 hover:border-accent-pink transition-colors">
+                            <span>Explore Enterprise Search</span> <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                        </Link>
                     </div>
 
                     {/* VISUAL: Realistic Spotlight Search UI - Kept Dark for visual pop */}
@@ -208,9 +209,9 @@ export const Enterprise: React.FC = () => {
                                 </li>
                             ))}
                         </ul>
-                         <button className="group flex items-center gap-2 text-gray-900 dark:text-white border-b border-black/10 dark:border-white/20 pb-1 hover:border-accent-orange transition-colors">
+                         <Link to="/apps" className="group flex items-center gap-2 text-gray-900 dark:text-white border-b border-black/10 dark:border-white/20 pb-1 hover:border-accent-orange transition-colors">
                             <span>Build an App</span> <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                        </button>
+                        </Link>
                     </div>
 
                      {/* VISUAL: Realistic Dashboard Mockup - Dark UI */}
@@ -322,9 +323,9 @@ export const Enterprise: React.FC = () => {
                                 </li>
                             ))}
                         </ul>
-                         <button className="group flex items-center gap-2 text-gray-900 dark:text-white border-b border-black/10 dark:border-white/20 pb-1 hover:border-accent-purple transition-colors">
+                         <Link to="/agents" className="group flex items-center gap-2 text-gray-900 dark:text-white border-b border-black/10 dark:border-white/20 pb-1 hover:border-accent-purple transition-colors">
                             <span>Design Automation</span> <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
-                        </button>
+                        </Link>
                     </div>
 
                      {/* VISUAL: Automation Node Graph - Dark UI */}
