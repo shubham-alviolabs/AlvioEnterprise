@@ -651,14 +651,14 @@ export const EnterpriseSearchPage: React.FC = () => {
                             </div>
                           </div>
                           <div className="flex items-center gap-2">
-                            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/[0.05] transition-colors">
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] text-xs font-semibold text-gray-700 dark:text-gray-300">
                               <FileText size={12} />
-                              View Details
-                            </button>
-                            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/[0.05] transition-colors">
+                              <span>View Details</span>
+                            </div>
+                            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] text-xs font-semibold text-gray-700 dark:text-gray-300">
                               <Share2 size={12} />
-                              Share
-                            </button>
+                              <span>Share</span>
+                            </div>
                           </div>
                         </div>
 
@@ -725,88 +725,133 @@ export const EnterpriseSearchPage: React.FC = () => {
             </FadeIn>
 
             <FadeIn delay={600}>
-              <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="grid lg:grid-cols-2 gap-20 items-center">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-gray-100/80 dark:bg-white/[0.08] backdrop-blur-xl border border-gray-300/50 dark:border-white/[0.12]">
-                    <Shield size={12} className="text-gray-600 dark:text-gray-300" />
-                    <span className="text-xs font-medium text-gray-700 dark:text-gray-200">Enterprise Security</span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-gradient-to-r from-green-100/90 to-emerald-50/90 dark:from-green-500/[0.15] dark:to-emerald-500/[0.1] backdrop-blur-2xl border border-green-200/60 dark:border-green-400/[0.2] shadow-sm shadow-green-200/50 dark:shadow-black/20">
+                    <div className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></div>
+                    <span className="text-xs font-semibold tracking-wider text-green-800 dark:text-green-100" style={{ letterSpacing: '0.05em' }}>ENTERPRISE SECURITY</span>
                   </div>
-                  <h3 className="text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight" style={{ fontWeight: 600 }}>
-                    Security you can trust
+                  <h3 className="text-5xl md:text-6xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight leading-[1.1]" style={{ fontWeight: 600, letterSpacing: '-0.02em' }}>
+                    Built for the most<br />
+                    <span className="bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 bg-clip-text text-transparent">secure enterprises</span>
                   </h3>
-                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed font-normal">
-                    Built from the ground up for enterprises with the strictest security requirements. SOC 2 Type II certified with automatic permission inheritance from all source systems.
+                  <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed font-normal" style={{ lineHeight: '1.7' }}>
+                    Zero-trust architecture with automatic permission inheritance. Every user sees only what they're already authorized to access across all connected systems.
                   </p>
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     {[
-                      { icon: Lock, text: "Permission inheritance", desc: "Users only see what they already have access to" },
-                      { icon: Eye, text: "Complete audit logs", desc: "Track every query, access, and action with immutable logs" },
-                      { icon: Database, text: "End-to-end encryption", desc: "AES-256 at rest, TLS 1.3 in transit, HSM key management" }
+                      { icon: Lock, text: "Permission inheritance", desc: "Respects existing ACLs from every source system automatically", gradient: "from-green-500 to-emerald-500" },
+                      { icon: Eye, text: "Complete audit trail", desc: "Immutable logs for every query, access, and data interaction", gradient: "from-blue-500 to-cyan-500" },
+                      { icon: Database, text: "Military-grade encryption", desc: "AES-256 at rest, TLS 1.3 in transit, HSM-backed key management", gradient: "from-violet-500 to-purple-500" },
+                      { icon: ShieldCheck, text: "SOC 2 Type II certified", desc: "Annual audits with continuous compliance monitoring", gradient: "from-orange-500 to-amber-500" }
                     ].map((item, i) => (
-                      <div key={i} className="flex items-start gap-3 group">
-                        <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/[0.05] flex items-center justify-center flex-shrink-0 group-hover:bg-gray-200 dark:group-hover:bg-white/[0.08] transition-colors duration-200">
-                          <item.icon size={18} className="text-gray-700 dark:text-gray-300" strokeWidth={2} />
+                      <div
+                        key={i}
+                        className="group relative flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-br from-gray-50/50 to-white/50 dark:from-white/[0.03] dark:to-white/[0.01] border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-black/20 transition-all duration-500 cursor-pointer hover:-translate-y-1"
+                      >
+                        <div className="relative">
+                          <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500`}></div>
+                          <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`}>
+                            <item.icon size={20} className="text-white" strokeWidth={2.5} />
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-gray-900 dark:text-white mb-1">{item.text}</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 font-normal">{item.desc}</p>
+                        <div className="flex-1 pt-1">
+                          <div className="text-lg font-semibold text-gray-900 dark:text-white mb-1.5" style={{ letterSpacing: '-0.01em' }}>{item.text}</div>
+                          <p className="text-[15px] text-gray-600 dark:text-gray-400 font-normal leading-relaxed">{item.desc}</p>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="relative">
-                  <div className="absolute inset-0 bg-gray-500/10 dark:bg-gray-400/5 blur-3xl rounded-full"></div>
-                  <div className="relative bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-2xl rounded-[28px] border border-gray-200/80 dark:border-white/[0.12] shadow-2xl overflow-hidden p-8" style={{ boxShadow: '0 25px 80px -15px rgba(0, 0, 0, 0.3)' }}>
-                    <div className="flex items-center gap-2 mb-6">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
+                <div className="relative group/security">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-green-500/20 via-emerald-500/20 to-green-500/20 dark:from-green-400/10 dark:via-emerald-400/10 dark:to-green-400/10 blur-3xl opacity-0 group-hover/security:opacity-100 transition-opacity duration-1000 rounded-full"></div>
 
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between p-4 rounded-xl bg-green-50/50 dark:bg-green-500/5 border border-green-200/50 dark:border-green-500/20">
-                        <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center">
-                            <CheckCircle2 className="text-white" size={18} />
-                          </div>
-                          <div>
-                            <div className="text-sm font-semibold text-gray-900 dark:text-white">SOC 2 Type II</div>
-                            <div className="text-xs text-gray-600 dark:text-gray-400">Certified Dec 2024</div>
-                          </div>
+                  <div className="relative bg-white/70 dark:bg-[#1a1a1c]/70 backdrop-blur-3xl rounded-[32px] border border-gray-200/60 dark:border-white/[0.15] shadow-2xl overflow-hidden" style={{ boxShadow: '0 30px 90px -20px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.3)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent dark:from-white/[0.05] dark:via-transparent pointer-events-none"></div>
+
+                    <div className="relative">
+                      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200/50 dark:border-white/[0.08] backdrop-blur-xl">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full bg-[#FF5F57] shadow-sm"></div>
+                          <div className="w-3 h-3 rounded-full bg-[#FEBC2E] shadow-sm"></div>
+                          <div className="w-3 h-3 rounded-full bg-[#28C840] shadow-sm"></div>
                         </div>
-                        <button className="text-xs font-semibold text-green-600 dark:text-green-400">View Report</button>
+                        <div className="text-xs font-semibold text-gray-500 dark:text-gray-400" style={{ letterSpacing: '0.05em' }}>SECURITY CENTER</div>
+                        <div className="w-16"></div>
                       </div>
 
-                      <div className="p-4 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
-                        <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Compliance Certifications</div>
-                        <div className="grid grid-cols-2 gap-2">
-                          {['GDPR', 'HIPAA', 'ISO 27001', 'CCPA'].map((cert, i) => (
-                            <div key={i} className="p-3 rounded-lg bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] text-center">
-                              <div className="w-6 h-6 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-2">
-                                <CheckCircle2 size={12} className="text-green-600 dark:text-green-400" />
+                      <div className="p-6 space-y-4">
+                        <div className="p-5 rounded-2xl bg-gradient-to-br from-green-50/80 to-emerald-50/60 dark:from-green-500/10 dark:to-emerald-500/5 border border-green-200/60 dark:border-green-400/20 backdrop-blur-xl">
+                          <div className="flex items-start gap-3 mb-4">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center flex-shrink-0 shadow-lg">
+                              <CheckCircle2 className="text-white" size={20} strokeWidth={2.5} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="flex items-center justify-between mb-2">
+                                <div className="text-sm font-bold text-gray-900 dark:text-white">SOC 2 Type II Certified</div>
+                                <div className="px-2 py-1 rounded-lg bg-green-100 dark:bg-green-500/20 border border-green-200 dark:border-green-400/30">
+                                  <span className="text-[10px] font-bold text-green-700 dark:text-green-300">ACTIVE</span>
+                                </div>
                               </div>
-                              <div className="text-xs font-semibold text-gray-900 dark:text-white">{cert}</div>
+                              <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed mb-3">Annual third-party audits ensuring the highest security standards for data protection and privacy.</p>
+                              <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                                <Clock size={11} />
+                                <span>Last audit: December 2024</span>
+                              </div>
                             </div>
-                          ))}
+                          </div>
                         </div>
-                      </div>
 
-                      <div className="p-4 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
-                        <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Security Features</div>
-                        <div className="space-y-2">
-                          {[
-                            { icon: Key, text: "SSO & SAML Integration" },
-                            { icon: History, text: "Immutable Audit Logs" },
-                            { icon: Globe, text: "Data Residency Controls" },
-                            { icon: Scan, text: "DLP & Sensitive Data Detection" }
-                          ].map((feature, i) => (
-                            <div key={i} className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
-                              <feature.icon size={14} className="text-gray-500 dark:text-gray-400" />
-                              <span className="font-medium">{feature.text}</span>
-                            </div>
-                          ))}
+                        <div className="p-5 rounded-2xl bg-gradient-to-br from-gray-50/80 to-white/80 dark:from-white/[0.05] dark:to-white/[0.03] border border-gray-200/50 dark:border-white/[0.08] backdrop-blur-xl">
+                          <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4" style={{ letterSpacing: '0.08em' }}>Compliance Framework</div>
+                          <div className="grid grid-cols-2 gap-3">
+                            {[
+                              { name: 'GDPR', desc: 'EU Data Protection', icon: Globe },
+                              { name: 'HIPAA', desc: 'Healthcare Privacy', icon: Shield },
+                              { name: 'ISO 27001', desc: 'Info Security', icon: Lock },
+                              { name: 'CCPA', desc: 'CA Consumer Privacy', icon: Eye }
+                            ].map((cert, i) => (
+                              <div key={i} className="group/cert p-4 rounded-xl bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-md transition-all duration-300">
+                                <div className="flex items-center gap-2 mb-2">
+                                  <div className="w-7 h-7 rounded-lg bg-green-500/10 border border-green-500/20 flex items-center justify-center">
+                                    <cert.icon size={14} className="text-green-600 dark:text-green-400" strokeWidth={2.5} />
+                                  </div>
+                                  <div className="text-sm font-bold text-gray-900 dark:text-white">{cert.name}</div>
+                                </div>
+                                <div className="text-[11px] text-gray-600 dark:text-gray-400 font-medium">{cert.desc}</div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="p-5 rounded-2xl bg-gradient-to-br from-gray-50/80 to-white/80 dark:from-white/[0.05] dark:to-white/[0.03] border border-gray-200/50 dark:border-white/[0.08] backdrop-blur-xl">
+                          <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-4" style={{ letterSpacing: '0.08em' }}>Security Architecture</div>
+                          <div className="space-y-3">
+                            {[
+                              { icon: Key, text: "Enterprise SSO & SAML 2.0", detail: "Okta, Azure AD, Google Workspace" },
+                              { icon: Database, text: "Data Residency Controls", detail: "US, EU, APAC regions available" },
+                              { icon: Scan, text: "DLP & Sensitive Data Detection", detail: "PII, PCI, PHI auto-detection" },
+                              { icon: Activity, text: "Real-time Threat Monitoring", detail: "24/7 SOC with automated response" }
+                            ].map((feature, i) => (
+                              <div key={i} className="group/feature flex items-start gap-3 p-3 rounded-xl hover:bg-gray-50/50 dark:hover:bg-white/[0.03] transition-all duration-300">
+                                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-gray-100 to-gray-50 dark:from-white/[0.08] dark:to-white/[0.05] border border-gray-200/50 dark:border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover/feature:scale-110 transition-transform duration-300">
+                                  <feature.icon size={14} className="text-gray-600 dark:text-gray-400" strokeWidth={2.5} />
+                                </div>
+                                <div className="flex-1 min-w-0">
+                                  <div className="text-sm font-semibold text-gray-900 dark:text-white mb-0.5" style={{ letterSpacing: '-0.01em' }}>{feature.text}</div>
+                                  <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">{feature.detail}</div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="p-4 rounded-xl bg-gradient-to-r from-blue-50/80 to-cyan-50/80 dark:from-blue-500/10 dark:to-cyan-500/10 border border-blue-200/50 dark:border-blue-400/20">
+                          <div className="flex items-center gap-3">
+                            <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                            <div className="text-xs font-bold text-gray-900 dark:text-white">Zero security incidents in 2024</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -814,39 +859,286 @@ export const EnterpriseSearchPage: React.FC = () => {
                 </div>
               </div>
             </FadeIn>
+            <FadeIn delay={800}>
+              <div className="grid lg:grid-cols-2 gap-20 items-center">
+                <div className="relative group/analytics">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-violet-500/20 via-purple-500/20 to-violet-500/20 dark:from-violet-400/10 dark:via-purple-400/10 dark:to-violet-400/10 blur-3xl opacity-0 group-hover/analytics:opacity-100 transition-opacity duration-1000 rounded-full"></div>
+
+                  <div className="relative bg-white/70 dark:bg-[#1a1a1c]/70 backdrop-blur-3xl rounded-[32px] border border-gray-200/60 dark:border-white/[0.15] shadow-2xl overflow-hidden" style={{ boxShadow: '0 30px 90px -20px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.3)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent dark:from-white/[0.05] dark:via-transparent pointer-events-none"></div>
+
+                    <div className="relative">
+                      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200/50 dark:border-white/[0.08] backdrop-blur-xl">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full bg-[#FF5F57] shadow-sm"></div>
+                          <div className="w-3 h-3 rounded-full bg-[#FEBC2E] shadow-sm"></div>
+                          <div className="w-3 h-3 rounded-full bg-[#28C840] shadow-sm"></div>
+                        </div>
+                        <div className="text-xs font-semibold text-gray-500 dark:text-gray-400" style={{ letterSpacing: '0.05em' }}>ANALYTICS</div>
+                        <div className="w-16"></div>
+                      </div>
+
+                      <div className="p-6 space-y-4">
+                        <div className="grid grid-cols-3 gap-3">
+                          {[
+                            { label: 'Queries Today', value: '12,847', change: '+23%', trend: 'up', color: 'blue' },
+                            { label: 'Avg Response', value: '0.3s', change: '-18%', trend: 'down', color: 'green' },
+                            { label: 'Satisfaction', value: '94%', change: '+5%', trend: 'up', color: 'violet' }
+                          ].map((stat, i) => (
+                            <div key={i} className="p-4 rounded-xl bg-gradient-to-br from-gray-50/80 to-white/80 dark:from-white/[0.05] dark:to-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
+                              <div className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">{stat.label}</div>
+                              <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">{stat.value}</div>
+                              <div className={`flex items-center gap-1 text-xs font-semibold ${stat.trend === 'up' ? 'text-green-600 dark:text-green-400' : 'text-blue-600 dark:text-blue-400'}`}>
+                                <TrendingUp size={12} />
+                                <span>{stat.change}</span>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+
+                        <div className="p-5 rounded-2xl bg-gradient-to-br from-gray-50/80 to-white/80 dark:from-white/[0.05] dark:to-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
+                          <div className="flex items-center justify-between mb-4">
+                            <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Top Search Categories</div>
+                            <div className="text-[10px] text-gray-500 dark:text-gray-400">Last 7 days</div>
+                          </div>
+                          <div className="space-y-3">
+                            {[
+                              { category: 'Code & Documentation', percentage: 38, color: 'from-blue-500 to-cyan-500', count: '4.8K' },
+                              { category: 'Customer Data', percentage: 28, color: 'from-green-500 to-emerald-500', count: '3.6K' },
+                              { category: 'Financial Reports', percentage: 19, color: 'from-violet-500 to-purple-500', count: '2.4K' },
+                              { category: 'HR & People', percentage: 15, color: 'from-orange-500 to-amber-500', count: '1.9K' }
+                            ].map((item, i) => (
+                              <div key={i}>
+                                <div className="flex items-center justify-between mb-1.5">
+                                  <span className="text-xs font-semibold text-gray-900 dark:text-white">{item.category}</span>
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">{item.count}</span>
+                                    <span className="text-xs font-bold text-gray-700 dark:text-gray-300">{item.percentage}%</span>
+                                  </div>
+                                </div>
+                                <div className="h-2 bg-gray-200 dark:bg-white/[0.08] rounded-full overflow-hidden">
+                                  <div className={`h-full bg-gradient-to-r ${item.color} rounded-full transition-all duration-1000`} style={{ width: `${item.percentage}%` }}></div>
+                                </div>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-3">
+                          {[
+                            { icon: Users, label: 'Active Users', value: '2,847' },
+                            { icon: FileSearch, label: 'Documents Indexed', value: '847K' }
+                          ].map((metric, i) => (
+                            <div key={i} className="p-4 rounded-xl bg-gradient-to-br from-gray-50/80 to-white/80 dark:from-white/[0.05] dark:to-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
+                              <div className="flex items-center gap-2 mb-2">
+                                <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-purple-500 flex items-center justify-center">
+                                  <metric.icon size={12} className="text-white" strokeWidth={2.5} />
+                                </div>
+                                <span className="text-[10px] font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider">{metric.label}</span>
+                              </div>
+                              <div className="text-xl font-bold text-gray-900 dark:text-white">{metric.value}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-gradient-to-r from-violet-100/90 to-purple-50/90 dark:from-violet-500/[0.15] dark:to-purple-500/[0.1] backdrop-blur-2xl border border-violet-200/60 dark:border-violet-400/[0.2] shadow-sm shadow-violet-200/50 dark:shadow-black/20">
+                    <div className="w-1.5 h-1.5 rounded-full bg-violet-500 animate-pulse"></div>
+                    <span className="text-xs font-semibold tracking-wider text-violet-800 dark:text-violet-100" style={{ letterSpacing: '0.05em' }}>ANALYTICS & INSIGHTS</span>
+                  </div>
+                  <h3 className="text-5xl md:text-6xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight leading-[1.1]" style={{ fontWeight: 600, letterSpacing: '-0.02em' }}>
+                    Understand how<br />
+                    <span className="bg-gradient-to-r from-violet-600 to-purple-600 dark:from-violet-400 dark:to-purple-400 bg-clip-text text-transparent">knowledge flows</span>
+                  </h3>
+                  <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed font-normal" style={{ lineHeight: '1.7' }}>
+                    Deep insights into how your organization searches, discovers, and uses information. Identify knowledge gaps and optimize content strategy.
+                  </p>
+                  <div className="space-y-5">
+                    {[
+                      { icon: BarChart3, text: "Search analytics", desc: "Track query patterns, popular content, and user behavior", gradient: "from-violet-500 to-purple-500" },
+                      { icon: TrendingUp, text: "Usage insights", desc: "Monitor adoption, engagement, and ROI across teams", gradient: "from-blue-500 to-cyan-500" },
+                      { icon: Lightbulb, text: "Content gaps", desc: "AI identifies missing documentation and knowledge silos", gradient: "from-orange-500 to-amber-500" },
+                      { icon: Settings, text: "Admin controls", desc: "Granular permissions and team management dashboard", gradient: "from-green-500 to-emerald-500" }
+                    ].map((item, i) => (
+                      <div
+                        key={i}
+                        className="group relative flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-br from-gray-50/50 to-white/50 dark:from-white/[0.03] dark:to-white/[0.01] border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-black/20 transition-all duration-500 cursor-pointer hover:-translate-y-1"
+                      >
+                        <div className="relative">
+                          <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500`}></div>
+                          <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`}>
+                            <item.icon size={20} className="text-white" strokeWidth={2.5} />
+                          </div>
+                        </div>
+                        <div className="flex-1 pt-1">
+                          <div className="text-lg font-semibold text-gray-900 dark:text-white mb-1.5" style={{ letterSpacing: '-0.01em' }}>{item.text}</div>
+                          <p className="text-[15px] text-gray-600 dark:text-gray-400 font-normal leading-relaxed">{item.desc}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={1000}>
+              <div className="mt-32 pt-32 border-t border-gray-200/50 dark:border-white/[0.08]">
+                <div className="text-center mb-20">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-gradient-to-r from-gray-100/90 to-gray-50/90 dark:from-white/[0.12] dark:to-white/[0.08] backdrop-blur-2xl border border-gray-200/60 dark:border-white/[0.15] shadow-sm">
+                    <Zap size={14} className="text-gray-600 dark:text-gray-300" />
+                    <span className="text-xs font-semibold tracking-wider text-gray-800 dark:text-gray-100" style={{ letterSpacing: '0.05em' }}>PERFORMANCE</span>
+                  </div>
+                  <h3 className="text-5xl sm:text-6xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight" style={{ fontWeight: 600, letterSpacing: '-0.02em' }}>
+                    Lightning fast,<br />
+                    <span className="bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">globally distributed</span>
+                  </h3>
+                  <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto font-normal leading-relaxed">
+                    Sub-second response times across all data sources with intelligent caching and edge computing.
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                  {[
+                    { icon: Zap, label: 'Average Response', value: '< 300ms', detail: 'P95 under 800ms', gradient: 'from-yellow-500 to-orange-500' },
+                    { icon: Database, label: 'Data Sources', value: '50+', detail: 'Native integrations', gradient: 'from-blue-500 to-cyan-500' },
+                    { icon: Globe, label: 'Uptime', value: '99.99%', detail: 'SLA guarantee', gradient: 'from-green-500 to-emerald-500' },
+                    { icon: Users, label: 'Concurrent Users', value: 'Unlimited', detail: 'No seat limits', gradient: 'from-violet-500 to-purple-500' }
+                  ].map((metric, i) => (
+                    <div
+                      key={i}
+                      className="group relative p-8 rounded-3xl bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-white/[0.05] dark:to-white/[0.03] border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 backdrop-blur-xl"
+                    >
+                      <div className="relative">
+                        <div className={`absolute -inset-4 bg-gradient-to-br ${metric.gradient} opacity-0 group-hover:opacity-20 blur-2xl transition-opacity duration-500 rounded-full`}></div>
+                        <div className={`relative w-14 h-14 rounded-2xl bg-gradient-to-br ${metric.gradient} flex items-center justify-center shadow-lg group-hover:shadow-2xl group-hover:scale-110 transition-all duration-500 mb-6`}>
+                          <metric.icon size={24} className="text-white" strokeWidth={2.5} />
+                        </div>
+                      </div>
+                      <div className="text-4xl font-bold text-gray-900 dark:text-white mb-2" style={{ letterSpacing: '-0.02em' }}>{metric.value}</div>
+                      <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">{metric.label}</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 font-medium">{metric.detail}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
+
+            <FadeIn delay={1200}>
+              <div className="mt-32 pt-32 border-t border-gray-200/50 dark:border-white/[0.08]">
+                <div className="text-center mb-20">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-gradient-to-r from-blue-100/90 to-cyan-50/90 dark:from-blue-500/[0.15] dark:to-cyan-500/[0.1] backdrop-blur-2xl border border-blue-200/60 dark:border-blue-400/[0.2] shadow-sm">
+                    <Package size={14} className="text-blue-600 dark:text-blue-300" />
+                    <span className="text-xs font-semibold tracking-wider text-blue-800 dark:text-blue-100" style={{ letterSpacing: '0.05em' }}>INTEGRATIONS</span>
+                  </div>
+                  <h3 className="text-5xl sm:text-6xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight" style={{ fontWeight: 600, letterSpacing: '-0.02em' }}>
+                    Connect your entire<br />
+                    <span className="bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">tech stack</span>
+                  </h3>
+                  <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto font-normal leading-relaxed">
+                    Native integrations with 50+ enterprise platforms. One-click setup with OAuth 2.0 authentication.
+                  </p>
+                </div>
+
+                <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4 mb-16">
+                  {[
+                    { Icon: SlackIcon, name: 'Slack', connected: true },
+                    { Icon: GitHubIcon, name: 'GitHub', connected: true },
+                    { Icon: GoogleDriveIcon, name: 'Google Drive', connected: true },
+                    { Icon: NotionIcon, name: 'Notion', connected: true },
+                    { Icon: SalesforceIcon, name: 'Salesforce', connected: true },
+                    { Icon: ConfluenceIcon, name: 'Confluence', connected: true },
+                    { Icon: FigmaIcon, name: 'Figma', connected: true },
+                    { Icon: ZoomIcon, name: 'Zoom', connected: true },
+                    { Icon: HubSpotIcon, name: 'HubSpot', connected: true },
+                    { Icon: BambooHRIcon, name: 'BambooHR', connected: true },
+                    { Icon: GoogleSheetsIcon, name: 'Google Sheets', connected: true },
+                    { Icon: ChurnZeroIcon, name: 'ChurnZero', connected: true }
+                  ].map((app, i) => (
+                    <div
+                      key={i}
+                      className="group relative p-6 rounded-2xl bg-white/80 dark:bg-white/[0.05] border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-xl transition-all duration-500 hover:-translate-y-1 backdrop-blur-xl"
+                    >
+                      <div className="flex flex-col items-center gap-3">
+                        <div className="relative w-12 h-12 rounded-xl bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] flex items-center justify-center group-hover:scale-110 group-hover:shadow-lg transition-all duration-500">
+                          <app.Icon className="w-7 h-7" />
+                          {app.connected && (
+                            <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-green-500 border-2 border-white dark:border-gray-900 flex items-center justify-center">
+                              <CheckCircle2 size={12} className="text-white" strokeWidth={3} />
+                            </div>
+                          )}
+                        </div>
+                        <div className="text-xs font-semibold text-gray-900 dark:text-white text-center">{app.name}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="grid lg:grid-cols-3 gap-6">
+                  {[
+                    { icon: Zap, title: 'One-click setup', desc: 'OAuth 2.0 authentication with automatic permission syncing', gradient: 'from-yellow-500 to-orange-500' },
+                    { icon: History, title: 'Real-time sync', desc: 'Changes appear in search within seconds across all platforms', gradient: 'from-blue-500 to-cyan-500' },
+                    { icon: Code, title: 'Custom integrations', desc: 'REST API and webhooks for proprietary systems', gradient: 'from-violet-500 to-purple-500' }
+                  ].map((feature, i) => (
+                    <div
+                      key={i}
+                      className="group p-8 rounded-3xl bg-gradient-to-br from-white/80 to-gray-50/80 dark:from-white/[0.05] dark:to-white/[0.03] border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-xl transition-all duration-500 hover:-translate-y-1"
+                    >
+                      <div className="relative mb-6">
+                        <div className={`absolute -inset-2 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-20 blur-xl transition-opacity duration-500 rounded-full`}></div>
+                        <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`}>
+                          <feature.icon size={20} className="text-white" strokeWidth={2.5} />
+                        </div>
+                      </div>
+                      <h4 className="text-xl font-semibold text-gray-900 dark:text-white mb-3" style={{ letterSpacing: '-0.01em' }}>{feature.title}</h4>
+                      <p className="text-[15px] text-gray-600 dark:text-gray-400 leading-relaxed">{feature.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </FadeIn>
           </div>
         </div>
       </Section>
 
-      <Section className="py-32 relative overflow-hidden bg-gray-50 dark:bg-[#000000] border-t border-gray-200/50 dark:border-white/[0.08]">
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent dark:via-blue-400/5" />
+      <Section className="py-32 relative overflow-hidden bg-gradient-to-b from-white via-gray-50 to-white dark:from-[#000000] dark:via-[#0a0a0a] dark:to-[#000000] border-t border-gray-200/50 dark:border-white/[0.08]">
+        <div className="absolute inset-0">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 dark:bg-blue-400/5 blur-[120px] rounded-full"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-violet-500/10 dark:bg-violet-400/5 blur-[120px] rounded-full"></div>
+        </div>
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <FadeIn>
-            <h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight" style={{ fontWeight: 600 }}>
-              Ready to transform<br />
-              <span className="text-gray-500 dark:text-gray-400">how your team works?</span>
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto font-normal leading-relaxed">
-              Join enterprises that cut search time by 80% while maintaining the highest security standards.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <Button
-                variant="primary"
-                size="lg"
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
-              >
-                Start Free Trial
-              </Button>
-              <Button
-                variant="outline"
-                size="lg"
-                className="bg-white/80 dark:bg-white/[0.05] backdrop-blur-sm border-2 border-gray-300 dark:border-white/[0.12] hover:border-gray-400 dark:hover:border-white/[0.2] px-8 py-4 rounded-xl font-semibold transition-all duration-200"
-              >
-                Schedule Demo
-              </Button>
+            <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-white/80 dark:bg-white/[0.08] backdrop-blur-2xl border border-gray-200/60 dark:border-white/[0.15] shadow-lg">
+              <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+              <span className="text-xs font-semibold tracking-wider text-gray-800 dark:text-gray-100" style={{ letterSpacing: '0.05em' }}>ENTERPRISE READY</span>
             </div>
-            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">14-day free trial • No credit card required • Setup in minutes</p>
+            <h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight leading-[1.1]" style={{ fontWeight: 600, letterSpacing: '-0.02em' }}>
+              Transform how your<br />
+              <span className="bg-gradient-to-r from-blue-600 via-violet-600 to-cyan-600 dark:from-blue-400 dark:via-violet-400 dark:to-cyan-400 bg-clip-text text-transparent">organization finds answers</span>
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-16 max-w-2xl mx-auto font-normal leading-relaxed" style={{ lineHeight: '1.7' }}>
+              Leading enterprises trust Alvio Enterprise Search to eliminate information silos, accelerate decision-making, and boost team productivity by 10x.
+            </p>
+
+            <div className="grid md:grid-cols-3 gap-8 mb-16">
+              {[
+                { value: '80%', label: 'Reduction in search time', desc: 'Teams find what they need instantly' },
+                { value: '10x', label: 'Faster onboarding', desc: 'New hires access tribal knowledge' },
+                { value: '99.99%', label: 'Uptime SLA', desc: 'Enterprise reliability guaranteed' }
+              ].map((stat, i) => (
+                <div key={i} className="p-8 rounded-3xl bg-white/60 dark:bg-white/[0.03] backdrop-blur-2xl border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-2xl transition-all duration-500 hover:-translate-y-1">
+                  <div className="text-5xl font-bold text-gray-900 dark:text-white mb-3" style={{ letterSpacing: '-0.03em' }}>{stat.value}</div>
+                  <div className="text-sm font-semibold text-gray-900 dark:text-white mb-2">{stat.label}</div>
+                  <div className="text-xs text-gray-600 dark:text-gray-400">{stat.desc}</div>
+                </div>
+              ))}
+            </div>
+
+            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">Trusted by Fortune 500 companies and high-growth startups worldwide</p>
           </FadeIn>
         </div>
       </Section>
