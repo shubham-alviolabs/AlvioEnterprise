@@ -21,7 +21,7 @@ export const CoreIdea: React.FC = () => {
   ];
 
   return (
-    <Section id="engine" className="bg-white dark:bg-black relative overflow-hidden py-32 border-t border-black/5 dark:border-white/5 transition-colors duration-500">
+    <Section id="core-idea" className="bg-white dark:bg-black relative overflow-hidden py-32 border-t border-black/5 dark:border-white/5 transition-colors duration-500">
        {/* Ambient Background */}
        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(0,0,0,0.03)_0%,rgba(0,0,0,0)_70%)] dark:bg-[radial-gradient(circle_at_center,#1a1a1a_0%,#000000_70%)] pointer-events-none"></div>
        
