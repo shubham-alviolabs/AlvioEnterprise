@@ -127,7 +127,7 @@ export const Navbar: React.FC = () => {
         {/* LOGO */}
         <Link to="/" className="flex items-center group">
            <img
-             src="/logo.png"
+             src="/logo copy.png"
              alt="ALVIO Labs"
              className="h-8 md:h-10 w-auto hover:scale-105 transition-all duration-500 ease-out"
            />
@@ -222,7 +222,7 @@ export const Navbar: React.FC = () => {
                   {/* Logo Header */}
                   <div className="px-4 pt-3 pb-2 mb-2 border-b border-black/5 dark:border-white/10">
                     <img
-                      src="/logo.png"
+                      src="/logo copy.png"
                       alt="ALVIO Solutions"
                       className="h-6 w-auto mx-auto opacity-80"
                     />

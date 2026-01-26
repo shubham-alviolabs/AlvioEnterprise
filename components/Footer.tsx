@@ -50,10 +50,10 @@ export const Footer: React.FC = () => {
               <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-6">
 
                 <div className="col-span-2 sm:col-span-2 lg:col-span-1 flex flex-col items-start">
-                  <div className="relative mb-4">
-                    <img src="/logo.png" alt="ALVIO" className="h-7 sm:h-8 w-auto brightness-0 dark:brightness-100" />
+                  <a href="/" className="relative mb-4 group cursor-pointer">
+                    <img src="/logo copy.png" alt="ALVIO" className="h-7 sm:h-8 w-auto group-hover:scale-105 transition-all duration-500 ease-out" />
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent blur-sm animate-shimmer pointer-events-none dark:opacity-50" style={{ animationDuration: '3s' }}></div>
-                  </div>
+                  </a>
                   <p className="text-xs sm:text-sm text-gray-500 dark:text-gray-500 leading-relaxed max-w-[200px]">
                     The unified intelligence system for modern enterprises.
                   </p>
