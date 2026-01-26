@@ -1,30 +1,19 @@
 import React from 'react';
-import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { SupportedBy } from './components/SupportedBy';
-import { Problem } from './components/Problem';
-import { CoreIdea } from './components/CoreIdea';
-import { AlvioSuite } from './components/AlvioSuite';
-import { Enterprise } from './components/Enterprise';
-import { Integrations } from './components/Integrations';
-import { Individual } from './components/Individual';
-import { Footer } from './components/Footer';
+import { Routes, Route } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { EnterpriseSearchPage } from './pages/EnterpriseSearchPage';
+import { AppsPage } from './pages/AppsPage';
+import { AgentsPage } from './pages/AgentsPage';
 
 const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white selection:bg-accent-purple/20">
-      <Navbar />
-      <main>
-        <Hero />
-        <SupportedBy />
-        <Problem />
-        <CoreIdea />
-        <Enterprise />
-        <Integrations />
-        <AlvioSuite />
-        <Individual />
-      </main>
-      <Footer />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/enterprise-search" element={<EnterpriseSearchPage />} />
+        <Route path="/apps" element={<AppsPage />} />
+        <Route path="/agents" element={<AgentsPage />} />
+      </Routes>
     </div>
   );
 };

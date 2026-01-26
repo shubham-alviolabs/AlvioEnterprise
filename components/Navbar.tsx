@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Button } from './ui/Button';
 import { Menu, X, ChevronDown, Layout, Bot, User, Sun, Moon } from 'lucide-react';
 
@@ -77,11 +78,11 @@ export const Navbar: React.FC = () => {
   ];
 
   const engineSubItems = [
-    { href: '#engine', id: 'engine', label: 'Core Engine', color: 'from-blue-500 to-cyan-500' },
-    { href: '#solutions-enterprise', id: 'solutions-enterprise', label: 'Enterprise', color: 'from-accent-pink to-pink-600' },
-    { href: '#integrations', id: 'integrations', label: 'Integrations', color: 'from-green-500 to-emerald-500' },
-    { href: '#suite', id: 'suite', label: 'Architecture', color: 'from-accent-purple to-purple-600' },
-    { href: '#solutions-individual', id: 'solutions-individual', label: 'Personal', color: 'from-accent-orange to-yellow-500' },
+    { href: '/enterprise-search', id: 'search', label: 'Enterprise Search', color: 'from-accent-pink to-pink-600', isRoute: true },
+    { href: '/apps', id: 'apps', label: 'App Builder', color: 'from-accent-orange to-orange-600', isRoute: true },
+    { href: '/agents', id: 'agents', label: 'Workflow Agents', color: 'from-accent-purple to-purple-600', isRoute: true },
+    { href: '#integrations', id: 'integrations', label: 'Integrations', color: 'from-green-500 to-emerald-500', isRoute: false },
+    { href: '#suite', id: 'suite', label: 'Architecture', color: 'from-blue-500 to-cyan-500', isRoute: false },
   ];
 
   const isEngineActive = engineSubItems.some(item => item.id === activeSection);
@@ -190,27 +191,18 @@ export const Navbar: React.FC = () => {
                 <div className="bg-white/95 dark:bg-black/95 backdrop-blur-3xl border border-black/5 dark:border-white/10 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/50 overflow-hidden p-2 animate-in fade-in slide-in-from-top-2 duration-500">
                   {engineSubItems.map((item, index) => {
                     const isActive = activeSection === item.id;
-                    return (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        onClick={() => setEngineMenuOpen(false)}
-                        className={`group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
-                          isActive
-                            ? 'bg-black/5 dark:bg-white/10'
-                            : 'hover:bg-black/5 dark:hover:bg-white/5'
-                        }`}
-                        style={{ animationDelay: `${index * 50}ms` }}
-                      >
-                        {/* Gradient glow on hover */}
-                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${item.color} blur-2xl -z-10`}></div>
+                    const className = `group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
+                      isActive
+                        ? 'bg-black/5 dark:bg-white/10'
+                        : 'hover:bg-black/5 dark:hover:bg-white/5'
+                    }`;
 
-                        {/* Gradient dot indicator */}
+                    const content = (
+                      <>
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${item.color} blur-2xl -z-10`}></div>
                         <div className={`relative z-10 w-2 h-2 rounded-full bg-gradient-to-r ${item.color} transition-all duration-500 ease-out ${
                           isActive ? 'scale-125 opacity-100' : 'opacity-40 group-hover:opacity-70'
                         }`}></div>
-
-                        {/* Text */}
                         <div className="relative z-10 flex-1">
                           <div className={`text-sm font-semibold transition-all duration-500 ease-out ${
                             isActive
@@ -220,16 +212,34 @@ export const Navbar: React.FC = () => {
                             {item.label}
                           </div>
                         </div>
-
-                        {/* Active indicator dot */}
                         {isActive && (
                           <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${item.color} animate-pulse`}></div>
                         )}
-
-                        {/* Left border highlight on active */}
                         <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-8 w-1 rounded-r-full bg-gradient-to-b ${item.color} transition-all duration-500 ease-out ${
                           isActive ? 'opacity-100' : 'opacity-0'
                         }`}></div>
+                      </>
+                    );
+
+                    return item.isRoute ? (
+                      <Link
+                        key={item.href}
+                        to={item.href}
+                        onClick={() => setEngineMenuOpen(false)}
+                        className={className}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        {content}
+                      </Link>
+                    ) : (
+                      <a
+                        key={item.href}
+                        href={item.href}
+                        onClick={() => setEngineMenuOpen(false)}
+                        className={className}
+                        style={{ animationDelay: `${index * 50}ms` }}
+                      >
+                        {content}
                       </a>
                     );
                   })}
@@ -348,19 +358,36 @@ export const Navbar: React.FC = () => {
             <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Solutions</div>
             {engineSubItems.map((item) => {
               const isActive = activeSection === item.id;
-              return (
+              const className = `flex items-center gap-3 text-base font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
+                isActive
+                  ? 'text-gray-900 dark:text-white border-current'
+                  : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
+              }`;
+
+              const content = (
+                <>
+                  <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
+                  <span>{item.label}</span>
+                </>
+              );
+
+              return item.isRoute ? (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={className}
+                >
+                  {content}
+                </Link>
+              ) : (
                 <a
                   key={item.href}
                   href={item.href}
                   onClick={() => setMobileMenuOpen(false)}
-                  className={`flex items-center gap-3 text-base font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
-                    isActive
-                      ? 'text-gray-900 dark:text-white border-current'
-                      : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
-                  }`}
+                  className={className}
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full bg-gradient-to-r ${item.color} ${isActive ? 'opacity-100' : 'opacity-40'}`}></span>
-                  <span>{item.label}</span>
+                  {content}
                 </a>
               );
             })}
