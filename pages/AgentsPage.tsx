@@ -4,11 +4,6 @@ import { Footer } from '../components/Footer';
 import { Section } from '../components/ui/Section';
 import { FadeIn } from '../components/ui/FadeIn';
 import { Button } from '../components/ui/Button';
-import { CoreIdea } from '../components/CoreIdea';
-import { Enterprise } from '../components/Enterprise';
-import { Integrations } from '../components/Integrations';
-import { AlvioSuite } from '../components/AlvioSuite';
-import { Individual } from '../components/Individual';
 import {
   Zap, GitBranch, Clock, Sparkles, Play,
   CheckCircle2, ArrowRight, AlertCircle, Mail,
@@ -458,12 +453,6 @@ export const AgentsPage: React.FC = () => {
           </FadeIn>
         </div>
       </Section>
-
-      <CoreIdea />
-      <Enterprise />
-      <Integrations />
-      <AlvioSuite />
-      <Individual />
 
       <Footer />
     </div>
