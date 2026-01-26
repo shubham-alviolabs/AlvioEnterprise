@@ -6,9 +6,9 @@ import { ChevronRight } from 'lucide-react';
 const words = ["Finance.", "Sales.", "Legal.", "Engineering.", "Marketing."];
 
 const carouselTexts = [
-  "Stop searching and start solving. Alvio acts as the neural nervous system for your enterprise, fusing your isolated SaaS tools and databases into one living intelligence engine.",
-  "Securely ingest data from your entire stack, map relationships in real-time, and power context-aware agents that execute complex workflows without human intervention.",
-  "By unifying data and logic, Alvio transforms your organization from a collection of fragmented apps into a single, cohesive, and intelligent operating system."
+  "What if all your data could talk to each other? ALVIO connects your tools, documents, and systems so AI can actually help you work—not just chat.",
+  "No more switching between apps. No more copy-pasting. ALVIO learns from your entire organization and helps everyone find answers, build faster, and get work done.",
+  "Built for real teams and real work. Whether you're a startup or an enterprise, ALVIO makes AI accessible, practical, and powerful for everyone."
 ];
 
 export const Hero: React.FC = () => {
@@ -87,7 +87,7 @@ export const Hero: React.FC = () => {
             <div className="mb-6 flex items-center gap-2">
                  <div className="h-[1px] w-8 bg-accent-orange/50"></div>
                  <span className="text-xs font-mono font-medium tracking-[0.2em] text-accent-orange uppercase">
-                    The Enterprise OS for AI
+                    AI That Actually Works
                  </span>
             </div>
 

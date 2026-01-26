@@ -47,10 +47,10 @@ export const Enterprise: React.FC = () => {
                     <span className="text-[10px] uppercase tracking-widest text-gray-500 dark:text-gray-400">Enterprise OS • SOC2 Type II</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-medium text-gray-900 dark:text-white mb-6 tracking-tight">
-                    One OS. <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-600 to-gray-400 dark:from-white dark:via-gray-400 dark:to-gray-600">Four Engines.</span>
+                    Four Ways <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-600 to-gray-400 dark:from-white dark:via-gray-400 dark:to-gray-600">ALVIO Helps.</span>
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">
-                    Fluid intelligence that adapts to your organization's shape.
+                    One platform. Multiple ways to work smarter.
                 </p>
             </div>
         </FadeIn>
@@ -90,18 +90,18 @@ export const Enterprise: React.FC = () => {
                 <div className="animate-in fade-in slide-in-from-bottom-8 duration-700 grid lg:grid-cols-2 gap-20 items-center">
                     <div className="order-2 lg:order-1">
                         <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 dark:text-white mb-6 leading-tight">
-                            The Neural Index. <br/>
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink to-pink-600 dark:to-white">Total Recall.</span>
+                            Find Anything. <br/>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink to-pink-600 dark:to-white">Instantly.</span>
                         </h3>
                         <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed font-light">
-                            Alvio connects to Salesforce, Jira, Slack, Drive, and 180+ other enterprise tools. 
-                            It ingests unstructured data and creates a secure, permission-aware neural index.
+                            ALVIO connects to Salesforce, Slack, Google Drive, Notion, and 180+ other tools.
+                            Search across everything at once. Find documents, messages, and data your team actually needs.
                         </p>
                         <ul className="space-y-4 mb-10">
                             {[
-                                "Native integrations for SaaS & SQL databases",
-                                "Real-time permission inheritance (RBAC/ACL)",
-                                "Vector + Keyword hybrid search"
+                                "Connects to all your existing tools",
+                                "Only shows what you have permission to see",
+                                "Understands what you're actually looking for"
                             ].map((item, i) => (
                                 <li key={i} className="flex items-center gap-3 text-gray-700 dark:text-gray-300">
                                     <div className="w-1.5 h-1.5 rounded-full bg-accent-pink shadow-[0_0_5px_#FF0080]"></div>

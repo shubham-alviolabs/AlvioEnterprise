@@ -16,17 +16,17 @@ export const Individual: React.FC = () => {
                 <span className="w-2 h-2 bg-accent-orange rounded-full shadow-[0_0_10px_#F97316]"></span>
                 <span className="text-accent-orange font-medium tracking-widest text-xs uppercase">ALVIO for Individuals</span>
               </div>
-              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 dark:text-white mb-6">A personal AI system that <br className="hidden sm:block"/>plans, executes, and remembers.</h2>
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-medium text-gray-900 dark:text-white mb-6">AI that helps you <br className="hidden sm:block"/>think, plan, and get things done.</h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 mb-8">
-                Designed for deep thinking, long-running tasks, and personal workflows. Not just conversational — operational.
+                Not just a chatbot. A thinking partner that remembers what you're working on and actually helps you finish.
               </p>
-              
+
               <div className="space-y-4 mb-8">
                 {[
-                  "Understands your goals and context",
-                  "Breaks complex work into steps",
-                  "Uses tools to execute actions",
-                  "Maintains continuity over time"
+                  "Remembers your projects and preferences",
+                  "Breaks down big tasks into clear steps",
+                  "Can take action and use your tools",
+                  "Works with you over weeks and months"
                 ].map((item, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <CheckCircle2 className="w-6 h-6 text-accent-orange mt-0.5" />

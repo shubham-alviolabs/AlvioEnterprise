@@ -32,14 +32,14 @@ export const CoreIdea: React.FC = () => {
              <FadeIn>
                 <div className="inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full border border-black/10 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-md">
                     <Cpu size={12} className="text-gray-900 dark:text-white" />
-                    <span className="text-xs font-mono uppercase tracking-widest text-gray-900 dark:text-white">The Central Nervous System</span>
+                    <span className="text-xs font-mono uppercase tracking-widest text-gray-900 dark:text-white">How It Works</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-6">
-                  The Alvio <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-600 to-gray-400 dark:from-white dark:via-gray-300 dark:to-gray-500">Engine.</span>
+                  One System. <span className="text-transparent bg-clip-text bg-gradient-to-br from-gray-900 via-gray-600 to-gray-400 dark:from-white dark:via-gray-300 dark:to-gray-500">Everything Connected.</span>
                 </h2>
                 <p className="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">
-                   Raw data flows in. Intelligence flows out. <br/>
-                   One core to power your search, apps, and agents.
+                   Connect your tools. ALVIO learns from everything. <br/>
+                   Then it helps you search, build, and automate.
                 </p>
              </FadeIn>
           </div>

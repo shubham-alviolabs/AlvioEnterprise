@@ -22,11 +22,11 @@ export const Problem: React.FC = () => {
                     <span className="text-xs font-mono uppercase tracking-widest text-gray-500 dark:text-gray-400">The Current Reality</span>
                 </div>
                 <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-6 sm:mb-8 leading-[1.1]">
-                    Intelligence <br/>
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 via-gray-700 to-gray-900 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600">Disconnected.</span>
+                    Your Tools <br/>
+                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-500 via-gray-700 to-gray-900 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600">Don't Talk.</span>
                 </h2>
                 <p className="text-base sm:text-lg lg:text-xl text-gray-600 dark:text-gray-400 mb-8 sm:mb-12 font-light leading-relaxed max-w-lg">
-                    Before fusion, there is fragmentation. Your data, logic, and interface exist as isolated liquid islands—heavy, dark, and unable to communicate.
+                    Your team uses dozens of apps. But they don't connect. Data sits trapped in silos. AI can't help because it can't see what you need.
                 </p>
             </FadeIn>
 
@@ -34,25 +34,25 @@ export const Problem: React.FC = () => {
                  {[
                     {
                         id: 0,
-                        title: "Frozen Data Lakes",
-                        subtitle: "Inaccessible",
-                        desc: "Your knowledge is trapped in static files and closed APIs, creating 'Dark Data' that AI cannot reach.",
+                        title: "Data Trapped Everywhere",
+                        subtitle: "Can't Access It",
+                        desc: "Information lives in Slack, emails, documents, and databases. When you need it, you can't find it. Neither can AI.",
                         icon: Database,
                         color: "bg-accent-pink"
                     },
                     {
                         id: 1,
-                        title: "Brittle Logic Scripts",
-                        subtitle: "Unscalable",
-                        desc: "Workflows are hard-coded. One change in a tool breaks the entire chain, requiring constant maintenance.",
+                        title: "Automations That Break",
+                        subtitle: "Fragile",
+                        desc: "You build a workflow, then a tool updates and everything stops working. Maintaining it takes more time than doing it manually.",
                         icon: ZapOff,
                         color: "bg-accent-purple"
                     },
                     {
                         id: 2,
-                        title: "Fragmented Interfaces",
-                        subtitle: "Inefficient",
-                        desc: "Users context-switch between 10+ dashboards daily. Information is visible but disconnected from action.",
+                        title: "Too Many Apps",
+                        subtitle: "Overwhelming",
+                        desc: "Your team switches between 10+ tools every day. Everyone's exhausted from searching, copying, and pasting the same information.",
                         icon: Layers,
                         color: "bg-accent-orange"
                     }
