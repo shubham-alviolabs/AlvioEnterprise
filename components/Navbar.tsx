@@ -4,6 +4,7 @@ import { Button } from './ui/Button';
 import { Menu, X, ChevronDown, Layout, Bot, User, Sun, Moon } from 'lucide-react';
 
 export const Navbar: React.FC = () => {
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [loginMenuOpen, setLoginMenuOpen] = useState(false);
@@ -78,7 +79,7 @@ export const Navbar: React.FC = () => {
   };
 
   const mainNavLinks = [
-    { href: '#', id: 'home', label: 'Home', color: 'from-gray-400 to-gray-600' },
+    { href: '/', id: 'home', label: 'Home', color: 'from-gray-400 to-gray-600' },
     { href: '#problem', id: 'problem', label: 'Problem', color: 'from-accent-orange to-red-500' },
   ];
 
@@ -96,8 +97,17 @@ export const Navbar: React.FC = () => {
   const isSolutionsActive = solutionsSubItems.some(item => item.id === activeSection);
   const activeSolutionsItem = solutionsSubItems.find(item => item.id === activeSection);
 
-  const isPlatformActive = platformSubItems.some(item => item.id === activeSection);
-  const activePlatformItem = platformSubItems.find(item => item.id === activeSection);
+  // Determine active platform item based on route
+  const getCurrentPlatformItem = () => {
+    if (location.pathname === '/enterprise-search') return platformSubItems.find(item => item.id === 'search');
+    if (location.pathname === '/apps') return platformSubItems.find(item => item.id === 'apps');
+    if (location.pathname === '/agents') return platformSubItems.find(item => item.id === 'agents');
+    return platformSubItems.find(item => item.id === activeSection);
+  };
+
+  const isPlatformActive = platformSubItems.some(item => item.id === activeSection) ||
+                          ['/enterprise-search', '/apps', '/agents'].includes(location.pathname);
+  const activePlatformItem = getCurrentPlatformItem();
 
   return (
     <nav
@@ -109,22 +119,25 @@ export const Navbar: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
         {/* LOGO */}
-        <div className="flex items-center group cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
+        <Link to="/" className="flex items-center group">
            <img
              src="/logo.png"
              alt="ALVIO Labs"
              className="h-8 md:h-10 w-auto hover:scale-105 transition-all duration-500 ease-out"
            />
-        </div>
+        </Link>
 
         {/* Desktop Navigation - Apple-like Premium Design */}
         <div className="hidden lg:flex items-center gap-1">
           {mainNavLinks.map((link) => {
-            const isActive = activeSection === link.id;
+            const isActive = link.id === 'home' ? location.pathname === '/' : activeSection === link.id;
+            const LinkComponent = link.id === 'home' ? Link : 'a';
+            const linkProps = link.id === 'home' ? { to: link.href } : { href: link.href };
+
             return (
-              <a
+              <LinkComponent
                 key={link.href}
-                href={link.href}
+                {...linkProps}
                 className={`group relative px-5 py-2.5 text-sm font-medium transition-all duration-500 ease-out rounded-full ${
                   isActive
                     ? 'text-gray-900 dark:text-white'
@@ -145,7 +158,7 @@ export const Navbar: React.FC = () => {
                 <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full transition-all duration-500 ease-out bg-gradient-to-r ${link.color} ${
                   isActive ? 'w-[60%] opacity-100' : 'w-0 opacity-0'
                 }`}></div>
-              </a>
+              </LinkComponent>
             );
           })}
 
@@ -200,6 +213,15 @@ export const Navbar: React.FC = () => {
                 onMouseLeave={() => setSolutionsMenuOpen(false)}
               >
                 <div className="bg-white/95 dark:bg-black/95 backdrop-blur-3xl border border-black/5 dark:border-white/10 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/50 overflow-hidden p-2 animate-in fade-in slide-in-from-top-2 duration-500">
+                  {/* Logo Header */}
+                  <div className="px-4 pt-3 pb-2 mb-2 border-b border-black/5 dark:border-white/10">
+                    <img
+                      src="/logo.png"
+                      alt="ALVIO Solutions"
+                      className="h-6 w-auto mx-auto opacity-80"
+                    />
+                  </div>
+
                   {solutionsSubItems.map((item, index) => {
                     const isActive = activeSection === item.id;
                     const className = `group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
@@ -301,7 +323,7 @@ export const Navbar: React.FC = () => {
               >
                 <div className="bg-white/95 dark:bg-black/95 backdrop-blur-3xl border border-black/5 dark:border-white/10 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/50 overflow-hidden p-2 animate-in fade-in slide-in-from-top-2 duration-500">
                   {platformSubItems.map((item, index) => {
-                    const isActive = activeSection === item.id;
+                    const isActive = (location.pathname === item.href) || (activeSection === item.id);
                     const className = `group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
                       isActive
                         ? 'bg-black/5 dark:bg-white/10'
@@ -438,11 +460,14 @@ export const Navbar: React.FC = () => {
       {mobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white/95 dark:bg-black/95 backdrop-blur-3xl border-b border-gray-200 dark:border-white/10 p-6 lg:hidden flex flex-col gap-4 animate-slide-up-fade shadow-2xl">
           {mainNavLinks.map((link) => {
-            const isActive = activeSection === link.id;
+            const isActive = link.id === 'home' ? location.pathname === '/' : activeSection === link.id;
+            const LinkComponent = link.id === 'home' ? Link : 'a';
+            const linkProps = link.id === 'home' ? { to: link.href } : { href: link.href };
+
             return (
-              <a
+              <LinkComponent
                 key={link.href}
-                href={link.href}
+                {...linkProps}
                 onClick={() => setMobileMenuOpen(false)}
                 className={`relative text-lg font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
                   isActive
@@ -451,7 +476,7 @@ export const Navbar: React.FC = () => {
                 }`}
               >
                 {link.label}
-              </a>
+              </LinkComponent>
             );
           })}
 
@@ -482,7 +507,7 @@ export const Navbar: React.FC = () => {
           <div className="pl-4">
             <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Platform</div>
             {platformSubItems.map((item) => {
-              const isActive = activeSection === item.id;
+              const isActive = (location.pathname === item.href) || (activeSection === item.id);
               const className = `flex items-center gap-3 text-base font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out ${
                 isActive
                   ? 'text-gray-900 dark:text-white border-current'
