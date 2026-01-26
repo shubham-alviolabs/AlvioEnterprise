@@ -73,17 +73,38 @@ export const Navbar: React.FC = () => {
   };
 
   const mainNavLinks = [
-    { href: '/', id: 'home', label: 'Home', color: 'from-gray-400 to-gray-600', isRoute: true },
-    { href: '#problem', id: 'problem', label: 'Problem', color: 'from-accent-orange to-red-500', isRoute: false },
-    { href: '#solutions-enterprise', id: 'solutions-enterprise', label: 'Solutions', color: 'from-blue-500 to-cyan-500', isRoute: false },
+    { href: '#solutions-enterprise', id: 'solutions-enterprise', label: 'Solutions', color: 'from-accent-pink to-pink-600', isRoute: false },
+    { href: '#engine', id: 'engine', label: 'How it Works', color: 'from-blue-500 to-cyan-500', isRoute: false },
     { href: '#integrations', id: 'integrations', label: 'Integrations', color: 'from-green-500 to-emerald-500', isRoute: false },
+  ];
+
+  const navLinksAfterEngine = [
     { href: '#suite', id: 'suite', label: 'Architecture', color: 'from-accent-purple to-purple-600', isRoute: false },
+    { href: '#solutions-individual', id: 'solutions-individual', label: 'Alvio Chat', color: 'from-blue-400 to-blue-600', isRoute: false },
   ];
 
   const engineSubItems = [
-    { href: '/enterprise-search', id: 'search', label: 'Enterprise Search', color: 'from-accent-pink to-pink-600', icon: Search },
-    { href: '/apps', id: 'apps', label: 'App Builder', color: 'from-accent-orange to-orange-600', icon: Layout },
-    { href: '/agents', id: 'agents', label: 'Workflow Agents', color: 'from-accent-purple to-purple-600', icon: Zap },
+    {
+      href: '/enterprise-search',
+      id: 'search',
+      label: 'Enterprise Search',
+      color: 'from-accent-pink to-pink-600',
+      description: 'Find anything across your tools'
+    },
+    {
+      href: '/apps',
+      id: 'apps',
+      label: 'App Builder',
+      color: 'from-accent-orange to-orange-600',
+      description: 'Build custom apps with prompts'
+    },
+    {
+      href: '/agents',
+      id: 'agents',
+      label: 'Workflow Agents',
+      color: 'from-accent-purple to-purple-600',
+      description: 'Automate work with AI workflows'
+    },
   ];
 
   const location = useLocation();
@@ -176,13 +197,13 @@ export const Navbar: React.FC = () => {
               }`}></div>
             </button>
 
-            {/* Fancy Engine Dropdown Menu */}
+            {/* Premium Liquid Mercury Retina Dropdown */}
             {engineMenuOpen && (
               <div
-                className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-96"
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[420px]"
                 onMouseLeave={() => setEngineMenuOpen(false)}
               >
-                <div className="bg-white/95 dark:bg-black/95 backdrop-blur-3xl border border-black/5 dark:border-white/10 rounded-3xl shadow-2xl shadow-black/10 dark:shadow-black/50 overflow-hidden p-3 animate-in fade-in slide-in-from-top-2 duration-500">
+                <div className="bg-white/80 dark:bg-black/80 backdrop-blur-3xl border border-black/10 dark:border-white/20 rounded-3xl shadow-[0_20px_70px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_rgba(0,0,0,0.9)] overflow-hidden p-4 animate-in fade-in slide-in-from-top-2 duration-500">
                   {engineSubItems.map((item, index) => {
                     const isActive = location.pathname === item.href;
 
@@ -191,51 +212,97 @@ export const Navbar: React.FC = () => {
                         key={item.href}
                         to={item.href}
                         onClick={() => setEngineMenuOpen(false)}
-                        className={`group relative flex items-center gap-4 p-4 rounded-2xl transition-all duration-500 ease-out ${
+                        className={`group relative flex items-center gap-4 p-5 rounded-2xl transition-all duration-700 ease-out mb-2 last:mb-0 ${
                           isActive
-                            ? 'bg-gradient-to-r from-black/5 to-transparent dark:from-white/10 dark:to-transparent'
-                            : 'hover:bg-black/5 dark:hover:bg-white/5'
+                            ? 'bg-gradient-to-r from-black/10 to-transparent dark:from-white/15 dark:to-transparent'
+                            : 'hover:bg-black/5 dark:hover:bg-white/10'
                         }`}
                         style={{ animationDelay: `${index * 50}ms` }}
                       >
-                        {/* Gradient glow on hover */}
-                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${item.color} blur-2xl -z-10`}></div>
+                        {/* Liquid gradient glow on hover - Mercury effect */}
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out bg-gradient-to-r ${item.color} blur-3xl -z-10 scale-150`}></div>
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-50 transition-all duration-700 ease-out bg-gradient-to-br ${item.color} blur-xl`}></div>
 
-                        {/* Icon */}
-                        <div className={`relative z-10 w-12 h-12 rounded-xl bg-gradient-to-br ${item.color} opacity-10 dark:opacity-20 flex items-center justify-center transition-all duration-500 ease-out group-hover:opacity-20 dark:group-hover:opacity-30`}>
-                          <item.icon className={`w-6 h-6 text-transparent bg-clip-text bg-gradient-to-r ${item.color}`} style={{
-                            WebkitTextFillColor: 'transparent',
-                            WebkitBackgroundClip: 'text',
-                            backgroundClip: 'text'
-                          }} />
+                        {/* Liquid Mercury Icon Container */}
+                        <div className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-700 ease-out group-hover:scale-110 overflow-hidden">
+                          {/* Glass morphism layers */}
+                          <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-20 dark:opacity-30 group-hover:opacity-40 transition-all duration-700`}></div>
+                          <div className="absolute inset-0 bg-white/40 dark:bg-white/10 backdrop-blur-md"></div>
+                          <div className={`absolute inset-0 border border-white/40 dark:border-white/20 rounded-2xl`}></div>
+
+                          {/* Liquid shimmer effect */}
+                          <div className={`absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-transparent opacity-50 group-hover:opacity-100 transition-all duration-700`}></div>
+                          <div className={`absolute -inset-1 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-30 blur-md transition-all duration-700`}></div>
+
+                          {/* Icon SVGs with custom designs */}
+                          <div className="relative z-10">
+                            {item.id === 'search' && (
+                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                                <defs>
+                                  <linearGradient id="searchGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#FF0080" />
+                                    <stop offset="100%" stopColor="#FF1493" />
+                                  </linearGradient>
+                                </defs>
+                                <circle cx="14" cy="14" r="8" stroke="url(#searchGrad)" strokeWidth="2.5" fill="none" opacity="0.9"/>
+                                <path d="M20 20L26 26" stroke="url(#searchGrad)" strokeWidth="2.5" strokeLinecap="round" opacity="0.9"/>
+                                <circle cx="14" cy="14" r="4" fill="url(#searchGrad)" opacity="0.3"/>
+                              </svg>
+                            )}
+                            {item.id === 'apps' && (
+                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                                <defs>
+                                  <linearGradient id="appsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#FF6B00" />
+                                    <stop offset="100%" stopColor="#FF8C00" />
+                                  </linearGradient>
+                                </defs>
+                                <rect x="4" y="4" width="10" height="10" rx="2" stroke="url(#appsGrad)" strokeWidth="2" fill="url(#appsGrad)" opacity="0.3"/>
+                                <rect x="18" y="4" width="10" height="10" rx="2" stroke="url(#appsGrad)" strokeWidth="2" fill="none" opacity="0.9"/>
+                                <rect x="4" y="18" width="10" height="10" rx="2" stroke="url(#appsGrad)" strokeWidth="2" fill="none" opacity="0.9"/>
+                                <rect x="18" y="18" width="10" height="10" rx="2" stroke="url(#appsGrad)" strokeWidth="2" fill="url(#appsGrad)" opacity="0.3"/>
+                              </svg>
+                            )}
+                            {item.id === 'agents' && (
+                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
+                                <defs>
+                                  <linearGradient id="agentsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stopColor="#7928CA" />
+                                    <stop offset="100%" stopColor="#9333EA" />
+                                  </linearGradient>
+                                </defs>
+                                <path d="M16 4L26 16L16 28L6 16L16 4Z" stroke="url(#agentsGrad)" strokeWidth="2" fill="url(#agentsGrad)" opacity="0.2"/>
+                                <path d="M16 10L22 16L16 22L10 16L16 10Z" stroke="url(#agentsGrad)" strokeWidth="2" fill="none" opacity="0.9"/>
+                                <circle cx="16" cy="16" r="3" fill="url(#agentsGrad)" opacity="0.6"/>
+                              </svg>
+                            )}
+                          </div>
                         </div>
 
                         {/* Text */}
                         <div className="relative z-10 flex-1">
-                          <div className={`text-base font-semibold transition-all duration-500 ease-out mb-1 ${
+                          <div className={`text-lg font-bold transition-all duration-500 ease-out mb-0.5 ${
                             isActive
                               ? 'text-gray-900 dark:text-white'
-                              : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white'
+                              : 'text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white'
                           }`}>
                             {item.label}
                           </div>
-                          <div className="text-xs text-gray-500 dark:text-gray-500">
-                            {item.id === 'search' && 'Find anything across your tools'}
-                            {item.id === 'apps' && 'Build custom apps with prompts'}
-                            {item.id === 'agents' && 'Automate work with AI workflows'}
+                          <div className="text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-all duration-500">
+                            {item.description}
                           </div>
                         </div>
 
-                        {/* Arrow indicator */}
+                        {/* Arrow indicator with liquid effect */}
                         <div className={`relative z-10 transition-all duration-500 ease-out ${
-                          isActive ? 'opacity-100' : 'opacity-0 group-hover:opacity-60'
+                          isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
                         }`}>
-                          <ChevronDown size={16} className="-rotate-90" />
+                          <ChevronDown size={18} className="-rotate-90" />
                         </div>
 
-                        {/* Left border highlight on active */}
-                        <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-12 w-1 rounded-r-full bg-gradient-to-b ${item.color} transition-all duration-500 ease-out ${
-                          isActive ? 'opacity-100' : 'opacity-0'
+                        {/* Left border highlight with liquid shine */}
+                        <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-14 w-1.5 rounded-r-full bg-gradient-to-b ${item.color} transition-all duration-500 ease-out shadow-lg ${
+                          isActive ? 'opacity-100 shadow-current' : 'opacity-0'
                         }`}></div>
                       </Link>
                     );
@@ -244,6 +311,32 @@ export const Navbar: React.FC = () => {
               </div>
             )}
           </div>
+
+          {/* Links After Engine */}
+          {navLinksAfterEngine.map((link) => {
+            const isActive = activeSection === link.id;
+
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                className={`group relative px-5 py-2.5 text-sm font-medium transition-all duration-500 ease-out rounded-full ${
+                  isActive
+                    ? 'text-gray-900 dark:text-white'
+                    : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                }`}
+              >
+                <span className="relative z-10">{link.label}</span>
+                {isActive && (
+                  <div className="absolute inset-0 bg-black/5 dark:bg-white/10 rounded-full transition-all duration-500 ease-out"></div>
+                )}
+                <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${link.color} blur-xl -z-10 scale-150`}></div>
+                <div className={`absolute bottom-0 left-1/2 -translate-x-1/2 h-0.5 rounded-full transition-all duration-500 ease-out bg-gradient-to-r ${link.color} ${
+                  isActive ? 'w-[60%] opacity-100' : 'w-0 opacity-0'
+                }`}></div>
+              </a>
+            );
+          })}
         </div>
 
         <div className="hidden lg:flex items-center gap-4">
@@ -365,6 +458,25 @@ export const Navbar: React.FC = () => {
             );
           })}
 
+          {navLinksAfterEngine.map((link) => {
+            const isActive = activeSection === link.id;
+
+            return (
+              <a
+                key={link.href}
+                href={link.href}
+                onClick={() => setMobileMenuOpen(false)}
+                className={`relative text-lg font-medium py-2 pl-4 border-l-2 transition-all duration-500 ease-out block ${
+                  isActive
+                    ? 'text-gray-900 dark:text-white border-current'
+                    : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
+                }`}
+              >
+                {link.label}
+              </a>
+            );
+          })}
+
           <div className="pl-4">
             <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Engine</div>
             {engineSubItems.map((item) => {
@@ -381,7 +493,6 @@ export const Navbar: React.FC = () => {
                       : 'text-gray-700 dark:text-gray-300 border-transparent hover:text-gray-900 dark:hover:text-white hover:border-current'
                   }`}
                 >
-                  <item.icon size={16} className={`${isActive ? 'opacity-100' : 'opacity-60'}`} />
                   <span>{item.label}</span>
                 </Link>
               );
