@@ -11,9 +11,11 @@ export const Navbar: React.FC = () => {
   const [engineMenuOpen, setEngineMenuOpen] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [activeSection, setActiveSection] = useState('home');
+  const [autoScrollIndex, setAutoScrollIndex] = useState(0);
   const loginRef = useRef<HTMLDivElement>(null);
   const solutionsRef = useRef<HTMLDivElement>(null);
   const engineRef = useRef<HTMLDivElement>(null);
+  const autoScrollTimerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     // Check initial theme
@@ -62,8 +64,44 @@ export const Navbar: React.FC = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       document.removeEventListener('mousedown', handleClickOutside);
+      if (autoScrollTimerRef.current) {
+        clearInterval(autoScrollTimerRef.current);
+      }
     };
   }, []);
+
+  // Auto-scroll effect when Solutions dropdown is open
+  useEffect(() => {
+    if (solutionsMenuOpen && location.pathname === '/') {
+      setAutoScrollIndex(0);
+
+      autoScrollTimerRef.current = setInterval(() => {
+        setAutoScrollIndex((prevIndex) => {
+          const nextIndex = (prevIndex + 1) % solutionsSubItems.length;
+
+          // Scroll to the section
+          const section = document.getElementById(solutionsSubItems[nextIndex].id);
+          if (section) {
+            section.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          }
+
+          return nextIndex;
+        });
+      }, 2500); // Change section every 2.5 seconds
+    } else {
+      if (autoScrollTimerRef.current) {
+        clearInterval(autoScrollTimerRef.current);
+        autoScrollTimerRef.current = null;
+      }
+    }
+
+    return () => {
+      if (autoScrollTimerRef.current) {
+        clearInterval(autoScrollTimerRef.current);
+        autoScrollTimerRef.current = null;
+      }
+    };
+  }, [solutionsMenuOpen, location.pathname]);
 
   const toggleTheme = () => {
     if (isDark) {
@@ -228,13 +266,13 @@ export const Navbar: React.FC = () => {
               }`}></div>
             </button>
 
-            {/* Premium Liquid Mercury Retina Dropdown for Solutions */}
+            {/* Compact Dropdown for Solutions with Auto-scroll indicator */}
             {solutionsMenuOpen && (
               <div
-                className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[420px]"
+                className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[240px]"
                 onMouseLeave={() => setSolutionsMenuOpen(false)}
               >
-                <div className="bg-white/80 dark:bg-black/80 backdrop-blur-3xl border border-black/10 dark:border-white/20 rounded-3xl shadow-[0_20px_70px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_rgba(0,0,0,0.9)] overflow-hidden p-4 animate-in fade-in slide-in-from-top-2 duration-500">
+                <div className="bg-white/80 dark:bg-black/80 backdrop-blur-3xl border border-black/10 dark:border-white/20 rounded-2xl shadow-[0_20px_70px_rgba(0,0,0,0.3)] dark:shadow-[0_20px_70px_rgba(0,0,0,0.9)] overflow-hidden p-2 animate-in fade-in slide-in-from-top-2 duration-500">
                   {solutionsSubItems.map((item, index) => {
                     const isActive = activeSection === item.id;
 
@@ -243,118 +281,38 @@ export const Navbar: React.FC = () => {
                         key={item.href}
                         href={item.href}
                         onClick={() => setSolutionsMenuOpen(false)}
-                        className={`group relative flex items-center gap-4 p-5 rounded-2xl transition-all duration-700 ease-out mb-2 last:mb-0 ${
+                        className={`group relative flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-500 ease-out mb-1 last:mb-0 ${
                           isActive
                             ? 'bg-gradient-to-r from-black/10 to-transparent dark:from-white/15 dark:to-transparent'
                             : 'hover:bg-black/5 dark:hover:bg-white/10'
                         }`}
                         style={{ animationDelay: `${index * 50}ms` }}
                       >
-                        {/* Liquid gradient glow on hover - Mercury effect */}
-                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-700 ease-out bg-gradient-to-r ${item.color} blur-3xl -z-10 scale-150`}></div>
-                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-50 transition-all duration-700 ease-out bg-gradient-to-br ${item.color} blur-xl`}></div>
+                        {/* Liquid gradient glow on hover */}
+                        <div className={`absolute inset-0 opacity-0 group-hover:opacity-100 transition-all duration-500 ease-out bg-gradient-to-r ${item.color} blur-xl -z-10`}></div>
 
-                        {/* Liquid Mercury Icon Container */}
-                        <div className="relative z-10 w-16 h-16 rounded-2xl flex items-center justify-center transition-all duration-700 ease-out group-hover:scale-110 overflow-hidden">
-                          {/* Glass morphism layers */}
-                          <div className={`absolute inset-0 bg-gradient-to-br ${item.color} opacity-20 dark:opacity-30 group-hover:opacity-40 transition-all duration-700`}></div>
-                          <div className="absolute inset-0 bg-white/40 dark:bg-white/10 backdrop-blur-md"></div>
-                          <div className={`absolute inset-0 border border-white/40 dark:border-white/20 rounded-2xl`}></div>
-
-                          {/* Liquid shimmer effect */}
-                          <div className={`absolute inset-0 bg-gradient-to-br from-white/60 via-transparent to-transparent opacity-50 group-hover:opacity-100 transition-all duration-700`}></div>
-                          <div className={`absolute -inset-1 bg-gradient-to-r ${item.color} opacity-0 group-hover:opacity-30 blur-md transition-all duration-700`}></div>
-
-                          {/* Icon SVGs with custom designs */}
-                          <div className="relative z-10">
-                            {item.id === 'solutions-enterprise' && (
-                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                                <defs>
-                                  <linearGradient id="enterpriseGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="#FF0080" />
-                                    <stop offset="100%" stopColor="#FF1493" />
-                                  </linearGradient>
-                                </defs>
-                                <rect x="6" y="8" width="20" height="18" rx="2" stroke="url(#enterpriseGrad)" strokeWidth="2" fill="none" opacity="0.9"/>
-                                <path d="M6 12 L26 12" stroke="url(#enterpriseGrad)" strokeWidth="2" opacity="0.9"/>
-                                <circle cx="10" cy="10" r="1" fill="url(#enterpriseGrad)" opacity="0.7"/>
-                                <circle cx="13" cy="10" r="1" fill="url(#enterpriseGrad)" opacity="0.7"/>
-                                <circle cx="16" cy="10" r="1" fill="url(#enterpriseGrad)" opacity="0.7"/>
-                                <rect x="10" y="16" width="12" height="2" rx="1" fill="url(#enterpriseGrad)" opacity="0.5"/>
-                                <rect x="10" y="20" width="8" height="2" rx="1" fill="url(#enterpriseGrad)" opacity="0.5"/>
-                              </svg>
-                            )}
-                            {item.id === 'integrations' && (
-                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                                <defs>
-                                  <linearGradient id="integrationsGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="#10B981" />
-                                    <stop offset="100%" stopColor="#059669" />
-                                  </linearGradient>
-                                </defs>
-                                <circle cx="8" cy="16" r="4" stroke="url(#integrationsGrad)" strokeWidth="2" fill="url(#integrationsGrad)" opacity="0.3"/>
-                                <circle cx="24" cy="16" r="4" stroke="url(#integrationsGrad)" strokeWidth="2" fill="url(#integrationsGrad)" opacity="0.3"/>
-                                <path d="M12 16 L20 16" stroke="url(#integrationsGrad)" strokeWidth="2.5" strokeLinecap="round" opacity="0.9"/>
-                                <circle cx="16" cy="16" r="2" fill="url(#integrationsGrad)" opacity="0.9"/>
-                              </svg>
-                            )}
-                            {item.id === 'suite' && (
-                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                                <defs>
-                                  <linearGradient id="suiteGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="#7928CA" />
-                                    <stop offset="100%" stopColor="#9333EA" />
-                                  </linearGradient>
-                                </defs>
-                                <rect x="4" y="4" width="24" height="24" rx="3" stroke="url(#suiteGrad)" strokeWidth="2" fill="none" opacity="0.9"/>
-                                <path d="M4 12 L28 12" stroke="url(#suiteGrad)" strokeWidth="2" opacity="0.7"/>
-                                <path d="M12 12 L12 28" stroke="url(#suiteGrad)" strokeWidth="2" opacity="0.7"/>
-                                <circle cx="8" cy="8" r="1.5" fill="url(#suiteGrad)" opacity="0.8"/>
-                                <rect x="16" y="16" width="8" height="2" rx="1" fill="url(#suiteGrad)" opacity="0.5"/>
-                                <rect x="16" y="20" width="6" height="2" rx="1" fill="url(#suiteGrad)" opacity="0.5"/>
-                              </svg>
-                            )}
-                            {item.id === 'solutions-individual' && (
-                              <svg className="w-8 h-8" viewBox="0 0 32 32" fill="none">
-                                <defs>
-                                  <linearGradient id="chatGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                    <stop offset="0%" stopColor="#3B82F6" />
-                                    <stop offset="100%" stopColor="#2563EB" />
-                                  </linearGradient>
-                                </defs>
-                                <path d="M6 8 C6 6 7 5 9 5 L23 5 C25 5 26 6 26 8 L26 20 C26 22 25 23 23 23 L14 23 L8 27 L8 23 C6 23 6 22 6 20 Z" stroke="url(#chatGrad)" strokeWidth="2" fill="url(#chatGrad)" opacity="0.2"/>
-                                <path d="M10 12 L22 12" stroke="url(#chatGrad)" strokeWidth="2" strokeLinecap="round" opacity="0.9"/>
-                                <path d="M10 16 L18 16" stroke="url(#chatGrad)" strokeWidth="2" strokeLinecap="round" opacity="0.9"/>
-                              </svg>
-                            )}
-                          </div>
-                        </div>
+                        {/* Icon indicator */}
+                        <div className={`w-1.5 h-1.5 rounded-full transition-all duration-500 bg-gradient-to-br ${item.color} ${
+                          isActive ? 'opacity-100 scale-100' : 'opacity-40 scale-75 group-hover:opacity-100 group-hover:scale-100'
+                        }`}></div>
 
                         {/* Text */}
                         <div className="relative z-10 flex-1">
-                          <div className={`text-lg font-bold transition-all duration-500 ease-out mb-0.5 ${
+                          <div className={`text-sm font-semibold transition-all duration-500 ease-out ${
                             isActive
                               ? 'text-gray-900 dark:text-white'
-                              : 'text-gray-800 dark:text-gray-200 group-hover:text-gray-900 dark:group-hover:text-white'
+                              : 'text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white'
                           }`}>
                             {item.label}
                           </div>
-                          <div className="text-xs font-medium text-gray-600 dark:text-gray-400 group-hover:text-gray-700 dark:group-hover:text-gray-300 transition-all duration-500">
-                            {item.description}
-                          </div>
                         </div>
 
-                        {/* Arrow indicator with liquid effect */}
+                        {/* Arrow indicator */}
                         <div className={`relative z-10 transition-all duration-500 ease-out ${
                           isActive ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0'
                         }`}>
-                          <ChevronDown size={18} className="-rotate-90" />
+                          <ChevronDown size={14} className="-rotate-90" />
                         </div>
-
-                        {/* Left border highlight with liquid shine */}
-                        <div className={`absolute left-0 top-1/2 -translate-y-1/2 h-14 w-1.5 rounded-r-full bg-gradient-to-b ${item.color} transition-all duration-500 ease-out shadow-lg ${
-                          isActive ? 'opacity-100 shadow-current' : 'opacity-0'
-                        }`}></div>
                       </a>
                     );
                   })}
