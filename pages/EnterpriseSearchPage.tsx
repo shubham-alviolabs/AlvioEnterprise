@@ -436,113 +436,194 @@ export const EnterpriseSearchPage: React.FC = () => {
 
           <div className="space-y-32">
             <FadeIn delay={200}>
-              <div className="grid lg:grid-cols-2 gap-16 items-center">
+              <div className="grid lg:grid-cols-2 gap-20 items-center">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-gray-100/80 dark:bg-white/[0.08] backdrop-blur-xl border border-gray-300/50 dark:border-white/[0.12]">
-                    <Command size={12} className="text-gray-600 dark:text-gray-300" />
-                    <span className="text-xs font-medium text-gray-700 dark:text-gray-200">Unified Interface</span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full bg-gradient-to-r from-gray-100/90 to-gray-50/90 dark:from-white/[0.12] dark:to-white/[0.08] backdrop-blur-2xl border border-gray-200/60 dark:border-white/[0.15] shadow-sm shadow-gray-200/50 dark:shadow-black/20">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse"></div>
+                    <span className="text-xs font-semibold tracking-wider text-gray-800 dark:text-gray-100" style={{ letterSpacing: '0.05em' }}>UNIFIED INTERFACE</span>
                   </div>
-                  <h3 className="text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight" style={{ fontWeight: 600 }}>
-                    One search bar for everything
+                  <h3 className="text-5xl md:text-6xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight leading-[1.1]" style={{ fontWeight: 600, letterSpacing: '-0.02em' }}>
+                    One search bar<br />
+                    <span className="bg-gradient-to-r from-gray-900 to-gray-600 dark:from-white dark:to-gray-400 bg-clip-text text-transparent">for everything</span>
                   </h3>
-                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed font-normal">
-                    Stop switching between tools. Search across Slack, GitHub, Google Drive, Notion, Salesforce, and 50+ other apps from a single interface. Natural language queries that understand context and intent.
+                  <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 leading-relaxed font-normal" style={{ lineHeight: '1.7' }}>
+                    Stop switching between tools. Search across Slack, GitHub, Google Drive, Notion, Salesforce, and 50+ other apps from a single, beautiful interface.
                   </p>
-                  <div className="space-y-4">
+                  <div className="space-y-5">
                     {[
-                      { icon: Brain, text: "Natural language understanding", desc: "Ask questions like you would to a colleague" },
-                      { icon: Zap, text: "Instant results", desc: "Sub-second response time across all sources" },
-                      { icon: Sparkles, text: "AI-powered relevance", desc: "Results ranked by business context, not just keywords" }
+                      { icon: Brain, text: "Natural language", desc: "Ask questions like you would to a colleague", gradient: "from-blue-500 to-cyan-500" },
+                      { icon: Zap, text: "Instant results", desc: "Sub-second response across all sources", gradient: "from-orange-500 to-amber-500" },
+                      { icon: Sparkles, text: "Context-aware AI", desc: "Ranked by relevance to your work", gradient: "from-violet-500 to-purple-500" }
                     ].map((item, i) => (
-                      <div key={i} className="flex items-start gap-3 group">
-                        <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/[0.05] flex items-center justify-center flex-shrink-0 group-hover:bg-gray-200 dark:group-hover:bg-white/[0.08] transition-colors duration-200">
-                          <item.icon size={18} className="text-gray-700 dark:text-gray-300" strokeWidth={2} />
+                      <div
+                        key={i}
+                        className="group relative flex items-start gap-4 p-5 rounded-2xl bg-gradient-to-br from-gray-50/50 to-white/50 dark:from-white/[0.03] dark:to-white/[0.01] border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-black/20 transition-all duration-500 cursor-pointer hover:-translate-y-1"
+                      >
+                        <div className="relative">
+                          <div className={`absolute inset-0 bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-500`}></div>
+                          <div className={`relative w-12 h-12 rounded-xl bg-gradient-to-br ${item.gradient} flex items-center justify-center shadow-lg group-hover:shadow-xl group-hover:scale-110 transition-all duration-500`}>
+                            <item.icon size={20} className="text-white" strokeWidth={2.5} />
+                          </div>
                         </div>
-                        <div>
-                          <div className="font-semibold text-gray-900 dark:text-white mb-1">{item.text}</div>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 font-normal">{item.desc}</p>
+                        <div className="flex-1 pt-1">
+                          <div className="text-lg font-semibold text-gray-900 dark:text-white mb-1.5" style={{ letterSpacing: '-0.01em' }}>{item.text}</div>
+                          <p className="text-[15px] text-gray-600 dark:text-gray-400 font-normal leading-relaxed">{item.desc}</p>
+                        </div>
+                        <div className="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-all duration-300">
+                          <ArrowRight size={18} className="text-gray-400 dark:text-gray-500 group-hover:translate-x-1 transition-transform duration-300" />
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="relative">
-                  <div className="absolute inset-0 bg-blue-500/10 dark:bg-blue-400/5 blur-3xl rounded-full"></div>
-                  <div className="relative bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-2xl rounded-[28px] border border-gray-200/80 dark:border-white/[0.12] shadow-2xl overflow-hidden p-8" style={{ boxShadow: '0 25px 80px -15px rgba(0, 0, 0, 0.3)' }}>
-                    <div className="flex items-center gap-2 mb-6">
-                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
-                    </div>
+                <div className="relative group/demo">
+                  <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/20 via-cyan-500/20 to-blue-500/20 dark:from-blue-400/10 dark:via-cyan-400/10 dark:to-blue-400/10 blur-3xl opacity-0 group-hover/demo:opacity-100 transition-opacity duration-1000 rounded-full"></div>
+
+                  <div className="relative bg-white/70 dark:bg-[#1a1a1c]/70 backdrop-blur-3xl rounded-[32px] border border-gray-200/60 dark:border-white/[0.15] shadow-2xl overflow-hidden" style={{ boxShadow: '0 30px 90px -20px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.3)' }}>
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent dark:from-white/[0.05] dark:via-transparent pointer-events-none"></div>
 
                     <div className="relative">
-                      <div className="flex items-center gap-3 px-4 py-3 mb-6 rounded-xl bg-gray-50 dark:bg-white/[0.05] border border-gray-200/50 dark:border-white/[0.08]">
-                        <Search size={18} className="text-gray-400" strokeWidth={2} />
-                        <input
-                          type="text"
-                          value="kubernetes migration decision"
-                          readOnly
-                          className="flex-1 bg-transparent text-sm outline-none text-gray-900 dark:text-white font-medium"
-                        />
-                        <kbd className="px-2 py-1 text-xs font-semibold text-gray-600 dark:text-gray-400 bg-white dark:bg-black/30 border border-gray-300 dark:border-white/[0.12] rounded-md">⌘K</kbd>
+                      <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200/50 dark:border-white/[0.08] backdrop-blur-xl">
+                        <div className="flex items-center gap-2">
+                          <div className="w-3 h-3 rounded-full bg-[#FF5F57] shadow-sm"></div>
+                          <div className="w-3 h-3 rounded-full bg-[#FEBC2E] shadow-sm"></div>
+                          <div className="w-3 h-3 rounded-full bg-[#28C840] shadow-sm"></div>
+                        </div>
+                        <div className="text-xs font-semibold text-gray-500 dark:text-gray-400" style={{ letterSpacing: '0.05em' }}>SEARCH</div>
+                        <div className="w-16"></div>
                       </div>
 
-                      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-200/50 dark:border-white/[0.08]">
-                        {['All', 'Code', 'Docs', 'People', 'Messages'].map((tab, i) => (
-                          <button
-                            key={i}
-                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
-                              i === 0
-                                ? 'bg-blue-500 text-white shadow-sm'
-                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/[0.05]'
-                            }`}
-                          >
-                            {tab}
-                          </button>
-                        ))}
-                        <div className="flex-1"></div>
-                        <button className="p-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/[0.05] transition-colors">
-                          <Filter size={14} />
-                        </button>
-                      </div>
-
-                      <div className="space-y-2">
-                        {[
-                          { Icon: GitHubIcon, title: "K8s Migration RFC", app: "GitHub", time: "8 weeks ago", relevance: 98 },
-                          { Icon: ConfluenceIcon, title: "Infrastructure Architecture Review", app: "Confluence", time: "Oct 10", relevance: 94 },
-                          { Icon: SlackIcon, title: "#devops: Migration discussion thread", app: "Slack", time: "Sept 12-Oct 15", relevance: 91 },
-                          { Icon: BambooHRIcon, title: "Sarah Chen - DevOps Lead", app: "BambooHR", time: "Active", relevance: 88 }
-                        ].map((result, i) => (
-                          <div
-                            key={i}
-                            className="flex items-center gap-3 p-3 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] hover:bg-gray-100/80 dark:hover:bg-white/[0.06] border border-transparent hover:border-gray-200/50 dark:hover:border-white/[0.08] transition-all duration-200 cursor-pointer group"
-                          >
-                            <div className="w-8 h-8 rounded-lg bg-white dark:bg-black/30 border border-gray-200/50 dark:border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-200">
-                              <result.Icon className="w-5 h-5" />
+                      <div className="p-6 space-y-4">
+                        <div className="relative group/search">
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-cyan-500/10 to-blue-500/10 dark:from-blue-400/5 dark:via-cyan-400/5 dark:to-blue-400/5 blur-xl opacity-0 group-hover/search:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+                          <div className="relative flex items-center gap-4 px-5 py-4 rounded-2xl bg-gradient-to-br from-gray-50/80 to-white/80 dark:from-white/[0.08] dark:to-white/[0.05] border border-gray-200/60 dark:border-white/[0.12] shadow-sm group-hover/search:shadow-lg group-hover/search:border-gray-300/80 dark:group-hover/search:border-white/[0.18] transition-all duration-500">
+                            <div className="relative">
+                              <Search size={20} className="text-gray-400 dark:text-gray-500 group-hover/search:text-blue-500 dark:group-hover/search:text-blue-400 transition-colors duration-500" strokeWidth={2.5} />
+                              <div className="absolute inset-0 blur-md bg-blue-500/30 opacity-0 group-hover/search:opacity-100 transition-opacity duration-500"></div>
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2 mb-1">
-                                <div className="text-sm font-semibold text-gray-900 dark:text-white truncate">{result.title}</div>
-                                <div className="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-400/20">
-                                  <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400">{result.relevance}</span>
+                            <div className="flex-1">
+                              <input
+                                type="text"
+                                value="kubernetes migration decision"
+                                readOnly
+                                className="w-full bg-transparent text-[15px] outline-none text-gray-900 dark:text-white font-medium"
+                                style={{ caretColor: '#007AFF' }}
+                              />
+                            </div>
+                            <kbd className="px-3 py-1.5 text-xs font-bold text-gray-600 dark:text-gray-400 bg-white/80 dark:bg-black/40 border border-gray-300/60 dark:border-white/[0.15] rounded-lg shadow-sm backdrop-blur-xl" style={{ letterSpacing: '0.05em' }}>⌘K</kbd>
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2 pb-4 border-b border-gray-200/40 dark:border-white/[0.06]">
+                          {[
+                            { label: 'All', active: true },
+                            { label: 'Code', active: false },
+                            { label: 'Docs', active: false },
+                            { label: 'People', active: false },
+                            { label: 'Messages', active: false }
+                          ].map((tab, i) => (
+                            <button
+                              key={i}
+                              className={`relative px-4 py-2 rounded-xl text-xs font-bold transition-all duration-500 ${
+                                tab.active
+                                  ? 'text-white shadow-lg'
+                                  : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100/50 dark:hover:bg-white/[0.05]'
+                              }`}
+                              style={{ letterSpacing: '0.03em' }}
+                            >
+                              {tab.active && (
+                                <>
+                                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl"></div>
+                                  <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl blur-md opacity-50"></div>
+                                </>
+                              )}
+                              <span className="relative">{tab.label}</span>
+                            </button>
+                          ))}
+                          <div className="flex-1"></div>
+                          <button className="p-2 rounded-xl text-gray-500 dark:text-gray-400 hover:bg-gray-100/50 dark:hover:bg-white/[0.05] hover:text-gray-900 dark:hover:text-gray-200 transition-all duration-300">
+                            <Filter size={14} strokeWidth={2.5} />
+                          </button>
+                        </div>
+
+                        <div className="space-y-2.5">
+                          {[
+                            { Icon: GitHubIcon, title: "K8s Migration RFC", app: "GitHub", time: "8 weeks ago", relevance: 98, color: "blue" },
+                            { Icon: ConfluenceIcon, title: "Infrastructure Architecture Review", app: "Confluence", time: "Oct 10", relevance: 94, color: "cyan" },
+                            { Icon: SlackIcon, title: "#devops: Migration discussion", app: "Slack", time: "Sept 12-Oct 15", relevance: 91, color: "green" },
+                            { Icon: BambooHRIcon, title: "Sarah Chen - DevOps Lead", app: "BambooHR", time: "Active", relevance: 88, color: "orange" }
+                          ].map((result, i) => (
+                            <div
+                              key={i}
+                              className="group/item relative flex items-center gap-4 p-4 rounded-2xl bg-gradient-to-br from-gray-50/50 to-white/50 dark:from-white/[0.04] dark:to-white/[0.02] border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-lg hover:shadow-gray-200/50 dark:hover:shadow-black/20 transition-all duration-500 cursor-pointer hover:-translate-y-0.5"
+                              style={{
+                                animationDelay: `${i * 100}ms`,
+                                animation: 'fadeInUp 0.6s ease-out forwards',
+                                opacity: 0
+                              }}
+                            >
+                              <div className="relative">
+                                <div className={`absolute inset-0 bg-${result.color}-500/20 blur-xl opacity-0 group-hover/item:opacity-100 transition-opacity duration-500`}></div>
+                                <div className="relative w-10 h-10 rounded-xl bg-white dark:bg-black/30 border border-gray-200/50 dark:border-white/[0.08] flex items-center justify-center flex-shrink-0 group-hover/item:scale-110 group-hover/item:shadow-lg transition-all duration-500 backdrop-blur-xl">
+                                  <result.Icon className="w-5 h-5" />
                                 </div>
                               </div>
-                              <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-                                <span>{result.app}</span>
-                                <span>•</span>
-                                <span>{result.time}</span>
+                              <div className="flex-1 min-w-0">
+                                <div className="flex items-center gap-2.5 mb-1.5">
+                                  <div className="text-[15px] font-semibold text-gray-900 dark:text-white truncate" style={{ letterSpacing: '-0.01em' }}>{result.title}</div>
+                                  <div className="relative px-2.5 py-1 rounded-lg bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-500/10 dark:to-cyan-500/10 border border-blue-100/50 dark:border-blue-400/20 backdrop-blur-xl">
+                                    <span className="text-[11px] font-bold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent">{result.relevance}%</span>
+                                  </div>
+                                </div>
+                                <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400 font-medium">
+                                  <span>{result.app}</span>
+                                  <span className="w-1 h-1 rounded-full bg-gray-400 dark:bg-gray-600"></span>
+                                  <span>{result.time}</span>
+                                </div>
                               </div>
+                              <ChevronRight size={16} className="text-gray-400 dark:text-gray-500 opacity-0 group-hover/item:opacity-100 group-hover/item:translate-x-1 transition-all duration-500" strokeWidth={2.5} />
                             </div>
-                            <ChevronRight size={16} className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-200" />
+                          ))}
+                        </div>
+
+                        <div className="pt-4 border-t border-gray-200/40 dark:border-white/[0.06]">
+                          <div className="flex items-center gap-3">
+                            {[
+                              { Icon: SlackIcon, label: 'Slack', count: 847 },
+                              { Icon: GitHubIcon, label: 'GitHub', count: 234 },
+                              { Icon: NotionIcon, label: 'Notion', count: 156 },
+                              { Icon: GoogleDriveIcon, label: 'Drive', count: 423 }
+                            ].map((source, i) => (
+                              <div
+                                key={i}
+                                className="group/source flex items-center gap-2 px-3 py-2 rounded-xl bg-gradient-to-br from-gray-50/60 to-white/60 dark:from-white/[0.05] dark:to-white/[0.03] border border-gray-200/50 dark:border-white/[0.08] hover:border-gray-300/70 dark:hover:border-white/[0.15] hover:shadow-md transition-all duration-500 cursor-pointer hover:-translate-y-0.5"
+                              >
+                                <source.Icon className="w-4 h-4 group-hover/source:scale-110 transition-transform duration-500" />
+                                <span className="text-[11px] font-bold text-gray-700 dark:text-gray-300" style={{ letterSpacing: '0.03em' }}>{source.count}</span>
+                              </div>
+                            ))}
                           </div>
-                        ))}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </FadeIn>
+
+            <style>{`
+              @keyframes fadeInUp {
+                from {
+                  opacity: 0;
+                  transform: translateY(10px);
+                }
+                to {
+                  opacity: 1;
+                  transform: translateY(0);
+                }
+              }
+            `}</style>
 
             <FadeIn delay={400}>
               <div className="grid lg:grid-cols-2 gap-16 items-center">
