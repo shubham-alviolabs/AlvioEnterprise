@@ -11,7 +11,10 @@ import {
   TrendingUp, Code, AlertTriangle, Eye, History, FileSearch,
   Brain, Lightbulb, BookOpen, Briefcase,
   BarChart3, Settings, Key, Scan, ShieldCheck, ClipboardCheck,
-  Activity, FileWarning, ChevronRight, Zap, File, Clock
+  Activity, FileWarning, ChevronRight, Zap, File, Clock, Filter,
+  Star, Bookmark, Share2, MoreHorizontal, PlayCircle, FileText,
+  Image as ImageIcon, Video, Music, Folder, Terminal, GitBranch,
+  Package, Layers, Box, Command
 } from 'lucide-react';
 
 export const EnterpriseSearchPage: React.FC = () => {
@@ -19,7 +22,8 @@ export const EnterpriseSearchPage: React.FC = () => {
   const [isSearching, setIsSearching] = useState(false);
   const [activeExample, setActiveExample] = useState(0);
   const [showResults, setShowResults] = useState(false);
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [activeTab, setActiveTab] = useState<'all' | 'code' | 'docs' | 'people' | 'data'>('all');
+  const [activeView, setActiveView] = useState(0);
 
   const searchExamples = [
     {
@@ -96,175 +100,32 @@ export const EnterpriseSearchPage: React.FC = () => {
         "What qualifies as PII under GDPR?",
         "Show me the data breach response plan"
       ]
-    },
-    {
-      query: "Find the API rate limit documentation for our public API",
-      answer: "Public API rate limits: Free tier 100 req/hour, Pro tier 1,000 req/hour, Enterprise tier 10,000 req/hour (custom limits available). Rate limit headers: X-RateLimit-Limit, X-RateLimit-Remaining, X-RateLimit-Reset. Exceeding limits returns 429 with Retry-After header. WebSocket connections don't count toward HTTP limits. Implementation uses Redis with sliding window algorithm. Rate limits apply per API key. Enterprise customers can request increases via support ticket—average approval time 2 business days.",
-      sources: [
-        { name: "API Documentation - Rate Limits", app: "GitBook", icon: "📚", time: "Last updated 2 weeks ago", relevance: 99 },
-        { name: "rate_limiter.ts implementation", app: "GitHub", icon: "🐙", time: "Committed 3 months ago", relevance: 95 },
-        { name: "Enterprise Support Procedures", app: "Notion", icon: "📝", time: "Updated monthly", relevance: 87 },
-        { name: "#api-questions discussion", app: "Slack", icon: "💬", time: "Ongoing", relevance: 84 }
-      ],
-      relatedQuestions: [
-        "How do I upgrade to Enterprise tier?",
-        "Show me API error codes",
-        "What's the average API response time?"
-      ]
     }
   ];
 
-  const categories = [
+  const enterpriseViews = [
     {
-      name: "Sales & CRM",
-      icon: TrendingUp,
-      color: "from-blue-500 to-cyan-500",
-      connectors: [
-        { name: "Salesforce", icon: "☁️", connected: true },
-        { name: "HubSpot", icon: "🎯", connected: true },
-        { name: "Pipedrive", icon: "📊", connected: true },
-        { name: "Outreach", icon: "📧", connected: false },
-        { name: "Gong", icon: "🎙️", connected: true },
-        { name: "ChurnZero", icon: "📈", connected: true },
-      ],
-      examples: [
-        "What's our win rate against Competitor X in enterprise deals over $100K this quarter?",
-        "Show me all opportunities in legal review stage that have been stuck for more than 2 weeks",
-        "Who has existing relationships at Microsoft's Azure division?",
-        "What objections came up most frequently in lost enterprise deals in Q3?"
+      title: "Unified Search Interface",
+      description: "One search bar for your entire organization",
+      searches: [
+        { query: "authentication service deployment", type: "Code", results: 847 },
+        { query: "Q4 revenue targets", type: "Finance", results: 23 },
+        { query: "Sarah Chen kubernetes", type: "People", results: 156 }
       ]
     },
     {
-      name: "Communication",
-      icon: MessageSquare,
-      color: "from-purple-500 to-pink-500",
-      connectors: [
-        { name: "Slack", icon: "💬", connected: true },
-        { name: "Microsoft Teams", icon: "👥", connected: true },
-        { name: "Gmail", icon: "✉️", connected: true },
-        { name: "Outlook", icon: "📨", connected: true },
-        { name: "Zoom", icon: "🎥", connected: true },
-        { name: "Discord", icon: "🎮", connected: false },
-      ],
-      examples: [
-        "What did Sarah say about the API latency issues in the engineering channel last week?",
-        "Show me all discussions about the Q4 product roadmap across Slack and email",
-        "Find the thread where we decided to sunset the legacy dashboard",
-        "When did we last communicate with the design team about mobile app improvements?"
+      title: "Intelligent Filtering",
+      description: "Smart filters that understand context",
+      searches: [
+        { query: "contracts expiring", filters: ["Date: This Quarter", "Type: Legal", "Risk: High"], results: 8 },
+        { query: "API documentation", filters: ["Source: GitHub", "Language: TypeScript", "Updated: Last 30 days"], results: 342 }
       ]
     },
     {
-      name: "Engineering & Code",
-      icon: Code,
-      color: "from-green-500 to-emerald-500",
-      connectors: [
-        { name: "GitHub", icon: "🐙", connected: true },
-        { name: "GitLab", icon: "🦊", connected: true },
-        { name: "Jira", icon: "📋", connected: true },
-        { name: "Linear", icon: "⚡", connected: true },
-        { name: "DataDog", icon: "🐕", connected: true },
-        { name: "PagerDuty", icon: "🚨", connected: false },
-      ],
-      examples: [
-        "Where is the authentication service deployed and what's its current health status?",
-        "Show me all PRs related to the payments module that were merged in the last 30 days",
-        "What's the architecture decision behind our real-time sync implementation?",
-        "Who wrote the caching layer and what performance benchmarks did they achieve?"
-      ]
-    },
-    {
-      name: "Documentation & Knowledge",
-      icon: FileSearch,
-      color: "from-orange-500 to-red-500",
-      connectors: [
-        { name: "Confluence", icon: "📘", connected: true },
-        { name: "Notion", icon: "📝", connected: true },
-        { name: "Google Drive", icon: "📄", connected: true },
-        { name: "Dropbox", icon: "📦", connected: true },
-        { name: "GitBook", icon: "📚", connected: true },
-        { name: "Sharepoint", icon: "🗂️", connected: false },
-      ],
-      examples: [
-        "How do I process a refund for an enterprise customer who paid via wire transfer?",
-        "What's our complete parental leave policy including state-specific variations?",
-        "Show me the onboarding checklist and training materials for new backend engineers",
-        "Find all documentation about our API rate limiting implementation and troubleshooting"
-      ]
-    },
-    {
-      name: "Finance & Legal",
-      icon: Briefcase,
-      color: "from-indigo-500 to-blue-500",
-      connectors: [
-        { name: "QuickBooks", icon: "📗", connected: true },
-        { name: "NetSuite", icon: "💼", connected: true },
-        { name: "DocuSign", icon: "✍️", connected: true },
-        { name: "Carta", icon: "📈", connected: false },
-        { name: "Expensify", icon: "💳", connected: true },
-        { name: "Stripe", icon: "💰", connected: true },
-      ],
-      examples: [
-        "What's our monthly burn rate for the last 6 months and what's the trend?",
-        "Show me all vendor contracts over $50K that are up for renewal in Q1 2024",
-        "What are our budget allocations by department and which teams are over budget?",
-        "Find the standard MSA template for enterprise customers in the healthcare vertical"
-      ]
-    },
-    {
-      name: "HR & People Ops",
-      icon: Users,
-      color: "from-pink-500 to-rose-500",
-      connectors: [
-        { name: "BambooHR", icon: "🎋", connected: true },
-        { name: "Workday", icon: "💼", connected: true },
-        { name: "Lever", icon: "🎯", connected: true },
-        { name: "Greenhouse", icon: "🌱", connected: false },
-        { name: "Lattice", icon: "⭐", connected: true },
-        { name: "Gusto", icon: "💵", connected: true },
-      ],
-      examples: [
-        "Who's planning to be in the San Francisco office next week and what teams are they on?",
-        "What are the complete promotion criteria and compensation bands for Senior Engineer L5?",
-        "Show me all open positions in the Product team and their current interview pipeline status",
-        "What's the full performance review schedule for Q1 including calibration dates?"
-      ]
-    },
-    {
-      name: "Product & Design",
-      icon: Lightbulb,
-      color: "from-yellow-500 to-orange-500",
-      connectors: [
-        { name: "Figma", icon: "🎨", connected: true },
-        { name: "Miro", icon: "🖼️", connected: true },
-        { name: "Productboard", icon: "📊", connected: true },
-        { name: "Amplitude", icon: "📈", connected: true },
-        { name: "Mixpanel", icon: "📉", connected: true },
-        { name: "UserTesting", icon: "👤", connected: false },
-      ],
-      examples: [
-        "What features are committed for the Q2 release and what's their current development status?",
-        "Show me all user research findings about the checkout flow from the last 3 months",
-        "What's the long-term vision and 3-year roadmap for our mobile platform strategy?",
-        "Find all customer feedback and internal discussion about the new dashboard redesign"
-      ]
-    },
-    {
-      name: "Customer Support",
-      icon: MessageSquare,
-      color: "from-cyan-500 to-blue-500",
-      connectors: [
-        { name: "Zendesk", icon: "🎫", connected: true },
-        { name: "Intercom", icon: "💬", connected: true },
-        { name: "Front", icon: "📮", connected: true },
-        { name: "Help Scout", icon: "🐕", connected: false },
-        { name: "Fullstory", icon: "📹", connected: true },
-        { name: "Hotjar", icon: "🔥", connected: false },
-      ],
-      examples: [
-        "Show me all tickets about login issues in the last 7 days and identify common patterns",
-        "What's the complete SLA policy for Premium tier customers including escalation procedures?",
-        "How many P1 incidents did we have this month and what was the average resolution time?",
-        "Find all customer feedback and feature requests related to the mobile app experience"
+      title: "Cross-Platform Context",
+      description: "See the full story across all your tools",
+      searches: [
+        { query: "mobile redesign decision", contexts: ["Slack (12 messages)", "Zoom (2 recordings)", "Figma (4 designs)", "Notion (3 docs)"], results: 21 }
       ]
     }
   ];
@@ -290,6 +151,13 @@ export const EnterpriseSearchPage: React.FC = () => {
     }, 5000);
     return () => clearInterval(interval);
   }, [searchQuery]);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveView((prev) => (prev + 1) % enterpriseViews.length);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
 
   const currentExample = searchExamples[activeExample];
 
@@ -357,28 +225,27 @@ export const EnterpriseSearchPage: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black text-gray-900 dark:text-white">
+    <div className="min-h-screen bg-[#fafafa] dark:bg-[#000000] text-gray-900 dark:text-white">
       <Navbar />
 
       <Section className="pt-32 pb-16 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-accent-pink/10 blur-[200px] rounded-full pointer-events-none animate-pulse" style={{ animationDuration: '4s' }} />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-accent-purple/10 blur-[200px] rounded-full pointer-events-none animate-pulse" style={{ animationDuration: '5s', animationDelay: '1s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-gradient-to-r from-accent-pink/5 to-accent-purple/5 blur-[150px] rounded-full pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-blue-500/5 dark:bg-blue-400/5 blur-[200px] rounded-full pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gray-400/5 dark:bg-gray-600/5 blur-[200px] rounded-full pointer-events-none" />
 
         <div className="relative z-10 max-w-6xl mx-auto">
           <FadeIn>
             <div className="text-center mb-12">
-              <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-accent-pink/20 bg-accent-pink/5 backdrop-blur-md shadow-lg shadow-accent-pink/5 hover:shadow-accent-pink/10 transition-all duration-500">
-                <Search size={14} className="text-accent-pink animate-pulse" />
-                <span className="text-xs font-mono uppercase tracking-widest text-accent-pink font-semibold">Enterprise Search</span>
+              <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-gray-100/80 dark:bg-white/[0.08] backdrop-blur-xl border border-gray-300/50 dark:border-white/[0.12] shadow-sm">
+                <Search size={14} className="text-gray-600 dark:text-gray-300" />
+                <span className="text-xs font-medium tracking-wide text-gray-700 dark:text-gray-200">Enterprise Search</span>
               </div>
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-medium tracking-tight text-gray-900 dark:text-white mb-6 leading-tight">
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-semibold tracking-tight text-gray-900 dark:text-white mb-6 leading-[1.1]" style={{ fontWeight: 600 }}>
                 Search That Understands<br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink via-pink-500 to-accent-purple animate-gradient">
-                  Your Business Context
+                <span className="text-gray-500 dark:text-gray-400">
+                  Your Business
                 </span>
               </h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-3xl mx-auto leading-relaxed font-normal">
                 Ask questions naturally. Get instant answers from across your entire organization. Built for enterprises with the strictest security requirements.
               </p>
             </div>
@@ -388,87 +255,85 @@ export const EnterpriseSearchPage: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               <div className="relative mb-8 group">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-gradient-to-r from-accent-pink via-purple-500 to-accent-purple rounded-2xl blur-2xl opacity-20 group-hover:opacity-30 transition-opacity duration-500"></div>
-                  <div className="relative bg-white dark:bg-[#0a0a0a] rounded-2xl border-2 border-gray-200 dark:border-white/10 shadow-2xl overflow-hidden hover:border-accent-pink/30 transition-all duration-500 hover:shadow-accent-pink/10">
-                    <div className="flex items-center gap-4 px-6 py-5 border-b border-gray-200 dark:border-white/10 bg-gradient-to-r from-gray-50/50 dark:from-white/[0.02] to-transparent">
-                      <Search className="text-gray-400 group-hover:text-accent-pink transition-colors duration-300" size={24} />
+                  <div className="absolute inset-0 bg-gray-900/5 dark:bg-white/[0.02] rounded-[20px] blur-2xl"></div>
+                  <div className="relative bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-2xl rounded-[20px] border border-gray-200/80 dark:border-white/[0.12] shadow-2xl overflow-hidden" style={{ boxShadow: '0 20px 70px -10px rgba(0, 0, 0, 0.3)' }}>
+                    <div className="flex items-center gap-4 px-6 py-5 border-b border-gray-200/50 dark:border-white/[0.08]">
+                      <Search className="text-gray-400 dark:text-gray-500 transition-colors duration-300" size={22} strokeWidth={2} />
                       <input
                         type="text"
                         value={searchQuery}
                         onChange={(e) => setSearchQuery(e.target.value)}
                         placeholder={currentExample.query}
-                        className="flex-1 bg-transparent text-lg outline-none text-gray-900 dark:text-white placeholder:text-gray-400 placeholder:transition-all"
+                        className="flex-1 bg-transparent text-lg outline-none text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-gray-500 font-normal"
+                        style={{ caretColor: '#007AFF' }}
                       />
                       {isSearching && (
                         <div className="flex items-center gap-2 animate-in fade-in slide-in-from-right-2 duration-300">
                           <div className="relative">
-                            <div className="w-2 h-2 rounded-full bg-accent-pink animate-pulse"></div>
-                            <div className="absolute inset-0 w-2 h-2 rounded-full bg-accent-pink animate-ping"></div>
+                            <div className="w-2 h-2 rounded-full bg-blue-500 animate-pulse"></div>
+                            <div className="absolute inset-0 w-2 h-2 rounded-full bg-blue-500 animate-ping"></div>
                           </div>
-                          <span className="text-sm text-gray-500 font-medium">Searching across 8 sources...</span>
+                          <span className="text-sm text-gray-500 dark:text-gray-400 font-medium">Searching...</span>
                         </div>
                       )}
                     </div>
 
                     {(showResults || !searchQuery) && (
                       <div className="p-6 space-y-6 animate-in fade-in slide-in-from-bottom-3 duration-500">
-                        <div className="relative overflow-hidden rounded-xl bg-gradient-to-br from-accent-pink/5 via-purple-500/5 to-accent-purple/5 border border-accent-pink/20 hover:border-accent-pink/40 transition-all duration-500 shadow-lg hover:shadow-xl group/answer">
-                          <div className="absolute inset-0 bg-gradient-to-r from-accent-pink/10 to-accent-purple/10 opacity-0 group-hover/answer:opacity-100 transition-opacity duration-500" />
-                          <div className="relative flex items-start gap-4 p-5">
-                            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-accent-pink to-accent-purple flex items-center justify-center flex-shrink-0 shadow-lg shadow-accent-pink/30 group-hover/answer:scale-110 transition-transform duration-500">
-                              <Sparkles className="text-white" size={22} />
+                        <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-50/50 to-gray-50/30 dark:from-blue-500/5 dark:to-transparent border border-blue-100/50 dark:border-blue-400/10">
+                          <div className="flex items-start gap-4 p-6">
+                            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-400 dark:to-blue-500 flex items-center justify-center flex-shrink-0 shadow-lg shadow-blue-500/20">
+                              <Sparkles className="text-white" size={20} strokeWidth={2} />
                             </div>
                             <div className="flex-1">
                               <div className="flex items-center gap-2 mb-3">
-                                <div className="text-xs font-bold text-accent-pink uppercase tracking-widest">AI Answer</div>
-                                <div className="flex items-center gap-1 text-xs text-gray-500">
-                                  <Clock size={12} />
+                                <div className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide">AI Answer</div>
+                                <div className="flex items-center gap-1 text-xs text-gray-500 dark:text-gray-400">
+                                  <Clock size={11} />
                                   <span>0.3s</span>
                                 </div>
                               </div>
-                              <p className="text-gray-900 dark:text-white leading-relaxed mb-5 text-[15px]">
+                              <p className="text-gray-900 dark:text-white leading-relaxed mb-6 text-[15px] font-normal">
                                 {currentExample.answer}
                               </p>
 
-                              <div className="space-y-2 mb-5">
+                              <div className="space-y-2 mb-6">
                                 {currentExample.sources.map((source, i) => (
                                   <div
                                     key={i}
-                                    className="flex items-center gap-3 p-3 rounded-lg bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:border-accent-pink/40 hover:bg-gradient-to-r hover:from-accent-pink/5 hover:to-transparent transition-all duration-300 cursor-pointer group/source"
-                                    style={{ animationDelay: `${i * 100}ms` }}
+                                    className="flex items-center gap-3 p-3 rounded-xl bg-white/80 dark:bg-white/[0.05] backdrop-blur-sm border border-gray-200/50 dark:border-white/[0.08] hover:bg-gray-50/80 dark:hover:bg-white/[0.08] hover:border-gray-300/50 dark:hover:border-white/[0.12] transition-all duration-200 cursor-pointer group/source"
                                   >
-                                    <span className="text-2xl group-hover/source:scale-110 transition-transform duration-300">{source.icon}</span>
+                                    <span className="text-xl group-hover/source:scale-110 transition-transform duration-200">{source.icon}</span>
                                     <div className="flex-1 min-w-0">
                                       <div className="flex items-center gap-2 mb-1">
-                                        <div className="text-sm font-semibold text-gray-900 dark:text-white group-hover/source:text-accent-pink transition-colors truncate">
+                                        <div className="text-sm font-semibold text-gray-900 dark:text-white truncate">
                                           {source.name}
                                         </div>
-                                        <div className="flex items-center gap-1 px-2 py-0.5 rounded-full bg-accent-pink/10 border border-accent-pink/20">
-                                          <Sparkles size={10} className="text-accent-pink" />
-                                          <span className="text-[10px] font-bold text-accent-pink">{source.relevance}%</span>
+                                        <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-400/20">
+                                          <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400">{source.relevance}%</span>
                                         </div>
                                       </div>
-                                      <div className="flex items-center gap-2 text-xs text-gray-500">
+                                      <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
                                         <span className="font-medium">{source.app}</span>
                                         <span>•</span>
                                         <span>{source.time}</span>
                                       </div>
                                     </div>
-                                    <ChevronRight size={18} className="text-gray-400 group-hover/source:text-accent-pink group-hover/source:translate-x-1 transition-all duration-300" />
+                                    <ChevronRight size={16} className="text-gray-400 dark:text-gray-500 group-hover/source:text-gray-600 dark:group-hover/source:text-gray-300 group-hover/source:translate-x-0.5 transition-all duration-200" />
                                   </div>
                                 ))}
                               </div>
 
-                              <div className="pt-4 border-t border-gray-200 dark:border-white/10">
-                                <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider">Related Questions</div>
-                                <div className="space-y-1">
+                              <div className="pt-4 border-t border-gray-200/50 dark:border-white/[0.08]">
+                                <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wide">Related Questions</div>
+                                <div className="space-y-1.5">
                                   {currentExample.relatedQuestions.map((q, i) => (
                                     <button
                                       key={i}
-                                      className="flex items-center gap-2 text-xs text-gray-600 dark:text-gray-400 hover:text-accent-pink dark:hover:text-accent-pink transition-colors duration-300 group/related"
+                                      className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors duration-200 group/related"
                                     >
-                                      <Search size={12} className="text-gray-400 group-hover/related:text-accent-pink transition-colors" />
-                                      <span>{q}</span>
+                                      <Search size={12} className="text-gray-400 dark:text-gray-500 group-hover/related:text-blue-500 dark:group-hover/related:text-blue-400 transition-colors" strokeWidth={2} />
+                                      <span className="font-normal">{q}</span>
                                     </button>
                                   ))}
                                 </div>
@@ -477,18 +342,18 @@ export const EnterpriseSearchPage: React.FC = () => {
                           </div>
                         </div>
 
-                        <div className="flex items-center gap-3 text-xs text-gray-500">
-                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10">
-                            <Zap size={12} className="text-accent-pink" />
-                            <span className="font-medium">Searched {currentExample.sources.length} sources</span>
+                        <div className="flex items-center gap-3 text-xs text-gray-500 dark:text-gray-400">
+                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100/80 dark:bg-white/[0.05] backdrop-blur-sm border border-gray-200/50 dark:border-white/[0.08]">
+                            <Zap size={11} className="text-blue-500" />
+                            <span className="font-medium">{currentExample.sources.length} sources</span>
                           </div>
-                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10">
-                            <Sparkles size={12} className="text-accent-purple" />
-                            <span className="font-medium">AI-powered answer</span>
+                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-gray-100/80 dark:bg-white/[0.05] backdrop-blur-sm border border-gray-200/50 dark:border-white/[0.08]">
+                            <Sparkles size={11} className="text-blue-500" />
+                            <span className="font-medium">AI-powered</span>
                           </div>
-                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-50 dark:bg-green-500/10 border border-green-200 dark:border-green-500/20">
-                            <CheckCircle2 size={12} className="text-green-600 dark:text-green-400" />
-                            <span className="font-medium text-green-700 dark:text-green-400">Permissions verified</span>
+                          <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-green-50/80 dark:bg-green-500/10 backdrop-blur-sm border border-green-200/50 dark:border-green-500/20">
+                            <CheckCircle2 size={11} className="text-green-600 dark:text-green-400" />
+                            <span className="font-medium text-green-700 dark:text-green-400">Secure</span>
                           </div>
                         </div>
                       </div>
@@ -498,7 +363,7 @@ export const EnterpriseSearchPage: React.FC = () => {
               </div>
 
               <div className="text-center">
-                <p className="text-sm text-gray-500 mb-4 font-medium">Try asking a question or click an example below</p>
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-4 font-medium">Try an example</p>
                 <div className="flex flex-wrap justify-center gap-2">
                   {searchExamples.map((example, i) => (
                     <button
@@ -507,10 +372,10 @@ export const EnterpriseSearchPage: React.FC = () => {
                         setActiveExample(i);
                         setSearchQuery('');
                       }}
-                      className={`px-4 py-2 rounded-lg text-xs font-medium transition-all duration-300 ${
+                      className={`px-4 py-2 rounded-xl text-xs font-medium transition-all duration-200 ${
                         activeExample === i
-                          ? 'bg-gradient-to-r from-accent-pink to-accent-purple text-white shadow-lg shadow-accent-pink/30 scale-105'
-                          : 'bg-gray-100 dark:bg-white/5 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-white/10 hover:scale-105 hover:shadow-md'
+                          ? 'bg-gray-900 dark:bg-white text-white dark:text-gray-900 shadow-lg'
+                          : 'bg-gray-100/80 dark:bg-white/[0.05] text-gray-600 dark:text-gray-400 hover:bg-gray-200/80 dark:hover:bg-white/[0.08] border border-gray-200/50 dark:border-white/[0.08]'
                       }`}
                     >
                       {example.query.split(' ').slice(0, 4).join(' ')}...
@@ -523,239 +388,348 @@ export const EnterpriseSearchPage: React.FC = () => {
         </div>
       </Section>
 
-      <Section className="py-24 bg-gradient-to-b from-gray-50 to-white dark:from-[#050505] dark:to-black border-t border-black/5 dark:border-white/5 relative overflow-hidden">
-        <div className="absolute top-0 left-1/4 w-[600px] h-[600px] bg-accent-purple/5 blur-[150px] rounded-full pointer-events-none" />
-
+      <Section className="py-32 bg-white dark:bg-[#000000] relative overflow-hidden">
         <div className="max-w-7xl mx-auto relative z-10">
           <FadeIn>
-            <div className="text-center mb-16">
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-gray-900 dark:text-white mb-4">
-                Search Across Your Entire Stack
+            <div className="text-center mb-20">
+              <h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight" style={{ fontWeight: 600 }}>
+                Enterprise-Grade<br />
+                <span className="text-gray-500 dark:text-gray-400">Search Intelligence</span>
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-                Connect all your tools. Ask questions in plain English. Get answers from everywhere.
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto font-normal">
+                A search experience designed for how modern enterprises actually work.
               </p>
             </div>
           </FadeIn>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            {categories.map((category, i) => (
-              <FadeIn key={i} delay={i * 100}>
-                <div
-                  className="relative p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 hover:border-accent-pink/30 transition-all duration-500 group overflow-hidden hover:shadow-2xl hover:shadow-accent-pink/5"
-                  onMouseEnter={() => setHoveredCard(i)}
-                  onMouseLeave={() => setHoveredCard(null)}
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent-pink/5 via-transparent to-accent-purple/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="absolute -top-24 -right-24 w-48 h-48 bg-gradient-to-br from-accent-pink/20 to-accent-purple/20 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                  <div className="relative">
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className={`w-12 h-12 rounded-xl bg-gradient-to-br ${category.color} flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
-                        <category.icon className="text-white" size={24} />
-                      </div>
-                      <h3 className="text-xl font-semibold text-gray-900 dark:text-white group-hover:text-transparent group-hover:bg-clip-text group-hover:bg-gradient-to-r group-hover:from-accent-pink group-hover:to-accent-purple transition-all duration-500">
-                        {category.name}
-                      </h3>
-                    </div>
-
-                    <div className="mb-6">
-                      <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wider">Connected Apps</div>
-                      <div className="flex flex-wrap gap-2">
-                        {category.connectors.map((connector, ci) => (
-                          <div
-                            key={ci}
-                            className={`flex items-center gap-2 px-3 py-1.5 rounded-lg border text-xs font-medium transition-all duration-300 hover:scale-105 ${
-                              connector.connected
-                                ? 'bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-500/10 dark:to-emerald-500/10 border-green-300 dark:border-green-500/30 text-green-700 dark:text-green-400 shadow-sm hover:shadow-md hover:shadow-green-500/20'
-                                : 'bg-gray-50 dark:bg-white/5 border-gray-200 dark:border-white/10 text-gray-400 hover:border-gray-300 dark:hover:border-white/20'
-                            }`}
-                          >
-                            <span className="text-base">{connector.icon}</span>
-                            <span>{connector.name}</span>
-                            {connector.connected && (
-                              <CheckCircle2 size={12} className="text-green-600 dark:text-green-400" />
-                            )}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-
-                    <div>
-                      <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 mb-3 uppercase tracking-wider">Example Queries</div>
-                      <div className="space-y-2">
-                        {category.examples.map((example, ei) => (
-                          <div
-                            key={ei}
-                            className="flex items-start gap-2 group/example cursor-pointer p-2 rounded-lg hover:bg-gradient-to-r hover:from-accent-pink/5 hover:to-transparent transition-all duration-300 border border-transparent hover:border-accent-pink/20"
-                          >
-                            <Search size={14} className="text-gray-400 group-hover/example:text-accent-pink mt-0.5 flex-shrink-0 transition-colors duration-300" />
-                            <p className="text-sm text-gray-600 dark:text-gray-400 group-hover/example:text-gray-900 dark:group-hover/example:text-white transition-colors duration-300 leading-snug">
-                              "{example}"
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
+          <div className="space-y-32">
+            <FadeIn delay={200}>
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-gray-100/80 dark:bg-white/[0.08] backdrop-blur-xl border border-gray-300/50 dark:border-white/[0.12]">
+                    <Command size={12} className="text-gray-600 dark:text-gray-300" />
+                    <span className="text-xs font-medium text-gray-700 dark:text-gray-200">Unified Interface</span>
                   </div>
-                </div>
-              </FadeIn>
-            ))}
-          </div>
-
-          <FadeIn delay={800}>
-            <div className="mt-12 relative group">
-              <div className="absolute inset-0 bg-gradient-to-r from-accent-pink to-accent-purple rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-500" />
-              <div className="relative p-8 rounded-2xl bg-gradient-to-br from-accent-pink/10 via-purple-500/10 to-accent-purple/10 border border-accent-pink/20 hover:border-accent-pink/40 text-center transition-all duration-500 overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent-pink to-transparent" />
-                <div className="inline-flex items-center gap-3 mb-4">
-                  <div className="flex -space-x-2">
-                    {['📄', '💬', '📊', '🐙', '📝', '☁️', '🎨', '📧'].map((icon, i) => (
-                      <div
-                        key={i}
-                        className="w-10 h-10 rounded-full bg-white dark:bg-white/10 border-2 border-white dark:border-gray-900 flex items-center justify-center text-lg hover:scale-125 hover:z-10 transition-transform duration-300 cursor-pointer shadow-lg"
-                        style={{ transitionDelay: `${i * 50}ms` }}
-                      >
-                        {icon}
+                  <h3 className="text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight" style={{ fontWeight: 600 }}>
+                    One search bar for everything
+                  </h3>
+                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed font-normal">
+                    Stop switching between tools. Search across Slack, GitHub, Google Drive, Notion, Salesforce, and 50+ other apps from a single interface. Natural language queries that understand context and intent.
+                  </p>
+                  <div className="space-y-4">
+                    {[
+                      { icon: Brain, text: "Natural language understanding", desc: "Ask questions like you would to a colleague" },
+                      { icon: Zap, text: "Instant results", desc: "Sub-second response time across all sources" },
+                      { icon: Sparkles, text: "AI-powered relevance", desc: "Results ranked by business context, not just keywords" }
+                    ].map((item, i) => (
+                      <div key={i} className="flex items-start gap-3 group">
+                        <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/[0.05] flex items-center justify-center flex-shrink-0 group-hover:bg-gray-200 dark:group-hover:bg-white/[0.08] transition-colors duration-200">
+                          <item.icon size={18} className="text-gray-700 dark:text-gray-300" strokeWidth={2} />
+                        </div>
+                        <div>
+                          <div className="font-semibold text-gray-900 dark:text-white mb-1">{item.text}</div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 font-normal">{item.desc}</p>
+                        </div>
                       </div>
                     ))}
                   </div>
-                  <span className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-accent-pink to-accent-purple">
-                    50+ Integrations
-                  </span>
                 </div>
-                <p className="text-gray-700 dark:text-gray-300 mb-6 font-medium">
-                  Connect to all your existing tools. New connectors added every month.
-                </p>
-                <Button variant="outline" size="sm" className="group/btn hover:scale-105 transition-transform duration-300">
-                  View All Integrations
-                  <ArrowRight size={14} className="ml-2 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                </Button>
-              </div>
-            </div>
-          </FadeIn>
-        </div>
-      </Section>
 
-      <Section className="py-24">
-        <div className="max-w-7xl mx-auto">
-          <FadeIn>
-            <div className="text-center mb-16">
-              <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-accent-pink/20 bg-accent-pink/5 backdrop-blur-md shadow-lg">
-                <Shield size={14} className="text-accent-pink" />
-                <span className="text-xs font-mono uppercase tracking-widest text-accent-pink font-semibold">Enterprise Security</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-gray-900 dark:text-white mb-4">
-                Security & Compliance First
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Built for enterprises with the most demanding security, compliance, and governance requirements. Every feature designed with security at its core.
-              </p>
-            </div>
-          </FadeIn>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {securityFeatures.map((feature, i) => (
-              <FadeIn key={i} delay={i * 50}>
-                <div className="relative p-6 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 hover:border-accent-pink/30 hover:shadow-xl hover:shadow-accent-pink/5 transition-all duration-500 group overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-accent-pink/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <div className="relative">
-                    <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-pink/10 to-accent-purple/10 flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
-                      <feature.icon className="text-accent-pink" size={28} />
+                <div className="relative">
+                  <div className="absolute inset-0 bg-blue-500/10 dark:bg-blue-400/5 blur-3xl rounded-full"></div>
+                  <div className="relative bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-2xl rounded-[28px] border border-gray-200/80 dark:border-white/[0.12] shadow-2xl overflow-hidden p-8" style={{ boxShadow: '0 25px 80px -15px rgba(0, 0, 0, 0.3)' }}>
+                    <div className="flex items-center gap-2 mb-6">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2 group-hover:text-accent-pink transition-colors duration-300">
-                      {feature.title}
-                    </h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                      {feature.desc}
-                    </p>
+
+                    <div className="relative">
+                      <div className="flex items-center gap-3 px-4 py-3 mb-6 rounded-xl bg-gray-50 dark:bg-white/[0.05] border border-gray-200/50 dark:border-white/[0.08]">
+                        <Search size={18} className="text-gray-400" strokeWidth={2} />
+                        <input
+                          type="text"
+                          value="kubernetes migration decision"
+                          readOnly
+                          className="flex-1 bg-transparent text-sm outline-none text-gray-900 dark:text-white font-medium"
+                        />
+                        <kbd className="px-2 py-1 text-xs font-semibold text-gray-600 dark:text-gray-400 bg-white dark:bg-black/30 border border-gray-300 dark:border-white/[0.12] rounded-md">⌘K</kbd>
+                      </div>
+
+                      <div className="flex items-center gap-2 mb-4 pb-3 border-b border-gray-200/50 dark:border-white/[0.08]">
+                        {['All', 'Code', 'Docs', 'People', 'Messages'].map((tab, i) => (
+                          <button
+                            key={i}
+                            className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all duration-200 ${
+                              i === 0
+                                ? 'bg-blue-500 text-white shadow-sm'
+                                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/[0.05]'
+                            }`}
+                          >
+                            {tab}
+                          </button>
+                        ))}
+                        <div className="flex-1"></div>
+                        <button className="p-1.5 rounded-lg text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-white/[0.05] transition-colors">
+                          <Filter size={14} />
+                        </button>
+                      </div>
+
+                      <div className="space-y-2">
+                        {[
+                          { icon: "🐙", title: "K8s Migration RFC", app: "GitHub", time: "8 weeks ago", relevance: 98 },
+                          { icon: "📘", title: "Infrastructure Architecture Review", app: "Confluence", time: "Oct 10", relevance: 94 },
+                          { icon: "💬", title: "#devops: Migration discussion thread", app: "Slack", time: "Sept 12-Oct 15", relevance: 91 },
+                          { icon: "👥", title: "Sarah Chen - DevOps Lead", app: "BambooHR", time: "Active", relevance: 88 }
+                        ].map((result, i) => (
+                          <div
+                            key={i}
+                            className="flex items-center gap-3 p-3 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] hover:bg-gray-100/80 dark:hover:bg-white/[0.06] border border-transparent hover:border-gray-200/50 dark:hover:border-white/[0.08] transition-all duration-200 cursor-pointer group"
+                          >
+                            <span className="text-2xl">{result.icon}</span>
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1">
+                                <div className="text-sm font-semibold text-gray-900 dark:text-white truncate">{result.title}</div>
+                                <div className="px-2 py-0.5 rounded-md bg-blue-50 dark:bg-blue-500/10 border border-blue-100 dark:border-blue-400/20">
+                                  <span className="text-[10px] font-bold text-blue-600 dark:text-blue-400">{result.relevance}</span>
+                                </div>
+                              </div>
+                              <div className="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                                <span>{result.app}</span>
+                                <span>•</span>
+                                <span>{result.time}</span>
+                              </div>
+                            </div>
+                            <ChevronRight size={16} className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-200" />
+                          </div>
+                        ))}
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </FadeIn>
-            ))}
-          </div>
+              </div>
+            </FadeIn>
 
-          <FadeIn delay={600}>
-            <div className="mt-12 grid md:grid-cols-2 gap-8">
-              <div className="relative p-8 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 hover:border-green-500/30 transition-all duration-500 group overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-green-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Permission Inheritance</h3>
+            <FadeIn delay={400}>
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div className="order-2 lg:order-1">
+                  <div className="relative">
+                    <div className="absolute inset-0 bg-green-500/10 dark:bg-green-400/5 blur-3xl rounded-full"></div>
+                    <div className="relative bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-2xl rounded-[28px] border border-gray-200/80 dark:border-white/[0.12] shadow-2xl overflow-hidden p-8" style={{ boxShadow: '0 25px 80px -15px rgba(0, 0, 0, 0.3)' }}>
+                      <div className="flex items-center gap-2 mb-6">
+                        <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                      </div>
+
+                      <div className="space-y-6">
+                        <div className="p-5 rounded-xl bg-gradient-to-br from-blue-50/50 to-gray-50/30 dark:from-blue-500/5 dark:to-transparent border border-blue-100/50 dark:border-blue-400/10">
+                          <div className="flex items-start gap-3 mb-4">
+                            <div className="w-8 h-8 rounded-lg bg-blue-500 flex items-center justify-center flex-shrink-0 shadow-sm">
+                              <Sparkles className="text-white" size={16} />
+                            </div>
+                            <div className="flex-1">
+                              <div className="text-xs font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wide mb-2">AI Summary</div>
+                              <p className="text-sm text-gray-900 dark:text-white leading-relaxed font-normal">
+                                8 contracts expire Q1 2024 totaling $2.58M ARR. 3 high-risk accounts need immediate attention.
+                              </p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/[0.05] transition-colors">
+                              <FileText size={12} />
+                              View Details
+                            </button>
+                            <button className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] text-xs font-semibold text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-white/[0.05] transition-colors">
+                              <Share2 size={12} />
+                              Share
+                            </button>
+                          </div>
+                        </div>
+
+                        <div className="space-y-2">
+                          <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Sources Across Your Stack</div>
+                          {[
+                            { name: "Salesforce", icon: "☁️", files: 3, color: "blue" },
+                            { name: "HubSpot", icon: "🎯", files: 2, color: "orange" },
+                            { name: "Google Sheets", icon: "📊", files: 1, color: "green" },
+                            { name: "Slack", icon: "💬", files: 8, color: "purple" }
+                          ].map((source, i) => (
+                            <div
+                              key={i}
+                              className="flex items-center justify-between p-3 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] hover:bg-gray-100/80 dark:hover:bg-white/[0.06] border border-transparent hover:border-gray-200/50 dark:hover:border-white/[0.08] transition-all duration-200 cursor-pointer group"
+                            >
+                              <div className="flex items-center gap-3">
+                                <span className="text-2xl">{source.icon}</span>
+                                <div>
+                                  <div className="text-sm font-semibold text-gray-900 dark:text-white">{source.name}</div>
+                                  <div className="text-xs text-gray-500 dark:text-gray-400">{source.files} relevant items</div>
+                                </div>
+                              </div>
+                              <ChevronRight size={16} className="text-gray-400 group-hover:text-gray-600 dark:group-hover:text-gray-300 opacity-0 group-hover:opacity-100 transition-all duration-200" />
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="order-1 lg:order-2">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-gray-100/80 dark:bg-white/[0.08] backdrop-blur-xl border border-gray-300/50 dark:border-white/[0.12]">
+                    <Layers size={12} className="text-gray-600 dark:text-gray-300" />
+                    <span className="text-xs font-medium text-gray-700 dark:text-gray-200">Cross-Platform Intelligence</span>
+                  </div>
+                  <h3 className="text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight" style={{ fontWeight: 600 }}>
+                    See the full context
+                  </h3>
+                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed font-normal">
+                    Don't just find documents. Understand the complete story. Our AI connects dots across meetings, messages, code, and data to give you answers, not just links.
+                  </p>
                   <div className="space-y-4">
                     {[
-                      { title: "Automatic Permission Sync", desc: "If you can't access a document in Google Drive, you won't see it in search results" },
-                      { title: "Real-Time Updates", desc: "Permissions updated instantly when changed in source systems" },
-                      { title: "Zero Configuration", desc: "No manual permission mapping or rules required" }
+                      { icon: GitBranch, text: "Connected insights", desc: "Link related information across all platforms automatically" },
+                      { icon: Brain, text: "Contextual understanding", desc: "AI that knows your org structure, projects, and relationships" },
+                      { icon: History, text: "Timeline reconstruction", desc: "See how decisions evolved across channels and tools" }
                     ].map((item, i) => (
-                      <div key={i} className="p-4 rounded-xl bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-500/10 dark:to-emerald-500/10 border border-green-200 dark:border-green-500/20 hover:shadow-lg hover:shadow-green-500/20 transition-all duration-300">
-                        <div className="flex items-start gap-3">
-                          <CheckCircle2 className="text-green-600 dark:text-green-400 mt-0.5 flex-shrink-0" size={20} />
-                          <div>
-                            <div className="font-semibold text-green-900 dark:text-green-300 mb-1">{item.title}</div>
-                            <p className="text-sm text-green-700 dark:text-green-400">{item.desc}</p>
-                          </div>
+                      <div key={i} className="flex items-start gap-3 group">
+                        <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/[0.05] flex items-center justify-center flex-shrink-0 group-hover:bg-gray-200 dark:group-hover:bg-white/[0.08] transition-colors duration-200">
+                          <item.icon size={18} className="text-gray-700 dark:text-gray-300" strokeWidth={2} />
+                        </div>
+                        <div>
+                          <div className="font-semibold text-gray-900 dark:text-white mb-1">{item.text}</div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 font-normal">{item.desc}</p>
                         </div>
                       </div>
                     ))}
                   </div>
                 </div>
               </div>
+            </FadeIn>
 
-              <div className="relative p-8 rounded-2xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 hover:border-accent-purple/30 transition-all duration-500 group overflow-hidden">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                <div className="relative">
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Compliance Ready</h3>
-                  <div className="grid grid-cols-2 gap-4 mb-6">
-                    {['GDPR', 'HIPAA', 'SOC 2', 'ISO 27001'].map((cert, i) => (
-                      <div key={i} className="p-4 rounded-xl bg-gray-50 dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 text-center hover:border-accent-purple/30 hover:shadow-lg transition-all duration-300 group/cert">
-                        <CheckCircle2 className="text-green-500 mx-auto mb-2 group-hover/cert:scale-110 transition-transform duration-300" size={24} />
-                        <div className="font-semibold text-gray-900 dark:text-white text-sm">{cert}</div>
-                        <div className="text-xs text-gray-500 mt-1">Compliant</div>
-                      </div>
-                    ))}
+            <FadeIn delay={600}>
+              <div className="grid lg:grid-cols-2 gap-16 items-center">
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-6 rounded-full bg-gray-100/80 dark:bg-white/[0.08] backdrop-blur-xl border border-gray-300/50 dark:border-white/[0.12]">
+                    <Shield size={12} className="text-gray-600 dark:text-gray-300" />
+                    <span className="text-xs font-medium text-gray-700 dark:text-gray-200">Enterprise Security</span>
                   </div>
-                  <div className="space-y-3">
+                  <h3 className="text-4xl font-semibold text-gray-900 dark:text-white mb-4 tracking-tight" style={{ fontWeight: 600 }}>
+                    Security you can trust
+                  </h3>
+                  <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 leading-relaxed font-normal">
+                    Built from the ground up for enterprises with the strictest security requirements. SOC 2 Type II certified with automatic permission inheritance from all source systems.
+                  </p>
+                  <div className="space-y-4">
                     {[
-                      "Complete audit logs for all access",
-                      "Data residency controls (US, EU, UK)",
-                      "Automated retention policies",
-                      "DLP & sensitive data detection"
+                      { icon: Lock, text: "Permission inheritance", desc: "Users only see what they already have access to" },
+                      { icon: Eye, text: "Complete audit logs", desc: "Track every query, access, and action with immutable logs" },
+                      { icon: Database, text: "End-to-end encryption", desc: "AES-256 at rest, TLS 1.3 in transit, HSM key management" }
                     ].map((item, i) => (
-                      <div key={i} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors duration-300 group/item">
-                        <div className="w-1.5 h-1.5 rounded-full bg-accent-pink group-hover/item:scale-150 transition-transform duration-300"></div>
-                        <span>{item}</span>
+                      <div key={i} className="flex items-start gap-3 group">
+                        <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/[0.05] flex items-center justify-center flex-shrink-0 group-hover:bg-gray-200 dark:group-hover:bg-white/[0.08] transition-colors duration-200">
+                          <item.icon size={18} className="text-gray-700 dark:text-gray-300" strokeWidth={2} />
+                        </div>
+                        <div>
+                          <div className="font-semibold text-gray-900 dark:text-white mb-1">{item.text}</div>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 font-normal">{item.desc}</p>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
+
+                <div className="relative">
+                  <div className="absolute inset-0 bg-gray-500/10 dark:bg-gray-400/5 blur-3xl rounded-full"></div>
+                  <div className="relative bg-white/80 dark:bg-[#1c1c1e]/80 backdrop-blur-2xl rounded-[28px] border border-gray-200/80 dark:border-white/[0.12] shadow-2xl overflow-hidden p-8" style={{ boxShadow: '0 25px 80px -15px rgba(0, 0, 0, 0.3)' }}>
+                    <div className="flex items-center gap-2 mb-6">
+                      <div className="w-3 h-3 rounded-full bg-red-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between p-4 rounded-xl bg-green-50/50 dark:bg-green-500/5 border border-green-200/50 dark:border-green-500/20">
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 rounded-lg bg-green-500 flex items-center justify-center">
+                            <CheckCircle2 className="text-white" size={18} />
+                          </div>
+                          <div>
+                            <div className="text-sm font-semibold text-gray-900 dark:text-white">SOC 2 Type II</div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400">Certified Dec 2024</div>
+                          </div>
+                        </div>
+                        <button className="text-xs font-semibold text-green-600 dark:text-green-400">View Report</button>
+                      </div>
+
+                      <div className="p-4 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
+                        <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Compliance Certifications</div>
+                        <div className="grid grid-cols-2 gap-2">
+                          {['GDPR', 'HIPAA', 'ISO 27001', 'CCPA'].map((cert, i) => (
+                            <div key={i} className="p-3 rounded-lg bg-white dark:bg-black/20 border border-gray-200/50 dark:border-white/[0.08] text-center">
+                              <div className="w-6 h-6 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-2">
+                                <CheckCircle2 size={12} className="text-green-600 dark:text-green-400" />
+                              </div>
+                              <div className="text-xs font-semibold text-gray-900 dark:text-white">{cert}</div>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="p-4 rounded-xl bg-gray-50/50 dark:bg-white/[0.03] border border-gray-200/50 dark:border-white/[0.08]">
+                        <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-3">Security Features</div>
+                        <div className="space-y-2">
+                          {[
+                            { icon: Key, text: "SSO & SAML Integration" },
+                            { icon: History, text: "Immutable Audit Logs" },
+                            { icon: Globe, text: "Data Residency Controls" },
+                            { icon: Scan, text: "DLP & Sensitive Data Detection" }
+                          ].map((feature, i) => (
+                            <div key={i} className="flex items-center gap-2 text-xs text-gray-700 dark:text-gray-300">
+                              <feature.icon size={14} className="text-gray-500 dark:text-gray-400" />
+                              <span className="font-medium">{feature.text}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-          </FadeIn>
+            </FadeIn>
+          </div>
         </div>
       </Section>
 
-      <Section className="py-24 relative overflow-hidden bg-gradient-to-b from-white to-gray-50 dark:from-black dark:to-[#050505] border-t border-black/5 dark:border-white/5">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-accent-pink/10 via-transparent to-accent-purple/10" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-accent-pink/10 to-accent-purple/10 blur-[150px] rounded-full pointer-events-none" />
+      <Section className="py-32 relative overflow-hidden bg-gray-50 dark:bg-[#000000] border-t border-gray-200/50 dark:border-white/[0.08]">
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-blue-500/5 to-transparent dark:via-blue-400/5" />
 
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <FadeIn>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-medium text-gray-900 dark:text-white mb-6">
-              Ready to Transform Enterprise Search?
+            <h2 className="text-5xl sm:text-6xl md:text-7xl font-semibold text-gray-900 dark:text-white mb-6 tracking-tight" style={{ fontWeight: 600 }}>
+              Ready to transform<br />
+              <span className="text-gray-500 dark:text-gray-400">how your team works?</span>
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto font-normal leading-relaxed">
               Join enterprises that cut search time by 80% while maintaining the highest security standards.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-8">
-              <Button variant="primary" size="lg" className="group hover:scale-105 transition-all duration-300 shadow-lg shadow-accent-pink/30 hover:shadow-xl hover:shadow-accent-pink/40">
+              <Button
+                variant="primary"
+                size="lg"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 rounded-xl font-semibold shadow-lg hover:shadow-xl transition-all duration-200"
+              >
                 Start Free Trial
-                <ArrowRight size={16} className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
               </Button>
-              <Button variant="outline" size="lg" className="hover:scale-105 transition-all duration-300">
-                Schedule Security Review
+              <Button
+                variant="outline"
+                size="lg"
+                className="bg-white/80 dark:bg-white/[0.05] backdrop-blur-sm border-2 border-gray-300 dark:border-white/[0.12] hover:border-gray-400 dark:hover:border-white/[0.2] px-8 py-4 rounded-xl font-semibold transition-all duration-200"
+              >
+                Schedule Demo
               </Button>
             </div>
-            <p className="text-sm text-gray-500">14-day free trial • Enterprise security • No credit card required</p>
+            <p className="text-sm text-gray-500 dark:text-gray-400 font-medium">14-day free trial • No credit card required • Setup in minutes</p>
           </FadeIn>
         </div>
       </Section>
