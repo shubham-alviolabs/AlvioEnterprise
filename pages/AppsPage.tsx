@@ -4,6 +4,7 @@ import { Footer } from '../components/Footer';
 import { Section } from '../components/ui/Section';
 import { FadeIn } from '../components/ui/FadeIn';
 import { Button } from '../components/ui/Button';
+import { MockAppInterface } from '../components/MockAppInterfaces';
 import {
   Layout, Sparkles, Code, Palette, Database,
   Zap, MessageSquare, ArrowRight, CheckCircle2,
@@ -197,145 +198,168 @@ const authenticateUser = async (req, res, next) => {
         </div>
       </Section>
 
-      {/* Before/After Comparison Section */}
-      <Section className="bg-gradient-to-b from-white/50 via-pink-50/30 to-white/50 dark:from-white/[0.02] dark:via-accent-pink/[0.02] dark:to-white/[0.02] py-24 border-y border-black/5 dark:border-white/5 backdrop-blur-3xl">
-        <div className="max-w-7xl mx-auto">
+      {/* No-Code Builders vs ALVIO */}
+      <Section className="bg-gradient-to-b from-white/50 via-pink-50/30 to-white/50 dark:from-white/[0.02] dark:via-accent-pink/[0.02] dark:to-white/[0.02] py-24 border-y border-black/5 dark:border-white/5 backdrop-blur-3xl relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
           <FadeIn>
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-accent-pink/30 bg-gradient-to-r from-accent-pink/10 to-accent-orange/10 backdrop-blur-xl">
                 <Zap size={14} className="text-accent-pink animate-pulse" />
-                <span className="text-xs font-medium uppercase tracking-[0.2em] text-accent-pink">Speed Comparison</span>
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-accent-pink">The ALVIO Difference</span>
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-                Traditional vs ALVIO
+                Beyond No-Code Builders
               </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">
-                See how ALVIO compresses months of work into minutes without sacrificing quality.
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto font-light">
+                Tools like Lovable and Replit are great for web apps. But ALVIO goes further—connecting your existing data, APIs, and systems with AI that actually understands your business.
               </p>
             </div>
           </FadeIn>
 
           <div className="grid lg:grid-cols-2 gap-8">
-            {/* Traditional Development */}
+            {/* No-Code Builders */}
             <FadeIn>
               <div className="relative p-8 rounded-3xl bg-white/50 dark:bg-white/[0.02] border-2 border-gray-300 dark:border-white/10 backdrop-blur-xl">
-                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-bold">
-                  6+ Months
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-gray-200 dark:bg-white/10 flex items-center justify-center">
+                    <Code className="text-gray-500" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">No-Code Builders</h3>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                  <Code className="text-gray-500" size={24} />
-                  Traditional Development
-                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  Perfect for building standard web apps quickly. But limited when you need real business integration.
+                </p>
 
-                <div className="space-y-6">
+                <div className="space-y-3 mb-6">
                   {[
-                    { week: 'Weeks 1-2', task: 'Requirements & Planning', team: '3 people', cost: '$15K' },
-                    { week: 'Weeks 3-6', task: 'Database Design', team: '2 people', cost: '$30K' },
-                    { week: 'Weeks 7-12', task: 'Backend Development', team: '3 people', cost: '$45K' },
-                    { week: 'Weeks 13-20', task: 'Frontend Development', team: '4 people', cost: '$60K' },
-                    { week: 'Weeks 21-24', task: 'Testing & Bug Fixes', team: '5 people', cost: '$30K' },
-                    { week: 'Week 25+', task: 'Deployment & Maintenance', team: '2 people', cost: 'Ongoing' }
-                  ].map((phase, i) => (
-                    <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10">
-                      <div className="w-8 h-8 rounded-lg bg-gray-300 dark:bg-white/10 flex items-center justify-center flex-shrink-0 font-bold text-sm text-gray-600 dark:text-gray-400">
-                        {i + 1}
-                      </div>
+                    { icon: '✓', text: 'Build web apps fast', color: 'text-green-500' },
+                    { icon: '✓', text: 'Visual UI builders', color: 'text-green-500' },
+                    { icon: '✓', text: 'Basic database included', color: 'text-green-500' }
+                  ].map((item, i) => (
+                    <div key={i} className={`flex items-center gap-2 ${item.color}`}>
+                      <span className="font-bold">{item.icon}</span>
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{item.text}</span>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="border-t-2 border-gray-300 dark:border-white/20 pt-4 space-y-3">
+                  <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Limited By:</div>
+                  {[
+                    { icon: '✗', text: 'Can\'t connect to your existing databases', detail: 'Locked into their database' },
+                    { icon: '✗', text: 'No real API integrations', detail: 'Basic webhooks only' },
+                    { icon: '✗', text: 'AI is just a chatbot', detail: 'Doesn\'t understand your data' },
+                    { icon: '✗', text: 'Can\'t automate business logic', detail: 'Manual workflows only' },
+                    { icon: '✗', text: 'No connection to your tools', detail: 'Can\'t use Stripe billing data, Twilio SMS logs, etc.' }
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-start gap-2 p-3 rounded-xl bg-red-50/50 dark:bg-red-900/10 border border-red-200/50 dark:border-red-800/30">
+                      <span className="text-red-500 font-bold flex-shrink-0">{item.icon}</span>
                       <div className="flex-1">
-                        <div className="font-bold text-gray-900 dark:text-white text-sm">{phase.task}</div>
-                        <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{phase.week}</div>
-                        <div className="flex items-center gap-4 mt-2 text-xs">
-                          <span className="flex items-center gap-1">
-                            <Users size={10} />
-                            {phase.team}
-                          </span>
-                          <span className="flex items-center gap-1 font-semibold text-red-600 dark:text-red-400">
-                            💰 {phase.cost}
-                          </span>
-                        </div>
+                        <div className="text-sm text-gray-900 dark:text-white font-medium">{item.text}</div>
+                        <div className="text-xs text-red-600 dark:text-red-400 mt-1">{item.detail}</div>
                       </div>
                     </div>
                   ))}
-
-                  <div className="pt-4 border-t-2 border-gray-300 dark:border-white/20">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-bold text-gray-700 dark:text-gray-300">Total Cost:</span>
-                      <span className="text-2xl font-bold text-red-600 dark:text-red-400">$180K+</span>
-                    </div>
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-sm font-bold text-gray-700 dark:text-gray-300">Time to Market:</span>
-                      <span className="text-xl font-bold text-red-600 dark:text-red-400">25+ weeks</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             </FadeIn>
 
-            {/* ALVIO Way */}
+            {/* ALVIO */}
             <FadeIn delay={200}>
               <div className="relative p-8 rounded-3xl bg-gradient-to-br from-accent-orange/10 via-accent-pink/10 to-accent-purple/10 border-2 border-accent-purple/40 backdrop-blur-xl shadow-2xl shadow-accent-purple/20">
-                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-green-500/20 border border-green-500/40 text-green-500 text-xs font-bold animate-pulse">
-                  ~15 Minutes
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-purple via-accent-pink to-accent-orange flex items-center justify-center shadow-lg">
+                    <Sparkles className="text-white" size={24} />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">ALVIO Apps</h3>
                 </div>
 
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-                  <Sparkles className="text-accent-purple" size={24} />
-                  ALVIO Apps
-                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  Everything they do, plus the power to connect your entire business with intelligent AI.
+                </p>
 
-                <div className="space-y-6">
+                <div className="space-y-3 mb-6">
                   {[
-                    { time: 'Minutes 1-5', task: 'Describe Your App', detail: 'Natural language prompt', icon: '💬' },
-                    { time: 'Minutes 6-8', task: 'AI Generates Schema', detail: 'Tables, relationships, migrations', icon: '🗄️' },
-                    { time: 'Minutes 9-11', task: 'API Creation', detail: 'RESTful endpoints with auth', icon: '⚡' },
-                    { time: 'Minutes 12-14', task: 'UI Generation', detail: 'Responsive, accessible interface', icon: '🎨' },
-                    { time: 'Minute 15', task: 'Ready to Deploy', detail: 'Production-ready code', icon: '🚀' }
-                  ].map((phase, i) => (
-                    <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105">
-                      <div className="text-3xl">{phase.icon}</div>
-                      <div className="flex-1">
-                        <div className="font-bold text-gray-900 dark:text-white text-sm">{phase.task}</div>
-                        <div className="text-xs text-accent-purple dark:text-accent-purple mt-1 font-semibold">{phase.time}</div>
-                        <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{phase.detail}</div>
-                      </div>
-                      <CheckCircle2 className="text-green-500 flex-shrink-0" size={20} />
+                    { icon: '✓', text: 'Build apps just as fast', color: 'text-green-500' },
+                    { icon: '✓', text: 'Beautiful, modern UI', color: 'text-green-500' },
+                    { icon: '✓', text: 'Production-ready code', color: 'text-green-500' }
+                  ].map((item, i) => (
+                    <div key={i} className={`flex items-center gap-2 ${item.color}`}>
+                      <span className="font-bold">{item.icon}</span>
+                      <span className="text-sm text-gray-900 dark:text-white font-medium">{item.text}</span>
                     </div>
                   ))}
+                </div>
 
-                  <div className="pt-4 border-t-2 border-accent-purple/40">
-                    <div className="flex justify-between items-center">
-                      <span className="text-sm font-bold text-gray-900 dark:text-white">Total Cost:</span>
-                      <span className="text-2xl font-bold text-green-500 flex items-center gap-2">
-                        Starting at $0
-                        <span className="text-xs font-normal text-gray-500 dark:text-gray-400">(free tier)</span>
-                      </span>
+                <div className="border-t-2 border-accent-purple/40 pt-4 space-y-3">
+                  <div className="text-xs font-bold text-accent-purple uppercase tracking-wider mb-3">Plus Unique ALVIO Capabilities:</div>
+                  {[
+                    { icon: '⚡', text: 'Connect ANY database', detail: 'PostgreSQL, MySQL, MongoDB, Supabase—your choice', color: 'purple' },
+                    { icon: '🔌', text: 'Deep API integrations', detail: 'Stripe billing, Twilio SMS, SendGrid email as data sources', color: 'orange' },
+                    { icon: '🤖', text: 'AI that knows your data', detail: 'Query your database in natural language, get intelligent answers', color: 'pink' },
+                    { icon: '🔄', text: 'Intelligent automation', detail: 'AI agents that act on your data: send emails, process payments', color: 'purple' },
+                    { icon: '📊', text: 'Real-time data sync', detail: 'Your apps stay connected to live business data', color: 'orange' }
+                  ].map((item, i) => (
+                    <div key={i} className={`flex items-start gap-2 p-4 rounded-xl bg-gradient-to-br ${
+                      item.color === 'purple' ? 'from-accent-purple/20 to-accent-purple/5 border-accent-purple/30' :
+                      item.color === 'orange' ? 'from-accent-orange/20 to-accent-orange/5 border-accent-orange/30' :
+                      'from-accent-pink/20 to-accent-pink/5 border-accent-pink/30'
+                    } border-2 backdrop-blur-xl hover:scale-105 transition-transform duration-300 cursor-pointer group`}>
+                      <span className="text-2xl flex-shrink-0 group-hover:scale-125 transition-transform">{item.icon}</span>
+                      <div className="flex-1">
+                        <div className="text-sm text-gray-900 dark:text-white font-bold">{item.text}</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">{item.detail}</div>
+                      </div>
+                      <CheckCircle2 className={`flex-shrink-0 ${
+                        item.color === 'purple' ? 'text-accent-purple' :
+                        item.color === 'orange' ? 'text-accent-orange' :
+                        'text-accent-pink'
+                      }`} size={20} />
                     </div>
-                    <div className="flex justify-between items-center mt-2">
-                      <span className="text-sm font-bold text-gray-900 dark:text-white">Time to Market:</span>
-                      <span className="text-xl font-bold text-green-500">~15 minutes</span>
-                    </div>
-                  </div>
+                  ))}
+                </div>
 
-                  <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/30">
-                    <div className="flex items-center gap-2 text-green-500 font-bold mb-2">
-                      <TrendingUp size={20} />
-                      <span className="text-sm">You Save</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 text-center">
-                      <div>
-                        <div className="text-3xl font-bold text-green-500">$180K+</div>
-                        <div className="text-xs text-gray-600 dark:text-gray-400">in costs</div>
-                      </div>
-                      <div>
-                        <div className="text-3xl font-bold text-green-500">99.6%</div>
-                        <div className="text-xs text-gray-600 dark:text-gray-400">faster delivery</div>
-                      </div>
-                    </div>
+                <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/30">
+                  <div className="flex items-center gap-2 text-green-500 font-bold mb-2">
+                    <Sparkles size={16} />
+                    <span className="text-sm">The Result</span>
                   </div>
+                  <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
+                    Not just a web app—a <strong className="text-gray-900 dark:text-white">intelligent business system</strong> that connects your data, automates workflows, and gives you AI-powered insights.
+                  </p>
                 </div>
               </div>
             </FadeIn>
           </div>
+
+          {/* Real Example Callout */}
+          <FadeIn delay={400}>
+            <div className="mt-12 p-6 rounded-3xl bg-gradient-to-br from-accent-purple/5 via-accent-orange/5 to-accent-pink/5 border-2 border-accent-purple/20 backdrop-blur-xl">
+              <div className="max-w-4xl mx-auto">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-purple to-accent-pink flex items-center justify-center flex-shrink-0">
+                    <MessageSquare size={24} className="text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Real Example: E-commerce Dashboard</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+                      With other builders, you get a basic order list. With ALVIO, you get an app that connects to your Stripe account, analyzes your sales data with AI, sends automated emails via SendGrid when orders ship, and texts customers via Twilio for delivery updates—all generated from one prompt.
+                    </p>
+                    <div className="flex flex-wrap gap-2">
+                      {['Live Stripe Data', 'AI Analytics', 'SendGrid Integration', 'Twilio SMS', 'Custom PostgreSQL'].map((tag, i) => (
+                        <span key={i} className="px-3 py-1 rounded-full bg-white/50 dark:bg-white/10 border border-accent-purple/30 text-xs font-medium text-gray-700 dark:text-gray-300">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </FadeIn>
         </div>
       </Section>
 
@@ -780,86 +804,13 @@ const authenticateUser = async (req, res, next) => {
               </div>
 
               <div className="relative aspect-video rounded-3xl bg-gradient-to-br from-gray-50 via-orange-50/30 to-pink-50/30 dark:from-white/[0.08] dark:via-accent-orange/[0.05] dark:to-accent-pink/[0.05] border-2 border-gray-200 dark:border-white/20 p-6 overflow-hidden shadow-2xl backdrop-blur-xl group">
-                {/* Mock App Interface */}
                 <div className="absolute inset-0 p-6 transition-transform duration-700 group-hover:scale-[1.02]">
-                  {/* Header bar */}
-                  <div className="h-10 rounded-t-2xl bg-gradient-to-r from-gray-200/80 to-gray-300/80 dark:from-white/20 dark:to-white/10 border-b border-gray-300 dark:border-white/20 flex items-center px-4 gap-2 backdrop-blur-xl">
-                    <div className="flex gap-1.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-400 hover:scale-125 transition-transform cursor-pointer" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-400 hover:scale-125 transition-transform cursor-pointer" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-green-400 hover:scale-125 transition-transform cursor-pointer" />
-                    </div>
-                    <div className="flex-1 h-5 rounded bg-gray-300/50 dark:bg-white/5 ml-4 flex items-center px-2">
-                      <span className="text-[8px] text-gray-500 dark:text-gray-400">app.alvio.io/{activeExample}</span>
-                    </div>
-                  </div>
-
-                  {/* Content area */}
-                  <div className="h-[calc(100%-2.5rem)] rounded-b-2xl bg-white/50 dark:bg-black/20 backdrop-blur-xl border-x border-b border-gray-300 dark:border-white/20 p-4 grid grid-cols-3 gap-3">
-                    {/* Sidebar */}
-                    <div className="space-y-2">
-                      {[
-                        { icon: '📊', label: 'Dashboard', active: true },
-                        { icon: '📈', label: 'Analytics', active: false },
-                        { icon: '👥', label: 'Users', active: false },
-                        { icon: '⚙️', label: 'Settings', active: false }
-                      ].map((item, i) => (
-                        <div
-                          key={i}
-                          className={`h-8 rounded-lg flex items-center gap-2 px-2 transition-all duration-300 hover:scale-105 cursor-pointer ${
-                            item.active
-                              ? 'bg-gradient-to-r from-accent-orange/30 to-accent-pink/30 shadow-lg'
-                              : 'bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20'
-                          }`}
-                          onMouseEnter={() => setHoveredCard(i)}
-                          onMouseLeave={() => setHoveredCard(null)}
-                        >
-                          <span className="text-xs">{item.icon}</span>
-                          <span className={`text-[8px] font-medium transition-opacity ${hoveredCard === i ? 'opacity-100' : 'opacity-60'}`}>
-                            {item.label}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Main content */}
-                    <div className="col-span-2 space-y-3">
-                      <div className="grid grid-cols-2 gap-2">
-                        <div className="h-16 rounded-lg bg-gradient-to-br from-accent-purple/20 to-accent-purple/10 border border-accent-purple/30 p-2 flex flex-col justify-between">
-                          <div className="text-[8px] text-gray-600 dark:text-gray-400">Revenue</div>
-                          <div className="text-xs font-bold text-accent-purple">${(animatedStats.revenue / 1000).toFixed(0)}K</div>
-                          <div className="flex items-center gap-1">
-                            <TrendingUp size={8} className="text-green-500" />
-                            <span className="text-[6px] text-green-500">+23%</span>
-                          </div>
-                        </div>
-                        <div className="h-16 rounded-lg bg-gradient-to-br from-accent-orange/20 to-accent-orange/10 border border-accent-orange/30 p-2 flex flex-col justify-between">
-                          <div className="text-[8px] text-gray-600 dark:text-gray-400">Users</div>
-                          <div className="text-xs font-bold text-accent-orange">{(animatedStats.users / 1000).toFixed(1)}K</div>
-                          <div className="flex items-center gap-1">
-                            <TrendingUp size={8} className="text-green-500" />
-                            <span className="text-[6px] text-green-500">+18%</span>
-                          </div>
-                        </div>
-                      </div>
-
-                      {/* Mini chart */}
-                      <div className="h-24 rounded-lg bg-gradient-to-br from-gray-200 to-gray-300 dark:from-white/10 dark:to-white/5 p-2 relative overflow-hidden">
-                        <div className="absolute bottom-0 left-0 right-0 h-3/4 flex items-end justify-around px-1">
-                          {[40, 65, 45, 80, 60, 95, 70].map((height, i) => (
-                            <div
-                              key={i}
-                              className="w-2 bg-gradient-to-t from-accent-purple to-accent-pink rounded-t transition-all duration-500"
-                              style={{
-                                height: `${height}%`,
-                                animationDelay: `${i * 100}ms`
-                              }}
-                            />
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <MockAppInterface
+                    type={activeExample}
+                    hoveredCard={hoveredCard}
+                    setHoveredCard={setHoveredCard}
+                    animatedStats={animatedStats}
+                  />
                 </div>
 
                 {/* Shine effect */}
