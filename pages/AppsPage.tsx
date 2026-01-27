@@ -207,13 +207,13 @@ const authenticateUser = async (req, res, next) => {
             <div className="text-center mb-16">
               <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-accent-pink/30 bg-gradient-to-r from-accent-pink/10 to-accent-orange/10 backdrop-blur-xl">
                 <Zap size={14} className="text-accent-pink animate-pulse" />
-                <span className="text-xs font-medium uppercase tracking-[0.2em] text-accent-pink">The ALVIO Difference</span>
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-accent-pink">Apps as Data Sources</span>
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-                Beyond No-Code Builders
+                Your Business Apps Are Your Data
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto font-light">
-                Tools like Lovable and Replit are great for web apps. But ALVIO goes further—connecting your existing data, APIs, and systems with AI that actually understands your business.
+                Lovable and Replit let you build apps with databases. ALVIO lets you build apps where Gmail, Salesforce, Notion, and every tool you use becomes an intelligent data source—no data sync, no new datasets, just AI that understands your business.
               </p>
             </div>
           </FadeIn>
@@ -230,14 +230,14 @@ const authenticateUser = async (req, res, next) => {
                 </div>
 
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  Perfect for building standard web apps quickly. But limited when you need real business integration.
+                  Great for building web apps with database connections and API calls. But your business data lives in apps, not just databases.
                 </p>
 
                 <div className="space-y-3 mb-6">
                   {[
                     { icon: '✓', text: 'Build web apps fast', color: 'text-green-500' },
-                    { icon: '✓', text: 'Visual UI builders', color: 'text-green-500' },
-                    { icon: '✓', text: 'Basic database included', color: 'text-green-500' }
+                    { icon: '✓', text: 'Connect to databases', color: 'text-green-500' },
+                    { icon: '✓', text: 'Basic API webhooks', color: 'text-green-500' }
                   ].map((item, i) => (
                     <div key={i} className={`flex items-center gap-2 ${item.color}`}>
                       <span className="font-bold">{item.icon}</span>
@@ -247,13 +247,13 @@ const authenticateUser = async (req, res, next) => {
                 </div>
 
                 <div className="border-t-2 border-gray-300 dark:border-white/20 pt-4 space-y-3">
-                  <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">Limited By:</div>
+                  <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">What They Can't Do:</div>
                   {[
-                    { icon: '✗', text: 'Can\'t connect to your existing databases', detail: 'Locked into their database' },
-                    { icon: '✗', text: 'No real API integrations', detail: 'Basic webhooks only' },
-                    { icon: '✗', text: 'AI is just a chatbot', detail: 'Doesn\'t understand your data' },
-                    { icon: '✗', text: 'Can\'t automate business logic', detail: 'Manual workflows only' },
-                    { icon: '✗', text: 'No connection to your tools', detail: 'Can\'t use Stripe billing data, Twilio SMS logs, etc.' }
+                    { icon: '✗', text: 'Apps are not data sources', detail: 'Can\'t query Gmail threads, Notion docs, or Salesforce records' },
+                    { icon: '✗', text: 'No pre-indexed business context', detail: 'You manage data sync, security, and schemas yourself' },
+                    { icon: '✗', text: 'AI can\'t reason across your tools', detail: 'No "find deals where contact hasn\'t replied to email in 2 weeks"' },
+                    { icon: '✗', text: 'No intelligent automation', detail: 'Webhooks trigger actions, but AI can\'t make decisions' },
+                    { icon: '✗', text: 'Chat assistants lack context', detail: 'Can\'t answer "What did my team discuss about Project X?"' }
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-2 p-3 rounded-xl bg-red-50/50 dark:bg-red-900/10 border border-red-200/50 dark:border-red-800/30">
                       <span className="text-red-500 font-bold flex-shrink-0">{item.icon}</span>
@@ -278,13 +278,13 @@ const authenticateUser = async (req, res, next) => {
                 </div>
 
                 <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  Everything they do, plus the power to connect your entire business with intelligent AI.
+                  Build apps just as fast, but with AI that understands your entire business—across every tool you use.
                 </p>
 
                 <div className="space-y-3 mb-6">
                   {[
                     { icon: '✓', text: 'Build apps just as fast', color: 'text-green-500' },
-                    { icon: '✓', text: 'Beautiful, modern UI', color: 'text-green-500' },
+                    { icon: '✓', text: 'Connect to any database', color: 'text-green-500' },
                     { icon: '✓', text: 'Production-ready code', color: 'text-green-500' }
                   ].map((item, i) => (
                     <div key={i} className={`flex items-center gap-2 ${item.color}`}>
@@ -295,13 +295,13 @@ const authenticateUser = async (req, res, next) => {
                 </div>
 
                 <div className="border-t-2 border-accent-purple/40 pt-4 space-y-3">
-                  <div className="text-xs font-bold text-accent-purple uppercase tracking-wider mb-3">Plus Unique ALVIO Capabilities:</div>
+                  <div className="text-xs font-bold text-accent-purple uppercase tracking-wider mb-3">ALVIO's Unique Power:</div>
                   {[
-                    { icon: '⚡', text: 'Connect ANY database', detail: 'PostgreSQL, MySQL, MongoDB, Supabase—your choice', color: 'purple' },
-                    { icon: '🔌', text: 'Deep API integrations', detail: 'Stripe billing, Twilio SMS, SendGrid email as data sources', color: 'orange' },
-                    { icon: '🤖', text: 'AI that knows your data', detail: 'Query your database in natural language, get intelligent answers', color: 'pink' },
-                    { icon: '🔄', text: 'Intelligent automation', detail: 'AI agents that act on your data: send emails, process payments', color: 'purple' },
-                    { icon: '📊', text: 'Real-time data sync', detail: 'Your apps stay connected to live business data', color: 'orange' }
+                    { icon: '🔗', text: 'Apps become data sources', detail: 'Gmail, Office 365, Salesforce, Xero, Notion, Fireflies—all queryable by AI', color: 'purple' },
+                    { icon: '⚡', text: 'Pre-indexed integration layer', detail: 'No data sync, no schema design, no security headaches—we handle it all', color: 'orange' },
+                    { icon: '🤖', text: 'AI that reasons across tools', detail: '"Find Salesforce deals where contact hasn\'t replied to Gmail in 2 weeks"', color: 'pink' },
+                    { icon: '🎯', text: 'Intelligent agents', detail: 'AI that makes decisions based on your business context and takes action', color: 'purple' },
+                    { icon: '💬', text: 'Context-aware chat assistants', detail: 'Build assistants powered by ALL your integrations—they know your business', color: 'orange' }
                   ].map((item, i) => (
                     <div key={i} className={`flex items-start gap-2 p-4 rounded-xl bg-gradient-to-br ${
                       item.color === 'purple' ? 'from-accent-purple/20 to-accent-purple/5 border-accent-purple/30' :
@@ -328,7 +328,7 @@ const authenticateUser = async (req, res, next) => {
                     <span className="text-sm">The Result</span>
                   </div>
                   <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                    Not just a web app—a <strong className="text-gray-900 dark:text-white">intelligent business system</strong> that connects your data, automates workflows, and gives you AI-powered insights.
+                    Apps that understand your business because they're built on <strong className="text-gray-900 dark:text-white">all your data</strong>—not just databases, but Gmail, Salesforce, Notion, and every tool your team uses daily.
                   </p>
                 </div>
               </div>
@@ -344,12 +344,13 @@ const authenticateUser = async (req, res, next) => {
                     <MessageSquare size={24} className="text-white" />
                   </div>
                   <div className="flex-1">
-                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Real Example: E-commerce Dashboard</h4>
+                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Real Example: Sales Intelligence Dashboard</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
-                      With other builders, you get a basic order list. With ALVIO, you get an app that connects to your Stripe account, analyzes your sales data with AI, sends automated emails via SendGrid when orders ship, and texts customers via Twilio for delivery updates—all generated from one prompt.
+                      <strong className="text-gray-900 dark:text-white">Other builders:</strong> Connect Salesforce API, show a list of deals.<br/>
+                      <strong className="text-gray-900 dark:text-white">ALVIO:</strong> Build a dashboard where AI analyzes Salesforce deals + Gmail threads + Fireflies call transcripts together. Ask "Which deals need attention because the contact hasn't replied to email in 2 weeks?" or "What concerns came up in calls about Project Phoenix?" Your app understands because all your tools are data sources.
                     </p>
                     <div className="flex flex-wrap gap-2">
-                      {['Live Stripe Data', 'AI Analytics', 'SendGrid Integration', 'Twilio SMS', 'Custom PostgreSQL'].map((tag, i) => (
+                      {['Salesforce as Data', 'Gmail as Data', 'Fireflies Transcripts', 'Notion Docs', 'AI Cross-Tool Queries', 'Chat Assistant Powered'].map((tag, i) => (
                         <span key={i} className="px-3 py-1 rounded-full bg-white/50 dark:bg-white/10 border border-accent-purple/30 text-xs font-medium text-gray-700 dark:text-gray-300">
                           {tag}
                         </span>
