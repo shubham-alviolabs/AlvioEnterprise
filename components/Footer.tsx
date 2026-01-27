@@ -97,13 +97,13 @@ export const Footer: React.FC = () => {
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="group text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
+                      <a href="/terms-of-use" className="group text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
                         <span className="w-0 h-px bg-gray-900 dark:bg-white group-hover:w-2 transition-all duration-300"></span>
                         Terms
                       </a>
                     </li>
                     <li>
-                      <a href="#" className="group text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
+                      <a href="/cookie-policy" className="group text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
                         <span className="w-0 h-px bg-gray-900 dark:bg-white group-hover:w-2 transition-all duration-300"></span>
                         Cookies
                       </a>

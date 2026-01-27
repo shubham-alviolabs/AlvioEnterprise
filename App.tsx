@@ -6,6 +6,9 @@ import { AppsPage } from './pages/AppsPage';
 import { AgentsPage } from './pages/AgentsPage';
 import { WorkflowsPage } from './pages/WorkflowsPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import TermsOfUsePage from './pages/TermsOfUsePage';
+import CookiePolicyPage from './pages/CookiePolicyPage';
+import CookieConsent from './components/CookieConsent';
 
 const App: React.FC = () => {
   return (
@@ -17,7 +20,10 @@ const App: React.FC = () => {
         <Route path="/agents" element={<AgentsPage />} />
         <Route path="/workflows" element={<WorkflowsPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms-of-use" element={<TermsOfUsePage />} />
+        <Route path="/cookie-policy" element={<CookiePolicyPage />} />
       </Routes>
+      <CookieConsent />
     </div>
   );
 };
