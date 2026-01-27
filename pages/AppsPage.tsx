@@ -16,18 +16,21 @@ export const AppsPage: React.FC = () => {
   const examples = {
     dashboard: {
       title: 'Analytics Dashboard',
-      desc: 'Real-time metrics from all your data sources',
-      prompt: '"Build me a dashboard that shows our key metrics: revenue, user growth, and customer satisfaction. Pull data from Stripe, our database, and support tickets."'
+      desc: 'Real-time metrics with live database connections',
+      prompt: '"Build an analytics dashboard showing revenue, user growth, and KPIs. Connect to Stripe API and our PostgreSQL database. Include charts, filters, and export features."',
+      features: ['Live database queries', 'API integrations', 'Interactive charts', 'Real-time updates']
     },
     crm: {
       title: 'Custom CRM',
-      desc: 'Tailored to your sales process',
-      prompt: '"Create a CRM that tracks deals through our 5-stage process. Include automated follow-ups and integrate with our email and calendar."'
+      desc: 'Full-stack sales management system',
+      prompt: '"Create a CRM with contact management, deal pipeline, and email automation. Store data in PostgreSQL, integrate with Gmail API, and add custom fields for our workflow."',
+      features: ['Database schema creation', 'Email integration', 'Custom workflows', 'Team collaboration']
     },
     portal: {
       title: 'Customer Portal',
-      desc: 'Self-service hub for your customers',
-      prompt: '"Build a customer portal where users can check order status, download invoices, and submit support tickets. Connect to our order database and Zendesk."'
+      desc: 'Consumer-facing self-service app',
+      prompt: '"Build a customer portal with authentication, order tracking, and support tickets. Connect to our database, Stripe for billing, and Zendesk API for support."',
+      features: ['User authentication', 'Database CRUD', 'Payment processing', 'Third-party APIs']
     }
   };
 
@@ -46,11 +49,11 @@ export const AppsPage: React.FC = () => {
               <span className="text-xs font-medium uppercase tracking-[0.2em] bg-gradient-to-r from-accent-orange via-accent-pink to-accent-orange bg-clip-text text-transparent">ALVIO Apps</span>
             </div>
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-6 leading-[1.1]">
-              Build Apps by <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-pink to-accent-purple">Describing Them</span>
+              Build Full-Stack Apps<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-orange via-accent-pink to-accent-purple">In Minutes, Not Months</span>
             </h1>
             <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-              No code. No designers. Just tell ALVIO what you need and watch it build custom applications connected to your data.
+              From internal dashboards to consumer apps—complete with databases, APIs, and beautiful interfaces. Just describe what you need.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button variant="primary" size="lg" className="group rounded-full shadow-2xl shadow-accent-orange/30 hover:shadow-accent-pink/40 transition-all duration-500 hover:scale-105">
@@ -82,20 +85,20 @@ export const AppsPage: React.FC = () => {
             {[
               {
                 icon: Box,
-                title: 'Generic Tools',
-                desc: 'SaaS products force you to adapt to their way of working.',
+                title: 'Off-The-Shelf SaaS',
+                desc: 'Generic solutions that don\'t fit your workflow. Limited customization, expensive per seat.',
                 color: 'gray'
               },
               {
                 icon: Code,
-                title: 'Custom Code',
-                desc: 'Building from scratch takes months and costs six figures.',
+                title: 'Custom Development',
+                desc: 'Hire engineers, wait 6+ months, spend $100K+. Maintenance costs pile up forever.',
                 color: 'gray'
               },
               {
                 icon: Sparkles,
                 title: 'ALVIO Apps',
-                desc: 'Get custom apps built in minutes that perfectly fit your needs.',
+                desc: 'Full-stack applications in minutes. Database, APIs, UI—all generated. Your exact requirements.',
                 color: 'accent-orange'
               }
             ].map((item, i) => (
@@ -145,15 +148,20 @@ export const AppsPage: React.FC = () => {
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
                   Just tell ALVIO what the app should do. No need to draw wireframes or write specs. Use natural language like you're talking to a developer.
                 </p>
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {[
-                    'Describe the functionality',
-                    'Specify which data sources to connect',
-                    'Mention any specific features you need'
+                    { title: 'Define the App', desc: 'Internal tool or customer-facing product?' },
+                    { title: 'Specify Integrations', desc: 'Which databases, APIs, and services to connect' },
+                    { title: 'Describe Features', desc: 'Authentication, payments, notifications, etc.' }
                   ].map((item, i) => (
                     <div key={i} className="flex items-start gap-3">
-                      <CheckCircle2 size={20} className="text-accent-orange mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                      <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-accent-orange/20 to-accent-pink/20 flex items-center justify-center flex-shrink-0 mt-1">
+                        <CheckCircle2 size={14} className="text-accent-orange" />
+                      </div>
+                      <div>
+                        <div className="text-gray-900 dark:text-white font-semibold">{item.title}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400 font-light">{item.desc}</div>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -171,7 +179,7 @@ export const AppsPage: React.FC = () => {
                   </div>
                   <div className="bg-white/5 backdrop-blur-2xl rounded-2xl p-6 border border-white/10 shadow-lg">
                     <p className="text-white text-sm sm:text-base leading-relaxed font-light">
-                      "Build me a sales dashboard that shows this month's revenue, pipeline value, and conversion rates. Pull data from Salesforce and display it with charts."
+                      "Build a sales analytics dashboard with charts showing monthly revenue, pipeline value, and conversion rates. Connect to our PostgreSQL database and Salesforce API. Include filters by team and date range. Add user authentication with team-based access."
                     </p>
                   </div>
                   <div className="mt-5 flex items-center gap-2 text-accent-orange text-sm font-medium">
@@ -205,17 +213,22 @@ export const AppsPage: React.FC = () => {
                   <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">AI Builds the Interface</h3>
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  ALVIO's AI understands your requirements and creates a beautiful, functional interface. It handles the design, layout, and interactions automatically.
+                  ALVIO generates the complete application: database schema, API endpoints, authentication, and a beautiful responsive interface.
                 </p>
-                <ul className="space-y-3">
+                <ul className="space-y-4">
                   {[
-                    'Generates clean, modern UI automatically',
-                    'Responsive design that works everywhere',
-                    'Professional look without designers'
+                    { title: 'Database Schema', desc: 'Tables, relationships, and migrations' },
+                    { title: 'Backend APIs', desc: 'CRUD endpoints, authentication, business logic' },
+                    { title: 'Frontend UI', desc: 'Modern, responsive, accessible interfaces' }
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <CheckCircle2 size={20} className="text-accent-pink mt-0.5 flex-shrink-0" />
-                      <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                      <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-accent-pink/20 to-accent-purple/20 flex items-center justify-center flex-shrink-0 mt-1">
+                        <CheckCircle2 size={14} className="text-accent-pink" />
+                      </div>
+                      <div>
+                        <div className="text-gray-900 dark:text-white font-semibold">{item.title}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400 font-light">{item.desc}</div>
+                      </div>
                     </li>
                   ))}
                 </ul>
@@ -231,7 +244,7 @@ export const AppsPage: React.FC = () => {
                   <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Connects to Your Data</h3>
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  The app automatically connects to your existing data sources. Everything stays in sync. Changes in your tools reflect instantly in the app.
+                  Apps connect to any database, API, or service. PostgreSQL, MySQL, Stripe, Twilio, SendGrid—if it has an API, ALVIO can integrate it.
                 </p>
                 <div className="space-y-4">
                   <div className="p-5 rounded-2xl bg-gradient-to-r from-white/70 via-purple-50/50 to-white/70 dark:from-white/[0.05] dark:via-accent-purple/[0.05] dark:to-white/[0.05] border border-gray-200 dark:border-white/10 backdrop-blur-xl shadow-lg hover:scale-[1.02] transition-transform duration-300">
@@ -239,18 +252,18 @@ export const AppsPage: React.FC = () => {
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-purple/20 to-accent-purple/10 flex items-center justify-center">
                         <Database className="text-accent-purple" size={20} />
                       </div>
-                      <span className="font-bold text-gray-900 dark:text-white text-lg">Live Data Connection</span>
+                      <span className="font-bold text-gray-900 dark:text-white text-lg">Any Database</span>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 font-light pl-13">Always shows current information from your systems</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-light pl-13">PostgreSQL, MySQL, MongoDB—or let ALVIO create one</p>
                   </div>
                   <div className="p-5 rounded-2xl bg-gradient-to-r from-white/70 via-orange-50/50 to-white/70 dark:from-white/[0.05] dark:via-accent-orange/[0.05] dark:to-white/[0.05] border border-gray-200 dark:border-white/10 backdrop-blur-xl shadow-lg hover:scale-[1.02] transition-transform duration-300">
                     <div className="flex items-center gap-3 mb-2">
                       <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-orange/20 to-accent-orange/10 flex items-center justify-center">
                         <Zap className="text-accent-orange" size={20} />
                       </div>
-                      <span className="font-bold text-gray-900 dark:text-white text-lg">Real-time Sync</span>
+                      <span className="font-bold text-gray-900 dark:text-white text-lg">API Integrations</span>
                     </div>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 font-light pl-13">Updates automatically when data changes</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 font-light pl-13">Connect to Stripe, Twilio, SendGrid, and 1000+ services</p>
                   </div>
                 </div>
               </div>
@@ -260,10 +273,18 @@ export const AppsPage: React.FC = () => {
               <div className="relative rounded-3xl bg-gradient-to-br from-[#0A0A0A] via-[#120A1A] to-[#0A0A0A] border-2 border-white/20 p-8 h-full flex items-center justify-center overflow-hidden shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/15 via-accent-orange/10 to-accent-pink/15 opacity-60" />
                 <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white/5 to-transparent rounded-t-3xl" />
-                <div className="relative grid grid-cols-3 gap-4 w-full max-w-sm">
-                  {['Salesforce', 'Database', 'Stripe', 'Google Drive', 'Slack', 'API'].map((source, i) => (
-                    <div key={i} className="aspect-square rounded-2xl bg-white/10 border-2 border-white/30 flex items-center justify-center backdrop-blur-md hover:scale-110 hover:bg-white/20 transition-all duration-300 shadow-lg">
-                      <span className="text-[10px] sm:text-xs text-gray-200 font-medium text-center px-2">{source}</span>
+                <div className="relative grid grid-cols-3 gap-3 w-full max-w-sm">
+                  {[
+                    { name: 'PostgreSQL', icon: '🐘' },
+                    { name: 'Stripe', icon: '💳' },
+                    { name: 'Twilio', icon: '📱' },
+                    { name: 'SendGrid', icon: '✉️' },
+                    { name: 'Slack', icon: '💬' },
+                    { name: 'REST API', icon: '🔌' }
+                  ].map((source, i) => (
+                    <div key={i} className="aspect-square rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/30 flex flex-col items-center justify-center backdrop-blur-md hover:scale-110 hover:bg-white/20 hover:border-accent-purple/50 transition-all duration-300 shadow-lg group">
+                      <span className="text-2xl mb-1">{source.icon}</span>
+                      <span className="text-[9px] text-gray-300 font-medium text-center px-1 opacity-80 group-hover:opacity-100">{source.name}</span>
                     </div>
                   ))}
                 </div>
@@ -308,13 +329,14 @@ export const AppsPage: React.FC = () => {
           <FadeIn>
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <div>
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-4">
+                <h3 className="text-3xl font-bold text-gray-900 dark:text-white mb-3">
                   {examples[activeExample].title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-400 mb-6">
+                <p className="text-gray-600 dark:text-gray-400 mb-6 text-lg">
                   {examples[activeExample].desc}
                 </p>
-                <div className="bg-white/70 dark:bg-white/[0.05] rounded-3xl p-8 border border-gray-200 dark:border-white/10 backdrop-blur-2xl shadow-xl">
+
+                <div className="bg-white/70 dark:bg-white/[0.05] rounded-3xl p-8 border border-gray-200 dark:border-white/10 backdrop-blur-2xl shadow-xl mb-6">
                   <div className="flex items-center gap-2 mb-4 text-accent-orange text-sm font-bold">
                     <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-accent-orange/20 to-accent-pink/20 flex items-center justify-center">
                       <MessageSquare size={16} />
@@ -325,18 +347,53 @@ export const AppsPage: React.FC = () => {
                     {examples[activeExample].prompt}
                   </p>
                 </div>
+
+                <div className="space-y-3">
+                  <div className="text-sm font-bold text-gray-900 dark:text-white mb-3">What Gets Generated:</div>
+                  {examples[activeExample].features.map((feature, i) => (
+                    <div key={i} className="flex items-center gap-3 text-sm">
+                      <CheckCircle2 size={16} className="text-accent-orange flex-shrink-0" />
+                      <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                    </div>
+                  ))}
+                </div>
               </div>
 
-              <div className="relative aspect-video rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-white/[0.05] dark:to-white/[0.02] border border-gray-200 dark:border-white/10 p-8">
-                <div className="absolute inset-0 grid grid-cols-2 gap-4 p-8">
-                  <div className="rounded-lg bg-gray-300 dark:bg-white/10 col-span-2 h-16" />
-                  <div className="rounded-lg bg-gray-300 dark:bg-white/10" />
-                  <div className="rounded-lg bg-gray-300 dark:bg-white/10" />
-                  <div className="rounded-lg bg-gray-300 dark:bg-white/10 col-span-2 h-24" />
+              <div className="relative aspect-video rounded-3xl bg-gradient-to-br from-gray-50 via-orange-50/30 to-pink-50/30 dark:from-white/[0.08] dark:via-accent-orange/[0.05] dark:to-accent-pink/[0.05] border-2 border-gray-200 dark:border-white/20 p-6 overflow-hidden shadow-2xl backdrop-blur-xl">
+                {/* Mock App Interface */}
+                <div className="absolute inset-0 p-6">
+                  {/* Header bar */}
+                  <div className="h-10 rounded-t-2xl bg-gradient-to-r from-gray-200/80 to-gray-300/80 dark:from-white/20 dark:to-white/10 border-b border-gray-300 dark:border-white/20 flex items-center px-4 gap-2 backdrop-blur-xl">
+                    <div className="flex gap-1.5">
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                    </div>
+                    <div className="flex-1 h-5 rounded bg-gray-300/50 dark:bg-white/5 ml-4" />
+                  </div>
+
+                  {/* Content area */}
+                  <div className="h-[calc(100%-2.5rem)] rounded-b-2xl bg-white/50 dark:bg-black/20 backdrop-blur-xl border-x border-b border-gray-300 dark:border-white/20 p-4 grid grid-cols-3 gap-3">
+                    {/* Sidebar */}
+                    <div className="space-y-2">
+                      {[...Array(4)].map((_, i) => (
+                        <div key={i} className={`h-6 rounded-lg ${i === 0 ? 'bg-gradient-to-r from-accent-orange/30 to-accent-pink/30' : 'bg-gray-200 dark:bg-white/10'}`} />
+                      ))}
+                    </div>
+
+                    {/* Main content */}
+                    <div className="col-span-2 space-y-3">
+                      <div className="grid grid-cols-2 gap-2">
+                        <div className="h-16 rounded-lg bg-gradient-to-br from-accent-purple/20 to-accent-purple/10 border border-accent-purple/30" />
+                        <div className="h-16 rounded-lg bg-gradient-to-br from-accent-orange/20 to-accent-orange/10 border border-accent-orange/30" />
+                      </div>
+                      <div className="h-24 rounded-lg bg-gradient-to-br from-gray-200 to-gray-300 dark:from-white/10 dark:to-white/5" />
+                    </div>
+                  </div>
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-t from-accent-orange/20 to-transparent">
-                  <Layout size={48} className="text-accent-orange opacity-50" />
-                </div>
+
+                {/* Shine effect */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent animate-shimmer" />
               </div>
             </div>
           </FadeIn>
@@ -360,40 +417,40 @@ export const AppsPage: React.FC = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
-                icon: MessageSquare,
-                title: 'Natural Conversations',
-                desc: 'Users can ask questions about data instead of clicking through menus.',
-                color: 'orange'
-              },
-              {
-                icon: Sparkles,
-                title: 'Smart Suggestions',
-                desc: 'AI recommends actions and insights based on the current context.',
-                color: 'pink'
-              },
-              {
-                icon: Zap,
-                title: 'Quick Actions',
-                desc: 'Common tasks can be completed by just asking the assistant.',
+                icon: Database,
+                title: 'Database Management',
+                desc: 'Create tables, relationships, and migrations. PostgreSQL, MySQL, or MongoDB.',
                 color: 'purple'
               },
               {
-                icon: Globe,
-                title: 'Works Anywhere',
-                desc: 'Apps work on desktop, tablet, and mobile automatically.',
+                icon: Code,
+                title: 'API Generation',
+                desc: 'RESTful endpoints, authentication, validation—all generated automatically.',
+                color: 'orange'
+              },
+              {
+                icon: Palette,
+                title: 'Modern UI',
+                desc: 'Beautiful, responsive interfaces that work on any device.',
+                color: 'pink'
+              },
+              {
+                icon: Lock,
+                title: 'Built-in Auth',
+                desc: 'User authentication, roles, permissions, and session management.',
+                color: 'purple'
+              },
+              {
+                icon: Zap,
+                title: 'Third-Party APIs',
+                desc: 'Integrate Stripe, Twilio, SendGrid, and thousands of other services.',
                 color: 'orange'
               },
               {
                 icon: Layers,
-                title: 'Customizable',
-                desc: 'Modify and extend apps anytime by talking to ALVIO.',
+                title: 'Fully Editable',
+                desc: 'Modify and extend your app anytime. It\'s your code, your infrastructure.',
                 color: 'pink'
-              },
-              {
-                icon: Database,
-                title: 'Secure by Default',
-                desc: 'All apps respect existing permissions and access controls.',
-                color: 'purple'
               }
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 100}>
@@ -428,10 +485,10 @@ export const AppsPage: React.FC = () => {
         <div className="relative z-10 max-w-4xl mx-auto text-center">
           <FadeIn>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-6 leading-[1.1]">
-              Ready to build your first app?
+              Ship Production Apps Today
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 mb-12 max-w-2xl mx-auto font-light leading-relaxed">
-              Start creating custom applications that perfectly fit your workflows—in minutes, not months.
+              From idea to deployed full-stack application in minutes. Complete with database, APIs, authentication, and a beautiful interface.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Button variant="primary" size="lg" className="rounded-full shadow-2xl shadow-accent-orange/30 hover:shadow-accent-pink/40 transition-all duration-500 hover:scale-105">
