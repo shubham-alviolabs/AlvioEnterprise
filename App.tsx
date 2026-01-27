@@ -4,7 +4,6 @@ import { Home } from './pages/Home';
 import { EnterpriseSearchPage } from './pages/EnterpriseSearchPage';
 import { AppsPage } from './pages/AppsPage';
 import { AgentsPage } from './pages/AgentsPage';
-import { WorkflowsPage } from './pages/WorkflowsPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 import TermsOfUsePage from './pages/TermsOfUsePage';
 import CookiePolicyPage from './pages/CookiePolicyPage';
@@ -18,7 +17,6 @@ const App: React.FC = () => {
         <Route path="/enterprise-search" element={<EnterpriseSearchPage />} />
         <Route path="/apps" element={<AppsPage />} />
         <Route path="/agents" element={<AgentsPage />} />
-        <Route path="/workflows" element={<WorkflowsPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms-of-use" element={<TermsOfUsePage />} />
         <Route path="/cookie-policy" element={<CookiePolicyPage />} />
