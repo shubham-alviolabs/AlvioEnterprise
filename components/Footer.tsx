@@ -90,14 +90,24 @@ export const Footer: React.FC = () => {
                 <div>
                   <h4 className="text-gray-900 dark:text-white font-semibold mb-4 text-xs uppercase tracking-wider">Legal</h4>
                   <ul className="space-y-2.5">
-                    {['Privacy', 'Terms', 'Cookies'].map((item) => (
-                      <li key={item}>
-                        <a href="#" className="group text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
-                          <span className="w-0 h-px bg-gray-900 dark:bg-white group-hover:w-2 transition-all duration-300"></span>
-                          {item}
-                        </a>
-                      </li>
-                    ))}
+                    <li>
+                      <a href="/privacy-policy" className="group text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
+                        <span className="w-0 h-px bg-gray-900 dark:bg-white group-hover:w-2 transition-all duration-300"></span>
+                        Privacy
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="group text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
+                        <span className="w-0 h-px bg-gray-900 dark:bg-white group-hover:w-2 transition-all duration-300"></span>
+                        Terms
+                      </a>
+                    </li>
+                    <li>
+                      <a href="#" className="group text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1">
+                        <span className="w-0 h-px bg-gray-900 dark:bg-white group-hover:w-2 transition-all duration-300"></span>
+                        Cookies
+                      </a>
+                    </li>
                   </ul>
                 </div>
 

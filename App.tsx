@@ -5,6 +5,7 @@ import { EnterpriseSearchPage } from './pages/EnterpriseSearchPage';
 import { AppsPage } from './pages/AppsPage';
 import { AgentsPage } from './pages/AgentsPage';
 import { WorkflowsPage } from './pages/WorkflowsPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 
 const App: React.FC = () => {
   return (
@@ -15,6 +16,7 @@ const App: React.FC = () => {
         <Route path="/apps" element={<AppsPage />} />
         <Route path="/agents" element={<AgentsPage />} />
         <Route path="/workflows" element={<WorkflowsPage />} />
+        <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
       </Routes>
     </div>
   );
