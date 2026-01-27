@@ -1,5 +1,5 @@
 import React from 'react';
-import { TrendingUp, Users, DollarSign, Package, Phone, Mail, Clock, CheckCircle2 } from 'lucide-react';
+import { TrendingUp, Users, DollarSign, Package, Phone, Mail, Clock, CheckCircle2, Layers, Database, MessageSquare, FileText } from 'lucide-react';
 
 interface MockAppInterfaceProps {
   type: 'dashboard' | 'crm' | 'portal';
@@ -88,42 +88,107 @@ export const MockAppInterface: React.FC<MockAppInterfaceProps> = ({
             <div className="w-2.5 h-2.5 rounded-full bg-green-400 hover:scale-125 transition-transform cursor-pointer" />
           </div>
           <div className="flex-1 h-5 rounded bg-gray-300/50 dark:bg-white/5 ml-4 flex items-center px-2">
-            <span className="text-[8px] text-gray-500 dark:text-gray-400">crm.mycompany.com/deals</span>
+            <span className="text-[8px] text-gray-500 dark:text-gray-400">sales-intelligence.mycompany.com</span>
           </div>
         </div>
 
-        <div className="h-[calc(100%-2.5rem)] rounded-b-2xl bg-white/50 dark:bg-black/20 backdrop-blur-xl border-x border-b border-gray-300 dark:border-white/20 p-4 grid grid-cols-5 gap-2">
-          {['Lead', 'Qualified', 'Proposal', 'Negotiation', 'Won'].map((stage, i) => (
-            <div key={i} className="space-y-1.5">
-              <div className={`text-[7px] font-bold text-center p-1 rounded ${
-                i === 0 ? 'bg-gray-200 dark:bg-white/10 text-gray-700 dark:text-gray-300' :
-                i === 1 ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300' :
-                i === 2 ? 'bg-accent-purple/20 text-accent-purple' :
-                i === 3 ? 'bg-accent-orange/20 text-accent-orange' :
-                'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300'
-              }`}>
-                {stage}
+        <div className="h-[calc(100%-2.5rem)] rounded-b-2xl bg-gradient-to-br from-white/50 via-orange-50/20 to-pink-50/20 dark:from-black/20 dark:via-accent-orange/[0.02] dark:to-accent-pink/[0.02] backdrop-blur-xl border-x border-b border-gray-300 dark:border-white/20 p-4 space-y-2 overflow-y-auto">
+          {/* Deal Card 1 - Needs Attention */}
+          <div className="group p-3 rounded-xl bg-gradient-to-br from-red-50/90 to-orange-50/90 dark:from-red-900/20 dark:to-orange-900/20 border-2 border-red-200/60 dark:border-red-800/40 backdrop-blur-xl hover:scale-[1.02] transition-all duration-300 hover:shadow-lg cursor-pointer">
+            <div className="flex items-start justify-between mb-2">
+              <div>
+                <div className="text-[9px] font-bold text-gray-900 dark:text-white">Acme Corp</div>
+                <div className="text-[7px] text-gray-600 dark:text-gray-400">$450K · Negotiation</div>
               </div>
-
-              {[...Array(i === 2 ? 3 : i === 3 ? 2 : 1)].map((_, idx) => (
-                <div key={idx} className="p-2 rounded-lg bg-white/80 dark:bg-white/5 border border-gray-200 dark:border-white/10 hover:scale-105 transition-transform cursor-pointer">
-                  <div className="flex items-center gap-1 mb-1">
-                    <div className="w-4 h-4 rounded-full bg-gradient-to-br from-accent-purple/30 to-accent-pink/30" />
-                    <div className="text-[7px] font-bold text-gray-900 dark:text-white truncate">
-                      {i === 0 ? 'Acme Corp' : i === 1 ? 'Beta Inc' : i === 2 && idx === 0 ? 'Gamma Ltd' : i === 2 && idx === 1 ? 'Delta Co' : i === 2 ? 'Epsilon' : i === 3 && idx === 0 ? 'Zeta LLC' : i === 3 ? 'Theta' : 'Omega'}
-                    </div>
-                  </div>
-                  <div className="text-[6px] text-accent-purple font-bold mb-0.5">
-                    ${i === 0 ? '45K' : i === 1 ? '120K' : i === 2 && idx === 0 ? '250K' : i === 2 && idx === 1 ? '180K' : i === 2 ? '95K' : i === 3 && idx === 0 ? '380K' : i === 3 ? '210K' : '450K'}
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Mail size={6} className="text-gray-500" />
-                    <span className="text-[5px] text-gray-500 dark:text-gray-400">Sent via SendGrid</span>
-                  </div>
-                </div>
-              ))}
+              <div className="px-2 py-0.5 rounded-full bg-red-500/20 border border-red-500/40 backdrop-blur-sm">
+                <span className="text-[6px] font-bold text-red-700 dark:text-red-300">Needs Attention</span>
+              </div>
             </div>
-          ))}
+
+            {/* Integration Data Points */}
+            <div className="space-y-1.5 mb-2">
+              <div className="flex items-center gap-1.5 group/item hover:translate-x-0.5 transition-transform">
+                <div className="w-3 h-3 rounded bg-blue-500/20 border border-blue-500/40 flex items-center justify-center flex-shrink-0">
+                  <Database size={7} className="text-blue-600 dark:text-blue-400" />
+                </div>
+                <span className="text-[7px] text-gray-700 dark:text-gray-300">Salesforce: Stage changed 3d ago</span>
+              </div>
+              <div className="flex items-center gap-1.5 group/item hover:translate-x-0.5 transition-transform">
+                <div className="w-3 h-3 rounded bg-red-500/20 border border-red-500/40 flex items-center justify-center flex-shrink-0">
+                  <Mail size={7} className="text-red-600 dark:text-red-400" />
+                </div>
+                <span className="text-[7px] text-gray-700 dark:text-gray-300">Gmail: No reply in 14 days</span>
+              </div>
+              <div className="flex items-center gap-1.5 group/item hover:translate-x-0.5 transition-transform">
+                <div className="w-3 h-3 rounded bg-accent-pink/30 border border-accent-pink/50 flex items-center justify-center flex-shrink-0">
+                  <MessageSquare size={7} className="text-accent-pink" />
+                </div>
+                <span className="text-[7px] text-gray-700 dark:text-gray-300">Fireflies: "Need board approval"</span>
+              </div>
+            </div>
+
+            {/* Integration badges */}
+            <div className="flex gap-1 pt-2 border-t border-red-200/40 dark:border-red-800/30">
+              <div className="px-1.5 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-[6px] font-medium text-blue-700 dark:text-blue-300">SF</div>
+              <div className="px-1.5 py-0.5 rounded bg-red-500/10 border border-red-500/20 text-[6px] font-medium text-red-700 dark:text-red-300">Gmail</div>
+              <div className="px-1.5 py-0.5 rounded bg-accent-pink/10 border border-accent-pink/20 text-[6px] font-medium text-accent-pink">Fireflies</div>
+            </div>
+          </div>
+
+          {/* Deal Card 2 - On Track */}
+          <div className="group p-3 rounded-xl bg-gradient-to-br from-green-50/90 to-emerald-50/90 dark:from-green-900/20 dark:to-emerald-900/20 border-2 border-green-200/60 dark:border-green-800/40 backdrop-blur-xl hover:scale-[1.02] transition-all duration-300 hover:shadow-lg cursor-pointer">
+            <div className="flex items-start justify-between mb-2">
+              <div>
+                <div className="text-[9px] font-bold text-gray-900 dark:text-white">TechStart Inc</div>
+                <div className="text-[7px] text-gray-600 dark:text-gray-400">$180K · Proposal</div>
+              </div>
+              <div className="px-2 py-0.5 rounded-full bg-green-500/20 border border-green-500/40 backdrop-blur-sm">
+                <span className="text-[6px] font-bold text-green-700 dark:text-green-300">On Track</span>
+              </div>
+            </div>
+
+            {/* Integration Data Points */}
+            <div className="space-y-1.5 mb-2">
+              <div className="flex items-center gap-1.5 group/item hover:translate-x-0.5 transition-transform">
+                <div className="w-3 h-3 rounded bg-blue-500/20 border border-blue-500/40 flex items-center justify-center flex-shrink-0">
+                  <Database size={7} className="text-blue-600 dark:text-blue-400" />
+                </div>
+                <span className="text-[7px] text-gray-700 dark:text-gray-300">Salesforce: Meeting tomorrow</span>
+              </div>
+              <div className="flex items-center gap-1.5 group/item hover:translate-x-0.5 transition-transform">
+                <div className="w-3 h-3 rounded bg-green-500/20 border border-green-500/40 flex items-center justify-center flex-shrink-0">
+                  <Mail size={7} className="text-green-600 dark:text-green-400" />
+                </div>
+                <span className="text-[7px] text-gray-700 dark:text-gray-300">Gmail: Positive reply 2h ago</span>
+              </div>
+              <div className="flex items-center gap-1.5 group/item hover:translate-x-0.5 transition-transform">
+                <div className="w-3 h-3 rounded bg-gray-400/20 border border-gray-400/40 flex items-center justify-center flex-shrink-0">
+                  <FileText size={7} className="text-gray-600 dark:text-gray-400" />
+                </div>
+                <span className="text-[7px] text-gray-700 dark:text-gray-300">Notion: Contract reviewed</span>
+              </div>
+            </div>
+
+            {/* Integration badges */}
+            <div className="flex gap-1 pt-2 border-t border-green-200/40 dark:border-green-800/30">
+              <div className="px-1.5 py-0.5 rounded bg-blue-500/10 border border-blue-500/20 text-[6px] font-medium text-blue-700 dark:text-blue-300">SF</div>
+              <div className="px-1.5 py-0.5 rounded bg-green-500/10 border border-green-500/20 text-[6px] font-medium text-green-700 dark:text-green-300">Gmail</div>
+              <div className="px-1.5 py-0.5 rounded bg-gray-400/10 border border-gray-400/20 text-[6px] font-medium text-gray-700 dark:text-gray-300">Notion</div>
+            </div>
+          </div>
+
+          {/* AI Assistant Card */}
+          <div className="group p-3 rounded-xl bg-gradient-to-br from-accent-orange/10 via-accent-pink/10 to-accent-orange/10 dark:from-accent-orange/10 dark:via-accent-pink/5 dark:to-accent-orange/10 border-2 border-accent-orange/30 backdrop-blur-xl hover:scale-[1.02] transition-all duration-300 hover:shadow-lg">
+            <div className="flex items-center gap-2 mb-2">
+              <div className="w-4 h-4 rounded-lg bg-gradient-to-br from-accent-orange to-accent-pink flex items-center justify-center animate-pulse-slow">
+                <MessageSquare size={8} className="text-white" />
+              </div>
+              <span className="text-[8px] font-bold text-gray-900 dark:text-white">AI Assistant</span>
+            </div>
+            <p className="text-[7px] text-gray-700 dark:text-gray-300 italic leading-relaxed">
+              "Acme Corp needs follow-up. Email unanswered + call transcript shows board approval needed. Draft follow-up?"
+            </p>
+          </div>
         </div>
       </>
     );

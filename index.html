@@ -65,6 +65,7 @@
               'orbit-1': 'orbit-1 20s linear infinite',
               'orbit-2': 'orbit-2 25s linear infinite',
               'orbit-3': 'orbit-3 30s linear infinite',
+              'pulse-slow': 'pulse-slow 3s ease-in-out infinite',
             },
             keyframes: {
               'spin-reverse': {
@@ -149,6 +150,10 @@
                'orbit-3': {
                 '0%': { transform: 'rotate(240deg) translateX(90px) rotate(-240deg)' },
                 '100%': { transform: 'rotate(600deg) translateX(90px) rotate(-600deg)' },
+              },
+              'pulse-slow': {
+                '0%, 100%': { opacity: 0.6, transform: 'scale(1)' },
+                '50%': { opacity: 1, transform: 'scale(1.05)' },
               }
             },
             backgroundImage: {

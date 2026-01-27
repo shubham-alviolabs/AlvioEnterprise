@@ -45,9 +45,9 @@ app.get('/api/analytics', async (req, res) => {
     },
     crm: {
       title: 'Custom CRM',
-      desc: 'Full-stack sales management system',
-      prompt: '"Create a CRM with contact management, deal pipeline, and email automation. Store data in PostgreSQL, integrate with Gmail API, and add custom fields for our workflow."',
-      features: ['Database schema creation', 'Email integration', 'Custom workflows', 'Team collaboration'],
+      desc: 'Sales intelligence powered by Salesforce, Gmail, and Fireflies',
+      prompt: '"Create a CRM that queries my Salesforce deals, Gmail conversations, and Fireflies call transcripts. Show me which deals need attention based on email activity and call sentiment."',
+      features: ['Integration-powered insights', 'Cross-tool intelligence', 'AI deal scoring', 'Automated follow-ups'],
       stats: [
         { label: 'Active Deals', value: '47', change: '+12', color: 'purple' },
         { label: 'Pipeline Value', value: '$2.3M', change: '+340K', color: 'orange' },
@@ -529,25 +529,47 @@ const authenticateUser = async (req, res, next) => {
               {
                 icon: Sparkles,
                 title: 'ALVIO Apps',
-                desc: 'Full-stack applications in minutes. Database, APIs, UI—all generated. Your exact requirements.',
-                color: 'accent-orange'
+                desc: 'Full-stack applications powered by your existing business tools. Gmail, Salesforce, Notion as data sources from day one.',
+                color: 'accent-orange',
+                badges: ['Database + APIs', 'Business Integrations', 'AI-Ready']
               }
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 100}>
                 <div className={`group relative p-8 rounded-3xl border transition-all duration-500 hover:scale-[1.02] ${
                   item.color === 'accent-orange'
-                    ? 'bg-gradient-to-br from-accent-orange/10 via-accent-pink/10 to-accent-purple/10 border-accent-orange/40 shadow-2xl shadow-accent-orange/20 backdrop-blur-xl'
+                    ? 'bg-gradient-to-br from-accent-orange/10 via-accent-pink/10 to-accent-orange/5 border-accent-orange/40 shadow-2xl shadow-accent-orange/20 backdrop-blur-xl overflow-hidden'
                     : 'bg-white/60 dark:bg-white/[0.03] border-gray-200/50 dark:border-white/10 backdrop-blur-2xl hover:bg-white/80 dark:hover:bg-white/[0.05] hover:shadow-xl'
                 }`}>
-                  <div className={`w-14 h-14 rounded-2xl ${
-                    item.color === 'accent-orange'
-                      ? 'bg-gradient-to-br from-accent-orange/30 to-accent-pink/30 border-accent-orange/50 shadow-lg shadow-accent-orange/30'
-                      : 'bg-gradient-to-br from-gray-100 to-gray-200 dark:from-white/10 dark:to-white/5 border-gray-300 dark:border-white/20'
-                  } border-2 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform duration-500`}>
-                    <item.icon className={item.color === 'accent-orange' ? 'text-accent-orange' : 'text-gray-600 dark:text-gray-400'} size={26} />
+                  {/* Fluid gradient background animation - only for ALVIO */}
+                  {item.color === 'accent-orange' && (
+                    <div className="absolute inset-0 opacity-30">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-orange/40 to-transparent rounded-full blur-3xl animate-blob"></div>
+                      <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-accent-pink/40 to-transparent rounded-full blur-3xl animate-blob-delay"></div>
+                    </div>
+                  )}
+
+                  <div className="relative z-10">
+                    <div className={`w-14 h-14 rounded-2xl ${
+                      item.color === 'accent-orange'
+                        ? 'bg-gradient-to-br from-accent-orange/30 to-accent-pink/30 border-accent-orange/50 shadow-lg shadow-accent-orange/30'
+                        : 'bg-gradient-to-br from-gray-100 to-gray-200 dark:from-white/10 dark:to-white/5 border-gray-300 dark:border-white/20'
+                    } border-2 flex items-center justify-center mb-5 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}>
+                      <item.icon className={item.color === 'accent-orange' ? 'text-accent-orange' : 'text-gray-600 dark:text-gray-400'} size={26} />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{item.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed font-light mb-4">{item.desc}</p>
+
+                    {/* Integration badges for ALVIO */}
+                    {item.badges && (
+                      <div className="flex flex-wrap gap-2 pt-4 border-t border-accent-orange/20">
+                        {item.badges.map((badge, idx) => (
+                          <div key={idx} className="px-3 py-1.5 rounded-full bg-gradient-to-r from-white/80 to-white/60 dark:from-white/10 dark:to-white/5 border border-accent-orange/30 text-xs font-semibold text-gray-700 dark:text-gray-300 backdrop-blur-xl hover:scale-105 transition-transform duration-300">
+                            {badge}
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{item.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed font-light">{item.desc}</p>
                 </div>
               </FadeIn>
             ))}
@@ -1155,16 +1177,24 @@ const authenticateUser = async (req, res, next) => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
               {
+                icon: Globe,
+                title: '200+ Pre-Indexed Integrations',
+                desc: 'Gmail, Salesforce, Notion, Jira, Xero, QuickBooks—all queryable by AI. No sync, no setup.',
+                color: 'orange',
+                highlight: true,
+                integrations: ['Salesforce', 'Gmail', 'Notion', 'Jira']
+              },
+              {
                 icon: Database,
                 title: 'Database Management',
                 desc: 'Create tables, relationships, and migrations. PostgreSQL, MySQL, or MongoDB.',
-                color: 'purple'
+                color: 'blue'
               },
               {
                 icon: Code,
                 title: 'API Generation',
                 desc: 'RESTful endpoints, authentication, validation—all generated automatically.',
-                color: 'orange'
+                color: 'green'
               },
               {
                 icon: Palette,
@@ -1176,40 +1206,67 @@ const authenticateUser = async (req, res, next) => {
                 icon: Lock,
                 title: 'Built-in Auth',
                 desc: 'User authentication, roles, permissions, and session management.',
-                color: 'purple'
-              },
-              {
-                icon: Zap,
-                title: 'Third-Party APIs',
-                desc: 'Integrate Stripe, Twilio, SendGrid, and thousands of other services.',
-                color: 'orange'
+                color: 'blue'
               },
               {
                 icon: Layers,
                 title: 'Fully Editable',
                 desc: 'Modify and extend your app anytime. It\'s your code, your infrastructure.',
-                color: 'pink'
+                color: 'green'
               }
             ].map((item, i) => (
               <FadeIn key={i} delay={i * 100}>
-                <div className={`group relative p-8 rounded-3xl bg-gradient-to-br ${
-                  item.color === 'orange' ? 'from-white/70 via-orange-50/50 to-white/70 dark:from-white/[0.05] dark:via-accent-orange/[0.05] dark:to-white/[0.05]' :
-                  item.color === 'pink' ? 'from-white/70 via-pink-50/50 to-white/70 dark:from-white/[0.05] dark:via-accent-pink/[0.05] dark:to-white/[0.05]' :
-                  'from-white/70 via-purple-50/50 to-white/70 dark:from-white/[0.05] dark:via-accent-purple/[0.05] dark:to-white/[0.05]'
-                } border border-gray-200 dark:border-white/10 backdrop-blur-2xl hover:scale-[1.02] transition-all duration-500 hover:shadow-2xl`}>
-                  <div className={`w-14 h-14 rounded-2xl mb-5 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-500 ${
-                    item.color === 'orange' ? 'bg-gradient-to-br from-accent-orange/20 to-accent-orange/10 shadow-accent-orange/20' :
-                    item.color === 'pink' ? 'bg-gradient-to-br from-accent-pink/20 to-accent-pink/10 shadow-accent-pink/20' :
-                    'bg-gradient-to-br from-accent-purple/20 to-accent-purple/10 shadow-accent-purple/20'
-                  }`}>
-                    <item.icon className={
-                      item.color === 'orange' ? 'text-accent-orange' :
-                      item.color === 'pink' ? 'text-accent-pink' :
-                      'text-accent-purple'
-                    } size={28} />
+                <div className={`group relative p-8 rounded-3xl border backdrop-blur-2xl hover:scale-[1.03] transition-all duration-500 overflow-hidden ${
+                  item.highlight
+                    ? 'bg-gradient-to-br from-accent-orange/15 via-accent-pink/10 to-accent-orange/15 border-accent-orange/40 shadow-2xl shadow-accent-orange/20 hover:shadow-accent-orange/30'
+                    : item.color === 'blue'
+                    ? 'bg-gradient-to-br from-white/70 via-blue-50/50 to-white/70 dark:from-white/[0.05] dark:via-blue-500/[0.05] dark:to-white/[0.05] border-gray-200 dark:border-white/10 hover:shadow-xl hover:border-blue-400/30'
+                    : item.color === 'green'
+                    ? 'bg-gradient-to-br from-white/70 via-green-50/50 to-white/70 dark:from-white/[0.05] dark:via-green-500/[0.05] dark:to-white/[0.05] border-gray-200 dark:border-white/10 hover:shadow-xl hover:border-green-400/30'
+                    : 'bg-gradient-to-br from-white/70 via-pink-50/50 to-white/70 dark:from-white/[0.05] dark:via-accent-pink/[0.05] dark:to-white/[0.05] border-gray-200 dark:border-white/10 hover:shadow-xl hover:border-accent-pink/30'
+                }`}>
+                  {/* Floating orbs for highlighted card */}
+                  {item.highlight && (
+                    <>
+                      <div className="absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br from-accent-orange/30 to-transparent rounded-full blur-2xl animate-blob"></div>
+                      <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-accent-pink/30 to-transparent rounded-full blur-2xl animate-blob-delay"></div>
+                    </>
+                  )}
+
+                  <div className="relative z-10">
+                    <div className={`w-14 h-14 rounded-2xl mb-5 flex items-center justify-center shadow-lg group-hover:scale-110 group-hover:-rotate-6 transition-all duration-500 ${
+                      item.highlight
+                        ? 'bg-gradient-to-br from-accent-orange via-accent-pink to-accent-orange shadow-accent-orange/30 animate-pulse-slow'
+                        : item.color === 'blue'
+                        ? 'bg-gradient-to-br from-blue-100 to-blue-50 dark:from-blue-500/20 dark:to-blue-500/10 shadow-blue-200/20'
+                        : item.color === 'green'
+                        ? 'bg-gradient-to-br from-green-100 to-green-50 dark:from-green-500/20 dark:to-green-500/10 shadow-green-200/20'
+                        : 'bg-gradient-to-br from-accent-pink/20 to-accent-pink/10 shadow-accent-pink/20'
+                    }`}>
+                      <item.icon className={
+                        item.highlight ? 'text-white' :
+                        item.color === 'blue' ? 'text-blue-600 dark:text-blue-400' :
+                        item.color === 'green' ? 'text-green-600 dark:text-green-400' :
+                        'text-accent-pink'
+                      } size={28} />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{item.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm font-light leading-relaxed mb-4">{item.desc}</p>
+
+                    {/* Integration badges */}
+                    {item.integrations && (
+                      <div className="flex flex-wrap gap-2 pt-4 border-t border-accent-orange/20">
+                        {item.integrations.map((integration, idx) => (
+                          <div key={idx} className="px-2.5 py-1 rounded-lg bg-white/80 dark:bg-white/10 border border-white/40 dark:border-white/20 text-xs font-medium text-gray-700 dark:text-gray-300 backdrop-blur-xl hover:scale-110 hover:-translate-y-0.5 transition-all duration-300 shadow-sm">
+                            {integration}
+                          </div>
+                        ))}
+                        <div className="px-2.5 py-1 rounded-lg bg-gradient-to-r from-accent-orange/20 to-accent-pink/20 border border-accent-orange/40 text-xs font-semibold text-gray-800 dark:text-white backdrop-blur-xl">
+                          +196 more
+                        </div>
+                      </div>
+                    )}
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3">{item.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400 text-sm font-light leading-relaxed">{item.desc}</p>
                 </div>
               </FadeIn>
             ))}
