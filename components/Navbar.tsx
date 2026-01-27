@@ -94,7 +94,8 @@ export const Navbar: React.FC = () => {
   const platformSubItems = [
     { href: '/enterprise-search', id: 'search', label: 'Enterprise Search', color: 'from-accent-pink to-pink-600', isRoute: true },
     { href: '/apps', id: 'apps', label: 'App Builder', color: 'from-accent-orange to-orange-600', isRoute: true },
-    { href: '/agents', id: 'agents', label: 'Workflow Agents', color: 'from-accent-purple to-purple-600', isRoute: true },
+    { href: '/workflows', id: 'workflows', label: 'Workflows', color: 'from-accent-purple to-purple-600', isRoute: true },
+    { href: '/agents', id: 'agents', label: 'Agents', color: 'from-green-500 to-emerald-600', isRoute: true },
   ];
 
   // Check if any solution section is active
@@ -104,11 +105,12 @@ export const Navbar: React.FC = () => {
   // Check if any platform page is active
   const isPlatformActive = platformSubItems.some(item =>
     (location.pathname === item.href) || (activeSection === item.id)
-  ) || ['/enterprise-search', '/apps', '/agents'].includes(location.pathname);
+  ) || ['/enterprise-search', '/apps', '/workflows', '/agents'].includes(location.pathname);
 
   const getCurrentPlatformItem = () => {
     if (location.pathname === '/enterprise-search') return platformSubItems.find(item => item.id === 'search');
     if (location.pathname === '/apps') return platformSubItems.find(item => item.id === 'apps');
+    if (location.pathname === '/workflows') return platformSubItems.find(item => item.id === 'workflows');
     if (location.pathname === '/agents') return platformSubItems.find(item => item.id === 'agents');
     return platformSubItems.find(item => item.id === activeSection);
   };
