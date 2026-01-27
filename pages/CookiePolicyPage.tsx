@@ -117,54 +117,57 @@ export default function CookiePolicyPage() {
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-slate-50 to-white">
+    <div className="min-h-screen bg-white">
       <Navbar />
 
-      <main className="pt-24 pb-20">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center justify-center w-20 h-20 bg-blue-100 rounded-2xl mb-6">
-              <Cookie className="w-10 h-10 text-blue-600" />
+      <main className="pt-32 pb-24">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center justify-center w-24 h-24 bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-3xl mb-8 shadow-sm">
+              <Cookie className="w-12 h-12 text-purple-600" />
             </div>
-            <h1 className="text-5xl font-bold mb-6 bg-gradient-to-r from-slate-900 to-slate-700 bg-clip-text text-transparent">
+            <h1 className="text-6xl font-semibold mb-6 tracking-tight text-gray-900">
               Cookie Policy
             </h1>
-            <p className="text-xl text-slate-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-500 max-w-2xl mx-auto font-light leading-relaxed">
               How we use cookies and similar technologies to improve your experience
             </p>
-            <p className="text-sm text-slate-500 mt-4">
+            <p className="text-sm text-gray-400 mt-6 font-light">
               Last Updated: January 27, 2026
             </p>
           </div>
 
-          <div className="space-y-12">
+          <div className="space-y-6">
             {sections.map((section, index) => {
               const Icon = section.icon;
               return (
-                <div key={index} className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
-                  <div className="flex items-start gap-4 mb-4">
-                    <div className="p-3 bg-blue-50 rounded-xl">
-                      <Icon className="w-6 h-6 text-blue-600" />
+                <div key={index} className="bg-white rounded-3xl p-10 shadow-sm border border-gray-100 hover:shadow-md transition-shadow duration-300">
+                  <div className="flex items-start gap-5 mb-6">
+                    <div className="p-3 bg-gradient-to-br from-purple-50 to-purple-100/50 rounded-2xl shadow-sm">
+                      <Icon className="w-6 h-6 text-purple-600" />
                     </div>
-                    <h2 className="text-2xl font-bold text-slate-900 flex-1">
+                    <h2 className="text-2xl font-semibold text-gray-900 flex-1 tracking-tight">
                       {section.title}
                     </h2>
                   </div>
-                  <div className="ml-16 space-y-4">
+                  <div className="ml-16 space-y-5">
                     {section.content && section.content.map((paragraph, pIndex) => (
-                      <p key={pIndex} className="text-slate-600 leading-relaxed">
+                      <p key={pIndex} className="text-gray-600 leading-relaxed font-light">
                         {paragraph}
                       </p>
                     ))}
                     {section.subsections && section.subsections.map((subsection, sIndex) => (
-                      <div key={sIndex} className="mt-4">
-                        <h3 className="text-lg font-semibold text-slate-800 mb-2">
+                      <div key={sIndex} className="mt-6 p-5 bg-gradient-to-br from-gray-50 to-purple-50/20 rounded-2xl border border-gray-100/50">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-3">
                           {subsection.name}
                         </h3>
-                        <p className="text-slate-600 mb-2">{subsection.description}</p>
-                        <ul className="list-disc list-inside space-y-1 text-slate-600">
+                        <p className="text-gray-600 mb-3 font-light">{subsection.description}</p>
+                        <ul className="space-y-2 text-gray-600 font-light">
                           {subsection.examples.map((example, eIndex) => (
-                            <li key={eIndex}>{example}</li>
+                            <li key={eIndex} className="flex items-start gap-3">
+                              <span className="text-purple-500 mt-1">•</span>
+                              <span>{example}</span>
+                            </li>
                           ))}
                         </ul>
                       </div>
@@ -175,25 +178,25 @@ export default function CookiePolicyPage() {
             })}
           </div>
 
-          <div className="mt-12 bg-white rounded-2xl p-8 shadow-sm border border-slate-200">
-            <h2 className="text-2xl font-bold text-slate-900 mb-6">Cookies We Use</h2>
+          <div className="mt-8 bg-white rounded-3xl p-10 shadow-sm border border-gray-100">
+            <h2 className="text-2xl font-semibold text-gray-900 mb-8 tracking-tight">Cookies We Use</h2>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
-                  <tr className="border-b border-slate-200">
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700">Cookie Name</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700">Purpose</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700">Type</th>
-                    <th className="text-left py-3 px-4 text-sm font-semibold text-slate-700">Duration</th>
+                  <tr className="border-b border-gray-200">
+                    <th className="text-left py-4 px-5 text-sm font-semibold text-gray-700">Cookie Name</th>
+                    <th className="text-left py-4 px-5 text-sm font-semibold text-gray-700">Purpose</th>
+                    <th className="text-left py-4 px-5 text-sm font-semibold text-gray-700">Type</th>
+                    <th className="text-left py-4 px-5 text-sm font-semibold text-gray-700">Duration</th>
                   </tr>
                 </thead>
                 <tbody>
                   {cookieTable.map((cookie, index) => (
-                    <tr key={index} className="border-b border-slate-100">
-                      <td className="py-3 px-4 text-sm font-mono text-slate-900">{cookie.name}</td>
-                      <td className="py-3 px-4 text-sm text-slate-600">{cookie.purpose}</td>
-                      <td className="py-3 px-4 text-sm text-slate-600">{cookie.type}</td>
-                      <td className="py-3 px-4 text-sm text-slate-600">{cookie.duration}</td>
+                    <tr key={index} className="border-b border-gray-50 hover:bg-purple-50/20 transition-colors duration-150">
+                      <td className="py-4 px-5 text-sm font-mono text-gray-900 font-medium">{cookie.name}</td>
+                      <td className="py-4 px-5 text-sm text-gray-600 font-light">{cookie.purpose}</td>
+                      <td className="py-4 px-5 text-sm text-gray-600 font-light">{cookie.type}</td>
+                      <td className="py-4 px-5 text-sm text-gray-600 font-light">{cookie.duration}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -201,8 +204,8 @@ export default function CookiePolicyPage() {
             </div>
           </div>
 
-          <div className="mt-12 p-6 bg-blue-50 rounded-2xl border border-blue-200">
-            <p className="text-sm text-slate-600 text-center">
+          <div className="mt-8 p-8 bg-gradient-to-br from-purple-50 to-purple-100/30 rounded-3xl border border-purple-100/50">
+            <p className="text-sm text-gray-600 text-center font-light leading-relaxed">
               By continuing to use our website, you consent to our use of cookies in accordance with this policy.
               You can change your cookie preferences at any time using our cookie consent tool.
             </p>
