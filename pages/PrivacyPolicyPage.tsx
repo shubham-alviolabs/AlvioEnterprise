@@ -23,8 +23,8 @@ export const PrivacyPolicyPage: React.FC = () => {
       content: [
         "ALVIO Labs Limited is the data controller responsible for your personal data.",
         "Registered Office: [Address]",
-        "Email: privacy@alvio.ai",
-        "Data Protection Officer: dpo@alvio.ai"
+        "Email: info@alvio.io",
+        "Data Protection Officer: dpo@alvio.io"
       ]
     },
     {
@@ -154,7 +154,7 @@ export const PrivacyPolicyPage: React.FC = () => {
         "• Right to Object: Object to processing based on legitimate interests or for direct marketing",
         "• Right to Withdraw Consent: Withdraw consent at any time (without affecting prior processing)",
         "• Right to Lodge a Complaint: File a complaint with your local data protection authority",
-        "To exercise these rights, contact us at privacy@alvio.ai. We will respond within 30 days."
+        "To exercise these rights, contact us at privacy@alvio.io. We will respond within 30 days."
       ]
     },
     {
@@ -183,7 +183,7 @@ export const PrivacyPolicyPage: React.FC = () => {
         "• Personalize your experience and recommend relevant features",
         "• Detect and prevent fraud or security threats",
         "• Optimize workflow performance and suggestions",
-        "You have the right to request human intervention, express your point of view, and contest automated decisions. Contact us at privacy@alvio.ai for more information."
+        "You have the right to request human intervention, express your point of view, and contest automated decisions. Contact us at privacy@alvio.io for more information."
       ]
     },
     {
@@ -193,7 +193,7 @@ export const PrivacyPolicyPage: React.FC = () => {
         "With your consent, we may send marketing emails about new features, updates, and promotions. You can opt out at any time by:",
         "• Clicking the 'unsubscribe' link in any marketing email",
         "• Updating your preferences in your account settings",
-        "• Contacting us at privacy@alvio.ai",
+        "• Contacting us at privacy@alvio.io",
         "Note that you will continue to receive essential service-related communications."
       ]
     },
@@ -230,8 +230,8 @@ export const PrivacyPolicyPage: React.FC = () => {
       title: "18. Contact Us",
       content: [
         "If you have questions, concerns, or requests regarding this Privacy Policy or our data practices, please contact us:",
-        "Email: privacy@alvio.ai",
-        "Data Protection Officer: dpo@alvio.ai",
+        "Email: privacy@alvio.io",
+        "Data Protection Officer: dpo@alvio.io",
         "Address: ALVIO Labs Limited, [Full Address]",
         "EU Representative (if applicable): [Representative Details]",
         "You also have the right to lodge a complaint with your local supervisory authority if you believe we have not complied with applicable data protection laws."
@@ -339,14 +339,14 @@ export const PrivacyPolicyPage: React.FC = () => {
                     </p>
                     <div className="flex flex-col sm:flex-row gap-4">
                       <a
-                        href="mailto:privacy@alvio.ai"
+                        href="mailto:privacy@alvio.io"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-accent-pink to-accent-orange text-white font-semibold shadow-lg shadow-accent-pink/30 hover:shadow-accent-orange/40 hover:scale-105 transition-all duration-300"
                       >
                         <Mail size={18} />
-                        <span>privacy@alvio.ai</span>
+                        <span>privacy@alvio.io</span>
                       </a>
                       <a
-                        href="mailto:dpo@alvio.ai"
+                        href="mailto:dpo@alvio.io"
                         className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white dark:bg-gray-800 text-gray-900 dark:text-white font-semibold border-2 border-gray-300 dark:border-gray-600 hover:border-accent-orange dark:hover:border-accent-orange hover:scale-105 transition-all duration-300"
                       >
                         <Shield size={18} />
