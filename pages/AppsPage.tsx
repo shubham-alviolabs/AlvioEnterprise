@@ -16,6 +16,8 @@ export const AppsPage: React.FC = () => {
   const [buildingStep, setBuildingStep] = useState(0);
   const [typedText, setTypedText] = useState('');
   const [isTyping, setIsTyping] = useState(true);
+  const [animatedStats, setAnimatedStats] = useState({ revenue: 0, users: 0, conversion: 0 });
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const examples = {
     dashboard: {
@@ -135,6 +137,32 @@ const authenticateUser = async (req, res, next) => {
     }
   }, [typedText, isTyping, activeExample]);
 
+  // Animated counter for stats
+  useEffect(() => {
+    const targetStats = examples[activeExample].stats;
+    const duration = 2000;
+    const steps = 60;
+    const increment = duration / steps;
+
+    let currentStep = 0;
+    const interval = setInterval(() => {
+      currentStep++;
+      const progress = currentStep / steps;
+
+      setAnimatedStats({
+        revenue: Math.floor(847392 * progress),
+        users: Math.floor(12483 * progress),
+        conversion: parseFloat((3.24 * progress).toFixed(2))
+      });
+
+      if (currentStep >= steps) {
+        clearInterval(interval);
+      }
+    }, increment);
+
+    return () => clearInterval(interval);
+  }, [activeExample]);
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-purple-50/20 to-orange-50/30 dark:from-black dark:via-[#050a0a] dark:to-[#0a0505] text-gray-900 dark:text-white transition-colors duration-700">
       <Navbar />
@@ -166,6 +194,148 @@ const authenticateUser = async (req, res, next) => {
               </Button>
             </div>
           </FadeIn>
+        </div>
+      </Section>
+
+      {/* Before/After Comparison Section */}
+      <Section className="bg-gradient-to-b from-white/50 via-pink-50/30 to-white/50 dark:from-white/[0.02] dark:via-accent-pink/[0.02] dark:to-white/[0.02] py-24 border-y border-black/5 dark:border-white/5 backdrop-blur-3xl">
+        <div className="max-w-7xl mx-auto">
+          <FadeIn>
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-accent-pink/30 bg-gradient-to-r from-accent-pink/10 to-accent-orange/10 backdrop-blur-xl">
+                <Zap size={14} className="text-accent-pink animate-pulse" />
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-accent-pink">Speed Comparison</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
+                Traditional vs ALVIO
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">
+                See how ALVIO compresses months of work into minutes without sacrificing quality.
+              </p>
+            </div>
+          </FadeIn>
+
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* Traditional Development */}
+            <FadeIn>
+              <div className="relative p-8 rounded-3xl bg-white/50 dark:bg-white/[0.02] border-2 border-gray-300 dark:border-white/10 backdrop-blur-xl">
+                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/30 text-red-500 text-xs font-bold">
+                  6+ Months
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                  <Code className="text-gray-500" size={24} />
+                  Traditional Development
+                </h3>
+
+                <div className="space-y-6">
+                  {[
+                    { week: 'Weeks 1-2', task: 'Requirements & Planning', team: '3 people', cost: '$15K' },
+                    { week: 'Weeks 3-6', task: 'Database Design', team: '2 people', cost: '$30K' },
+                    { week: 'Weeks 7-12', task: 'Backend Development', team: '3 people', cost: '$45K' },
+                    { week: 'Weeks 13-20', task: 'Frontend Development', team: '4 people', cost: '$60K' },
+                    { week: 'Weeks 21-24', task: 'Testing & Bug Fixes', team: '5 people', cost: '$30K' },
+                    { week: 'Week 25+', task: 'Deployment & Maintenance', team: '2 people', cost: 'Ongoing' }
+                  ].map((phase, i) => (
+                    <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-gray-100 dark:bg-white/5 border border-gray-200 dark:border-white/10">
+                      <div className="w-8 h-8 rounded-lg bg-gray-300 dark:bg-white/10 flex items-center justify-center flex-shrink-0 font-bold text-sm text-gray-600 dark:text-gray-400">
+                        {i + 1}
+                      </div>
+                      <div className="flex-1">
+                        <div className="font-bold text-gray-900 dark:text-white text-sm">{phase.task}</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{phase.week}</div>
+                        <div className="flex items-center gap-4 mt-2 text-xs">
+                          <span className="flex items-center gap-1">
+                            <Users size={10} />
+                            {phase.team}
+                          </span>
+                          <span className="flex items-center gap-1 font-semibold text-red-600 dark:text-red-400">
+                            💰 {phase.cost}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                  <div className="pt-4 border-t-2 border-gray-300 dark:border-white/20">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-bold text-gray-700 dark:text-gray-300">Total Cost:</span>
+                      <span className="text-2xl font-bold text-red-600 dark:text-red-400">$180K+</span>
+                    </div>
+                    <div className="flex justify-between items-center mt-2">
+                      <span className="text-sm font-bold text-gray-700 dark:text-gray-300">Time to Market:</span>
+                      <span className="text-xl font-bold text-red-600 dark:text-red-400">25+ weeks</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+
+            {/* ALVIO Way */}
+            <FadeIn delay={200}>
+              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-accent-orange/10 via-accent-pink/10 to-accent-purple/10 border-2 border-accent-purple/40 backdrop-blur-xl shadow-2xl shadow-accent-purple/20">
+                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-green-500/20 border border-green-500/40 text-green-500 text-xs font-bold animate-pulse">
+                  ~15 Minutes
+                </div>
+
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                  <Sparkles className="text-accent-purple" size={24} />
+                  ALVIO Apps
+                </h3>
+
+                <div className="space-y-6">
+                  {[
+                    { time: 'Minutes 1-5', task: 'Describe Your App', detail: 'Natural language prompt', icon: '💬' },
+                    { time: 'Minutes 6-8', task: 'AI Generates Schema', detail: 'Tables, relationships, migrations', icon: '🗄️' },
+                    { time: 'Minutes 9-11', task: 'API Creation', detail: 'RESTful endpoints with auth', icon: '⚡' },
+                    { time: 'Minutes 12-14', task: 'UI Generation', detail: 'Responsive, accessible interface', icon: '🎨' },
+                    { time: 'Minute 15', task: 'Ready to Deploy', detail: 'Production-ready code', icon: '🚀' }
+                  ].map((phase, i) => (
+                    <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-white/10 dark:bg-white/5 border border-white/20 dark:border-white/10 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300 hover:scale-105">
+                      <div className="text-3xl">{phase.icon}</div>
+                      <div className="flex-1">
+                        <div className="font-bold text-gray-900 dark:text-white text-sm">{phase.task}</div>
+                        <div className="text-xs text-accent-purple dark:text-accent-purple mt-1 font-semibold">{phase.time}</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400 mt-1">{phase.detail}</div>
+                      </div>
+                      <CheckCircle2 className="text-green-500 flex-shrink-0" size={20} />
+                    </div>
+                  ))}
+
+                  <div className="pt-4 border-t-2 border-accent-purple/40">
+                    <div className="flex justify-between items-center">
+                      <span className="text-sm font-bold text-gray-900 dark:text-white">Total Cost:</span>
+                      <span className="text-2xl font-bold text-green-500 flex items-center gap-2">
+                        Starting at $0
+                        <span className="text-xs font-normal text-gray-500 dark:text-gray-400">(free tier)</span>
+                      </span>
+                    </div>
+                    <div className="flex justify-between items-center mt-2">
+                      <span className="text-sm font-bold text-gray-900 dark:text-white">Time to Market:</span>
+                      <span className="text-xl font-bold text-green-500">~15 minutes</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/30">
+                    <div className="flex items-center gap-2 text-green-500 font-bold mb-2">
+                      <TrendingUp size={20} />
+                      <span className="text-sm">You Save</span>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 text-center">
+                      <div>
+                        <div className="text-3xl font-bold text-green-500">$180K+</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400">in costs</div>
+                      </div>
+                      <div>
+                        <div className="text-3xl font-bold text-green-500">99.6%</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400">faster delivery</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </FadeIn>
+          </div>
         </div>
       </Section>
 
@@ -375,10 +545,12 @@ const authenticateUser = async (req, res, next) => {
             <FadeIn>
               <div>
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-purple/20 to-accent-pink/20 border-2 border-accent-purple/40 flex items-center justify-center text-accent-purple font-bold text-lg shadow-lg shadow-accent-purple/20">3</div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Connects to Your Data</h3>
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-purple/20 to-accent-pink/20 border-2 border-accent-purple/40 flex items-center justify-center text-accent-purple font-bold text-lg shadow-lg shadow-accent-purple/20">
+                    <Zap size={24} />
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Connects to Anything</h3>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg">
                   Apps connect to any database, API, or service. PostgreSQL, MySQL, Stripe, Twilio, SendGrid—if it has an API, ALVIO can integrate it.
                 </p>
                 <div className="space-y-4">
@@ -405,26 +577,87 @@ const authenticateUser = async (req, res, next) => {
             </FadeIn>
 
             <FadeIn delay={200}>
-              <div className="relative rounded-3xl bg-gradient-to-br from-[#0A0A0A] via-[#120A1A] to-[#0A0A0A] border-2 border-white/20 p-8 h-full flex items-center justify-center overflow-hidden shadow-2xl">
+              <div className="relative rounded-3xl bg-gradient-to-br from-[#0A0A0A] via-[#120A1A] to-[#0A0A0A] border-2 border-white/20 p-8 h-full min-h-[400px] flex items-center justify-center overflow-hidden shadow-2xl">
                 <div className="absolute inset-0 bg-gradient-to-br from-accent-purple/15 via-accent-orange/10 to-accent-pink/15 opacity-60" />
                 <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white/5 to-transparent rounded-t-3xl" />
-                <div className="relative grid grid-cols-3 gap-3 w-full max-w-sm">
+
+                {/* Data Flow Visualization */}
+                <div className="relative w-full h-full flex items-center justify-center">
+                  {/* Center App Icon */}
+                  <div className="absolute z-20 w-24 h-24 rounded-3xl bg-gradient-to-br from-accent-purple via-accent-pink to-accent-orange flex items-center justify-center shadow-2xl border-2 border-white/30">
+                    <Layout size={40} className="text-white" />
+                  </div>
+
+                  {/* Orbiting Services */}
                   {[
-                    { name: 'PostgreSQL', icon: '🐘' },
-                    { name: 'Stripe', icon: '💳' },
-                    { name: 'Twilio', icon: '📱' },
-                    { name: 'SendGrid', icon: '✉️' },
-                    { name: 'Slack', icon: '💬' },
-                    { name: 'REST API', icon: '🔌' }
-                  ].map((source, i) => (
-                    <div key={i} className="aspect-square rounded-2xl bg-gradient-to-br from-white/10 to-white/5 border-2 border-white/30 flex flex-col items-center justify-center backdrop-blur-md hover:scale-110 hover:bg-white/20 hover:border-accent-purple/50 transition-all duration-300 shadow-lg group">
-                      <span className="text-2xl mb-1">{source.icon}</span>
-                      <span className="text-[9px] text-gray-300 font-medium text-center px-1 opacity-80 group-hover:opacity-100">{source.name}</span>
-                    </div>
-                  ))}
+                    { name: 'PostgreSQL', icon: '🐘', angle: 0, color: 'purple' },
+                    { name: 'Stripe', icon: '💳', angle: 60, color: 'orange' },
+                    { name: 'Twilio', icon: '📱', angle: 120, color: 'pink' },
+                    { name: 'SendGrid', icon: '✉️', angle: 180, color: 'purple' },
+                    { name: 'Slack', icon: '💬', angle: 240, color: 'orange' },
+                    { name: 'REST API', icon: '🔌', angle: 300, color: 'pink' }
+                  ].map((source, i) => {
+                    const radius = 140;
+                    const x = Math.cos((source.angle * Math.PI) / 180) * radius;
+                    const y = Math.sin((source.angle * Math.PI) / 180) * radius;
+
+                    return (
+                      <div key={i} className="absolute z-10" style={{
+                        transform: `translate(${x}px, ${y}px)`,
+                        animation: `orbit-${(i % 3) + 1} ${15 + i * 2}s linear infinite`
+                      }}>
+                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${
+                          source.color === 'purple' ? 'from-accent-purple/30 to-accent-purple/10 border-accent-purple/50' :
+                          source.color === 'orange' ? 'from-accent-orange/30 to-accent-orange/10 border-accent-orange/50' :
+                          'from-accent-pink/30 to-accent-pink/10 border-accent-pink/50'
+                        } border-2 flex flex-col items-center justify-center backdrop-blur-md shadow-lg hover:scale-125 transition-transform duration-300 group cursor-pointer`}>
+                          <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">{source.icon}</span>
+                          <span className="text-[7px] text-gray-300 font-medium text-center opacity-0 group-hover:opacity-100 transition-opacity">{source.name}</span>
+                        </div>
+
+                        {/* Connection Lines */}
+                        <svg className="absolute top-1/2 left-1/2 pointer-events-none" style={{
+                          width: Math.abs(x) * 2,
+                          height: Math.abs(y) * 2,
+                          transform: `translate(-50%, -50%)`,
+                          overflow: 'visible'
+                        }}>
+                          <line
+                            x1={x < 0 ? Math.abs(x) * 2 : 0}
+                            y1={y < 0 ? Math.abs(y) * 2 : 0}
+                            x2={x < 0 ? 0 : Math.abs(x) * 2}
+                            y2={y < 0 ? 0 : Math.abs(y) * 2}
+                            stroke="currentColor"
+                            strokeWidth="1"
+                            strokeDasharray="4 4"
+                            className={`${
+                              source.color === 'purple' ? 'text-accent-purple/30' :
+                              source.color === 'orange' ? 'text-accent-orange/30' :
+                              'text-accent-pink/30'
+                            } animate-pulse`}
+                          />
+                          {/* Animated Data Particle */}
+                          <circle
+                            r="3"
+                            fill="currentColor"
+                            className={source.color === 'purple' ? 'text-accent-purple' :
+                              source.color === 'orange' ? 'text-accent-orange' :
+                              'text-accent-pink'}
+                          >
+                            <animateMotion
+                              dur={`${3 + i * 0.5}s`}
+                              repeatCount="indefinite"
+                              path={`M ${x < 0 ? Math.abs(x) * 2 : 0} ${y < 0 ? Math.abs(y) * 2 : 0} L ${x < 0 ? 0 : Math.abs(x) * 2} ${y < 0 ? 0 : Math.abs(y) * 2}`}
+                            />
+                          </circle>
+                        </svg>
+                      </div>
+                    );
+                  })}
                 </div>
+
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="w-40 h-40 rounded-full bg-gradient-to-r from-accent-purple/30 via-accent-pink/30 to-accent-orange/30 blur-3xl animate-pulse" />
+                  <div className="w-64 h-64 rounded-full bg-gradient-to-r from-accent-purple/20 via-accent-pink/20 to-accent-orange/20 blur-3xl animate-pulse" />
                 </div>
               </div>
             </FadeIn>
@@ -483,19 +716,54 @@ const authenticateUser = async (req, res, next) => {
                   </p>
                 </div>
 
-                {/* Live Stats Grid */}
+                {/* Live Stats Grid with Animation */}
                 <div className="grid grid-cols-3 gap-3 mb-6">
                   {examples[activeExample].stats.map((stat, i) => (
-                    <div key={i} className={`p-4 rounded-2xl border-2 backdrop-blur-xl ${
-                      stat.color === 'purple' ? 'bg-gradient-to-br from-accent-purple/10 to-accent-purple/5 border-accent-purple/30' :
-                      stat.color === 'orange' ? 'bg-gradient-to-br from-accent-orange/10 to-accent-orange/5 border-accent-orange/30' :
-                      'bg-gradient-to-br from-accent-pink/10 to-accent-pink/5 border-accent-pink/30'
-                    }`}>
-                      <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">{stat.label}</div>
-                      <div className="text-xl font-bold text-gray-900 dark:text-white">{stat.value}</div>
-                      <div className={`text-xs font-semibold ${
-                        stat.change.startsWith('+') ? 'text-green-500' : 'text-red-500'
-                      }`}>{stat.change}</div>
+                    <div
+                      key={i}
+                      className={`group relative p-4 rounded-2xl border-2 backdrop-blur-xl transition-all duration-500 hover:scale-110 hover:-translate-y-2 cursor-pointer ${
+                        stat.color === 'purple' ? 'bg-gradient-to-br from-accent-purple/10 to-accent-purple/5 border-accent-purple/30 hover:shadow-2xl hover:shadow-accent-purple/30' :
+                        stat.color === 'orange' ? 'bg-gradient-to-br from-accent-orange/10 to-accent-orange/5 border-accent-orange/30 hover:shadow-2xl hover:shadow-accent-orange/30' :
+                        'bg-gradient-to-br from-accent-pink/10 to-accent-pink/5 border-accent-pink/30 hover:shadow-2xl hover:shadow-accent-pink/30'
+                      }`}
+                    >
+                      {/* Pulsing indicator */}
+                      <div className={`absolute top-2 right-2 w-2 h-2 rounded-full animate-pulse ${
+                        stat.color === 'purple' ? 'bg-accent-purple' :
+                        stat.color === 'orange' ? 'bg-accent-orange' :
+                        'bg-accent-pink'
+                      }`} />
+
+                      <div className="text-xs text-gray-600 dark:text-gray-400 mb-1 flex items-center gap-1">
+                        {stat.label}
+                        {i === 0 && <BarChart3 size={10} className="opacity-50" />}
+                        {i === 1 && <Users size={10} className="opacity-50" />}
+                        {i === 2 && <TrendingUp size={10} className="opacity-50" />}
+                      </div>
+                      <div className="text-xl font-bold text-gray-900 dark:text-white mb-1">{stat.value}</div>
+                      <div className="flex items-center gap-1">
+                        <div className={`text-xs font-semibold flex items-center gap-0.5 ${
+                          stat.change.startsWith('+') ? 'text-green-500' : 'text-red-500'
+                        }`}>
+                          {stat.change.startsWith('+') ? '↗' : '↘'} {stat.change}
+                        </div>
+                        <div className="text-[8px] text-gray-500 dark:text-gray-400">vs last month</div>
+                      </div>
+
+                      {/* Sparkline */}
+                      <div className="absolute bottom-1 left-2 right-2 h-4 flex items-end gap-0.5 opacity-30 group-hover:opacity-60 transition-opacity">
+                        {[...Array(8)].map((_, idx) => (
+                          <div
+                            key={idx}
+                            className={`flex-1 rounded-t ${
+                              stat.color === 'purple' ? 'bg-accent-purple' :
+                              stat.color === 'orange' ? 'bg-accent-orange' :
+                              'bg-accent-pink'
+                            }`}
+                            style={{ height: `${Math.random() * 100}%` }}
+                          />
+                        ))}
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -511,41 +779,260 @@ const authenticateUser = async (req, res, next) => {
                 </div>
               </div>
 
-              <div className="relative aspect-video rounded-3xl bg-gradient-to-br from-gray-50 via-orange-50/30 to-pink-50/30 dark:from-white/[0.08] dark:via-accent-orange/[0.05] dark:to-accent-pink/[0.05] border-2 border-gray-200 dark:border-white/20 p-6 overflow-hidden shadow-2xl backdrop-blur-xl">
+              <div className="relative aspect-video rounded-3xl bg-gradient-to-br from-gray-50 via-orange-50/30 to-pink-50/30 dark:from-white/[0.08] dark:via-accent-orange/[0.05] dark:to-accent-pink/[0.05] border-2 border-gray-200 dark:border-white/20 p-6 overflow-hidden shadow-2xl backdrop-blur-xl group">
                 {/* Mock App Interface */}
-                <div className="absolute inset-0 p-6">
+                <div className="absolute inset-0 p-6 transition-transform duration-700 group-hover:scale-[1.02]">
                   {/* Header bar */}
                   <div className="h-10 rounded-t-2xl bg-gradient-to-r from-gray-200/80 to-gray-300/80 dark:from-white/20 dark:to-white/10 border-b border-gray-300 dark:border-white/20 flex items-center px-4 gap-2 backdrop-blur-xl">
                     <div className="flex gap-1.5">
-                      <div className="w-2.5 h-2.5 rounded-full bg-red-400" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-400" />
-                      <div className="w-2.5 h-2.5 rounded-full bg-green-400" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-red-400 hover:scale-125 transition-transform cursor-pointer" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-yellow-400 hover:scale-125 transition-transform cursor-pointer" />
+                      <div className="w-2.5 h-2.5 rounded-full bg-green-400 hover:scale-125 transition-transform cursor-pointer" />
                     </div>
-                    <div className="flex-1 h-5 rounded bg-gray-300/50 dark:bg-white/5 ml-4" />
+                    <div className="flex-1 h-5 rounded bg-gray-300/50 dark:bg-white/5 ml-4 flex items-center px-2">
+                      <span className="text-[8px] text-gray-500 dark:text-gray-400">app.alvio.io/{activeExample}</span>
+                    </div>
                   </div>
 
                   {/* Content area */}
                   <div className="h-[calc(100%-2.5rem)] rounded-b-2xl bg-white/50 dark:bg-black/20 backdrop-blur-xl border-x border-b border-gray-300 dark:border-white/20 p-4 grid grid-cols-3 gap-3">
                     {/* Sidebar */}
                     <div className="space-y-2">
-                      {[...Array(4)].map((_, i) => (
-                        <div key={i} className={`h-6 rounded-lg ${i === 0 ? 'bg-gradient-to-r from-accent-orange/30 to-accent-pink/30' : 'bg-gray-200 dark:bg-white/10'}`} />
+                      {[
+                        { icon: '📊', label: 'Dashboard', active: true },
+                        { icon: '📈', label: 'Analytics', active: false },
+                        { icon: '👥', label: 'Users', active: false },
+                        { icon: '⚙️', label: 'Settings', active: false }
+                      ].map((item, i) => (
+                        <div
+                          key={i}
+                          className={`h-8 rounded-lg flex items-center gap-2 px-2 transition-all duration-300 hover:scale-105 cursor-pointer ${
+                            item.active
+                              ? 'bg-gradient-to-r from-accent-orange/30 to-accent-pink/30 shadow-lg'
+                              : 'bg-gray-200 dark:bg-white/10 hover:bg-gray-300 dark:hover:bg-white/20'
+                          }`}
+                          onMouseEnter={() => setHoveredCard(i)}
+                          onMouseLeave={() => setHoveredCard(null)}
+                        >
+                          <span className="text-xs">{item.icon}</span>
+                          <span className={`text-[8px] font-medium transition-opacity ${hoveredCard === i ? 'opacity-100' : 'opacity-60'}`}>
+                            {item.label}
+                          </span>
+                        </div>
                       ))}
                     </div>
 
                     {/* Main content */}
                     <div className="col-span-2 space-y-3">
                       <div className="grid grid-cols-2 gap-2">
-                        <div className="h-16 rounded-lg bg-gradient-to-br from-accent-purple/20 to-accent-purple/10 border border-accent-purple/30" />
-                        <div className="h-16 rounded-lg bg-gradient-to-br from-accent-orange/20 to-accent-orange/10 border border-accent-orange/30" />
+                        <div className="h-16 rounded-lg bg-gradient-to-br from-accent-purple/20 to-accent-purple/10 border border-accent-purple/30 p-2 flex flex-col justify-between">
+                          <div className="text-[8px] text-gray-600 dark:text-gray-400">Revenue</div>
+                          <div className="text-xs font-bold text-accent-purple">${(animatedStats.revenue / 1000).toFixed(0)}K</div>
+                          <div className="flex items-center gap-1">
+                            <TrendingUp size={8} className="text-green-500" />
+                            <span className="text-[6px] text-green-500">+23%</span>
+                          </div>
+                        </div>
+                        <div className="h-16 rounded-lg bg-gradient-to-br from-accent-orange/20 to-accent-orange/10 border border-accent-orange/30 p-2 flex flex-col justify-between">
+                          <div className="text-[8px] text-gray-600 dark:text-gray-400">Users</div>
+                          <div className="text-xs font-bold text-accent-orange">{(animatedStats.users / 1000).toFixed(1)}K</div>
+                          <div className="flex items-center gap-1">
+                            <TrendingUp size={8} className="text-green-500" />
+                            <span className="text-[6px] text-green-500">+18%</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="h-24 rounded-lg bg-gradient-to-br from-gray-200 to-gray-300 dark:from-white/10 dark:to-white/5" />
+
+                      {/* Mini chart */}
+                      <div className="h-24 rounded-lg bg-gradient-to-br from-gray-200 to-gray-300 dark:from-white/10 dark:to-white/5 p-2 relative overflow-hidden">
+                        <div className="absolute bottom-0 left-0 right-0 h-3/4 flex items-end justify-around px-1">
+                          {[40, 65, 45, 80, 60, 95, 70].map((height, i) => (
+                            <div
+                              key={i}
+                              className="w-2 bg-gradient-to-t from-accent-purple to-accent-pink rounded-t transition-all duration-500"
+                              style={{
+                                height: `${height}%`,
+                                animationDelay: `${i * 100}ms`
+                              }}
+                            />
+                          ))}
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
 
                 {/* Shine effect */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/5 to-transparent animate-shimmer" />
+                <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+                     style={{ transform: 'translateX(-100%) translateY(-100%)', animation: 'shimmer 3s infinite' }} />
+              </div>
+            </div>
+          </FadeIn>
+        </div>
+      </Section>
+
+      {/* Database Schema Visualization */}
+      <Section className="py-24 bg-gradient-to-b from-white via-purple-50/20 to-white dark:from-black dark:via-[#0a050a] dark:to-black relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-5 pointer-events-none"></div>
+
+        {/* Animated Grid Background */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute inset-0" style={{
+            backgroundImage: 'linear-gradient(rgba(121,40,202,0.3) 1px, transparent 1px), linear-gradient(90deg, rgba(121,40,202,0.3) 1px, transparent 1px)',
+            backgroundSize: '40px 40px',
+            animation: 'grid-move 20s linear infinite'
+          }} />
+        </div>
+
+        <div className="max-w-7xl mx-auto relative z-10">
+          <FadeIn>
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full border border-accent-purple/30 bg-gradient-to-r from-accent-purple/10 to-accent-pink/10 backdrop-blur-xl">
+                <Database size={14} className="text-accent-purple animate-pulse" />
+                <span className="text-xs font-medium uppercase tracking-[0.2em] text-accent-purple">Database Architecture</span>
+              </div>
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
+                Intelligent Schema Generation
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">
+                Watch ALVIO design your database structure with relationships, indexes, and constraints automatically.
+              </p>
+            </div>
+          </FadeIn>
+
+          {/* Database Tables with Relationships */}
+          <div className="grid lg:grid-cols-3 gap-8 mb-12">
+            {[
+              {
+                name: 'users',
+                icon: '👤',
+                color: 'purple',
+                fields: [
+                  { name: 'id', type: 'UUID', key: true },
+                  { name: 'email', type: 'TEXT', unique: true },
+                  { name: 'name', type: 'TEXT' },
+                  { name: 'created_at', type: 'TIMESTAMP' }
+                ]
+              },
+              {
+                name: 'orders',
+                icon: '🛒',
+                color: 'orange',
+                fields: [
+                  { name: 'id', type: 'SERIAL', key: true },
+                  { name: 'user_id', type: 'UUID', foreign: true },
+                  { name: 'total', type: 'DECIMAL' },
+                  { name: 'status', type: 'TEXT' }
+                ]
+              },
+              {
+                name: 'products',
+                icon: '📦',
+                color: 'pink',
+                fields: [
+                  { name: 'id', type: 'SERIAL', key: true },
+                  { name: 'name', type: 'TEXT' },
+                  { name: 'price', type: 'DECIMAL' },
+                  { name: 'stock', type: 'INTEGER' }
+                ]
+              }
+            ].map((table, i) => (
+              <FadeIn key={i} delay={i * 150}>
+                <div className={`relative rounded-2xl border-2 backdrop-blur-xl overflow-hidden group hover:scale-105 transition-all duration-500 ${
+                  table.color === 'purple' ? 'bg-gradient-to-br from-accent-purple/10 to-accent-purple/5 border-accent-purple/30 hover:shadow-2xl hover:shadow-accent-purple/30' :
+                  table.color === 'orange' ? 'bg-gradient-to-br from-accent-orange/10 to-accent-orange/5 border-accent-orange/30 hover:shadow-2xl hover:shadow-accent-orange/30' :
+                  'bg-gradient-to-br from-accent-pink/10 to-accent-pink/5 border-accent-pink/30 hover:shadow-2xl hover:shadow-accent-pink/30'
+                }`}>
+                  {/* Table Header */}
+                  <div className={`px-4 py-3 border-b-2 flex items-center gap-2 ${
+                    table.color === 'purple' ? 'bg-accent-purple/20 border-accent-purple/30' :
+                    table.color === 'orange' ? 'bg-accent-orange/20 border-accent-orange/30' :
+                    'bg-accent-pink/20 border-accent-pink/30'
+                  }`}>
+                    <span className="text-xl">{table.icon}</span>
+                    <span className="font-mono font-bold text-gray-900 dark:text-white">{table.name}</span>
+                    <div className={`ml-auto w-2 h-2 rounded-full animate-pulse ${
+                      table.color === 'purple' ? 'bg-accent-purple' :
+                      table.color === 'orange' ? 'bg-accent-orange' :
+                      'bg-accent-pink'
+                    }`} />
+                  </div>
+
+                  {/* Table Fields */}
+                  <div className="p-4 space-y-2">
+                    {table.fields.map((field, idx) => (
+                      <div key={idx} className="flex items-center gap-2 text-sm font-mono group/field hover:bg-white/10 dark:hover:bg-white/5 p-2 rounded transition-all">
+                        {field.key && <span className="text-yellow-500 text-xs">🔑</span>}
+                        {field.foreign && <span className="text-blue-500 text-xs">🔗</span>}
+                        {field.unique && <span className="text-green-500 text-xs">⭐</span>}
+                        <span className="text-gray-900 dark:text-white font-semibold">{field.name}</span>
+                        <span className="text-gray-500 dark:text-gray-400 text-xs ml-auto">{field.type}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Relationship Lines */}
+                  {table.name === 'orders' && (
+                    <>
+                      <svg className="absolute -left-8 top-1/2 w-8 h-0.5 pointer-events-none hidden lg:block" style={{ transform: 'translateY(-50%)' }}>
+                        <line x1="0" y1="1" x2="32" y2="1" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" className="text-accent-purple animate-pulse" />
+                      </svg>
+                      <svg className="absolute -right-8 top-1/2 w-8 h-0.5 pointer-events-none hidden lg:block" style={{ transform: 'translateY(-50%)' }}>
+                        <line x1="0" y1="1" x2="32" y2="1" stroke="currentColor" strokeWidth="2" strokeDasharray="4 4" className="text-accent-orange animate-pulse" />
+                      </svg>
+                    </>
+                  )}
+                </div>
+              </FadeIn>
+            ))}
+          </div>
+
+          {/* Build Log Terminal */}
+          <FadeIn delay={400}>
+            <div className="rounded-3xl bg-[#0D1117] border-2 border-white/20 overflow-hidden shadow-2xl">
+              <div className="bg-[#161B22] border-b border-white/10 px-4 py-3 flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+                    <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
+                    <div className="w-3 h-3 rounded-full bg-[#28C840]" />
+                  </div>
+                  <div className="ml-4 flex items-center gap-2 text-gray-400 text-xs">
+                    <Code size={14} />
+                    <span>Build Output</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 text-green-400 text-xs">
+                  <CheckCircle2 size={14} />
+                  <span>Build Successful</span>
+                </div>
+              </div>
+
+              <div className="p-6 font-mono text-xs space-y-2 max-h-64 overflow-hidden">
+                {[
+                  { icon: '✓', text: 'Creating database schema...', color: 'text-green-400', delay: 0 },
+                  { icon: '→', text: 'Generated users table with 4 columns', color: 'text-blue-400', delay: 200 },
+                  { icon: '→', text: 'Generated orders table with foreign key to users', color: 'text-blue-400', delay: 400 },
+                  { icon: '→', text: 'Generated products table with price validation', color: 'text-blue-400', delay: 600 },
+                  { icon: '✓', text: 'Running migrations...', color: 'text-green-400', delay: 800 },
+                  { icon: '→', text: 'Applied 20241127_create_users.sql', color: 'text-purple-400', delay: 1000 },
+                  { icon: '→', text: 'Applied 20241127_create_orders.sql', color: 'text-purple-400', delay: 1200 },
+                  { icon: '→', text: 'Applied 20241127_create_products.sql', color: 'text-purple-400', delay: 1400 },
+                  { icon: '✓', text: 'Generating API endpoints...', color: 'text-green-400', delay: 1600 },
+                  { icon: '→', text: 'Created GET /api/users', color: 'text-orange-400', delay: 1800 },
+                  { icon: '→', text: 'Created POST /api/orders', color: 'text-orange-400', delay: 2000 },
+                  { icon: '✓', text: 'Building frontend components...', color: 'text-green-400', delay: 2200 },
+                  { icon: '🎉', text: 'Your app is ready to deploy!', color: 'text-pink-400 font-bold', delay: 2400 }
+                ].map((log, i) => (
+                  <div
+                    key={i}
+                    className={`flex items-start gap-2 ${log.color} opacity-0 animate-slide-up-fade`}
+                    style={{ animationDelay: `${log.delay}ms`, animationFillMode: 'forwards' }}
+                  >
+                    <span>{log.icon}</span>
+                    <span>{log.text}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </FadeIn>
@@ -558,10 +1045,10 @@ const authenticateUser = async (req, res, next) => {
           <FadeIn>
             <div className="text-center mb-16">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-                Built-In AI Assistant
+                Everything You Need, Built-In
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto font-light">
-                Every app you build includes an intelligent assistant that helps users interact with your data.
+                Production-ready features from day one. No setup, no configuration, just works.
               </p>
             </div>
           </FadeIn>
