@@ -9,7 +9,7 @@ import {
   Layout, Sparkles, Code, Palette, Database,
   Zap, MessageSquare, ArrowRight, CheckCircle2,
   Layers, Box, Wand2, Globe, Smartphone, Lock,
-  Users, TrendingUp, ShoppingCart, FileText, BarChart3
+  Users, TrendingUp, ShoppingCart, FileText, BarChart3, CreditCard
 } from 'lucide-react';
 
 export const AppsPage: React.FC = () => {
@@ -210,10 +210,10 @@ const authenticateUser = async (req, res, next) => {
                 <span className="text-xs font-medium uppercase tracking-[0.2em] text-accent-pink">Apps as Data Sources</span>
               </div>
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight text-gray-900 dark:text-white mb-4">
-                Your Business Apps Are Your Data
+                Everything They Do + Your Business Data
               </h2>
               <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto font-light">
-                Lovable and Replit let you build apps with databases. ALVIO lets you build apps where Gmail, Salesforce, Notion, and every tool you use becomes an intelligent data source—no data sync, no new datasets, just AI that understands your business.
+                Other builders connect databases and APIs. ALVIO does that <strong className="text-gray-900 dark:text-white">plus</strong> turns your business apps into intelligent data sources—Gmail, Salesforce, Notion, Jira, Xero, QuickBooks, all indexed and ready for AI.
               </p>
             </div>
           </FadeIn>
@@ -221,45 +221,47 @@ const authenticateUser = async (req, res, next) => {
           <div className="grid lg:grid-cols-2 gap-8">
             {/* No-Code Builders */}
             <FadeIn>
-              <div className="relative p-8 rounded-3xl bg-white/50 dark:bg-white/[0.02] border-2 border-gray-300 dark:border-white/10 backdrop-blur-xl">
+              <div className="relative p-8 rounded-3xl bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/10 backdrop-blur-xl shadow-sm">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gray-200 dark:bg-white/10 flex items-center justify-center">
-                    <Code className="text-gray-500" size={24} />
+                  <div className="w-10 h-10 rounded-xl bg-gray-100 dark:bg-white/5 flex items-center justify-center">
+                    <Code className="text-gray-600 dark:text-gray-400" size={20} />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">No-Code Builders</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">No-Code Builders</h3>
                 </div>
 
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  Great for building web apps with database connections and API calls. But your business data lives in apps, not just databases.
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
+                  Build web apps with structured databases and API integrations.
                 </p>
 
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 mb-8">
                   {[
-                    { icon: '✓', text: 'Build web apps fast', color: 'text-green-500' },
-                    { icon: '✓', text: 'Connect to databases', color: 'text-green-500' },
-                    { icon: '✓', text: 'Basic API webhooks', color: 'text-green-500' }
+                    'Build web apps quickly',
+                    'Connect to PostgreSQL, Supabase, MySQL',
+                    'Make API calls to external services',
+                    'Deploy to production'
                   ].map((item, i) => (
-                    <div key={i} className={`flex items-center gap-2 ${item.color}`}>
-                      <span className="font-bold">{item.icon}</span>
-                      <span className="text-sm text-gray-700 dark:text-gray-300">{item.text}</span>
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-4 h-4 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center flex-shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      </div>
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{item}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="border-t-2 border-gray-300 dark:border-white/20 pt-4 space-y-3">
-                  <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-3">What They Can't Do:</div>
+                <div className="border-t border-gray-200 dark:border-white/10 pt-6 space-y-3">
+                  <div className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-4">Missing Layer</div>
                   {[
-                    { icon: '✗', text: 'Apps are not data sources', detail: 'Can\'t query Gmail threads, Notion docs, or Salesforce records' },
-                    { icon: '✗', text: 'No pre-indexed business context', detail: 'You manage data sync, security, and schemas yourself' },
-                    { icon: '✗', text: 'AI can\'t reason across your tools', detail: 'No "find deals where contact hasn\'t replied to email in 2 weeks"' },
-                    { icon: '✗', text: 'No intelligent automation', detail: 'Webhooks trigger actions, but AI can\'t make decisions' },
-                    { icon: '✗', text: 'Chat assistants lack context', detail: 'Can\'t answer "What did my team discuss about Project X?"' }
+                    { text: 'Your business apps aren\'t data sources', detail: 'Gmail, Salesforce, Notion, Jira remain external silos' },
+                    { text: 'No pre-indexed integration layer', detail: 'You build data sync infrastructure yourself' },
+                    { text: 'AI lacks business context', detail: 'Can\'t query across your actual business tools' },
+                    { text: 'No built-in AI assistants', detail: 'Build chat interfaces from scratch' }
                   ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-2 p-3 rounded-xl bg-red-50/50 dark:bg-red-900/10 border border-red-200/50 dark:border-red-800/30">
-                      <span className="text-red-500 font-bold flex-shrink-0">{item.icon}</span>
+                    <div key={i} className="flex items-start gap-3 p-4 rounded-xl bg-gray-50 dark:bg-white/[0.02] border border-gray-200 dark:border-white/5">
+                      <div className="w-1 h-1 rounded-full bg-gray-400 dark:bg-gray-500 flex-shrink-0 mt-2"></div>
                       <div className="flex-1">
-                        <div className="text-sm text-gray-900 dark:text-white font-medium">{item.text}</div>
-                        <div className="text-xs text-red-600 dark:text-red-400 mt-1">{item.detail}</div>
+                        <div className="text-sm text-gray-900 dark:text-white font-medium mb-1">{item.text}</div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400 leading-relaxed">{item.detail}</div>
                       </div>
                     </div>
                   ))}
@@ -269,93 +271,226 @@ const authenticateUser = async (req, res, next) => {
 
             {/* ALVIO */}
             <FadeIn delay={200}>
-              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-accent-orange/10 via-accent-pink/10 to-accent-purple/10 border-2 border-accent-purple/40 backdrop-blur-xl shadow-2xl shadow-accent-purple/20">
+              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-accent-orange/5 via-accent-pink/5 to-accent-purple/5 border border-accent-purple/30 backdrop-blur-xl shadow-lg">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-purple via-accent-pink to-accent-orange flex items-center justify-center shadow-lg">
-                    <Sparkles className="text-white" size={24} />
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-purple via-accent-pink to-accent-orange flex items-center justify-center">
+                    <Sparkles className="text-white" size={20} />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 dark:text-white">ALVIO Apps</h3>
+                  <h3 className="text-xl font-semibold text-gray-900 dark:text-white">ALVIO Apps</h3>
                 </div>
 
-                <p className="text-sm text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  Build apps just as fast, but with AI that understands your entire business—across every tool you use.
+                <p className="text-sm text-gray-500 dark:text-gray-400 mb-8 leading-relaxed">
+                  <strong className="text-gray-900 dark:text-white">Everything they do</strong>, plus your existing business tools become intelligent data sources.
                 </p>
 
-                <div className="space-y-3 mb-6">
+                <div className="space-y-2 mb-6">
                   {[
-                    { icon: '✓', text: 'Build apps just as fast', color: 'text-green-500' },
-                    { icon: '✓', text: 'Connect to any database', color: 'text-green-500' },
-                    { icon: '✓', text: 'Production-ready code', color: 'text-green-500' }
+                    'Build web apps just as fast',
+                    'Connect to any database (PostgreSQL, Supabase, MySQL)',
+                    'Integrate any API',
+                    'Production-ready deployment'
                   ].map((item, i) => (
-                    <div key={i} className={`flex items-center gap-2 ${item.color}`}>
-                      <span className="font-bold">{item.icon}</span>
-                      <span className="text-sm text-gray-900 dark:text-white font-medium">{item.text}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="border-t-2 border-accent-purple/40 pt-4 space-y-3">
-                  <div className="text-xs font-bold text-accent-purple uppercase tracking-wider mb-3">ALVIO's Unique Power:</div>
-                  {[
-                    { icon: '🔗', text: 'Apps become data sources', detail: 'Gmail, Office 365, Salesforce, Xero, Notion, Fireflies—all queryable by AI', color: 'purple' },
-                    { icon: '⚡', text: 'Pre-indexed integration layer', detail: 'No data sync, no schema design, no security headaches—we handle it all', color: 'orange' },
-                    { icon: '🤖', text: 'AI that reasons across tools', detail: '"Find Salesforce deals where contact hasn\'t replied to Gmail in 2 weeks"', color: 'pink' },
-                    { icon: '🎯', text: 'Intelligent agents', detail: 'AI that makes decisions based on your business context and takes action', color: 'purple' },
-                    { icon: '💬', text: 'Context-aware chat assistants', detail: 'Build assistants powered by ALL your integrations—they know your business', color: 'orange' }
-                  ].map((item, i) => (
-                    <div key={i} className={`flex items-start gap-2 p-4 rounded-xl bg-gradient-to-br ${
-                      item.color === 'purple' ? 'from-accent-purple/20 to-accent-purple/5 border-accent-purple/30' :
-                      item.color === 'orange' ? 'from-accent-orange/20 to-accent-orange/5 border-accent-orange/30' :
-                      'from-accent-pink/20 to-accent-pink/5 border-accent-pink/30'
-                    } border-2 backdrop-blur-xl hover:scale-105 transition-transform duration-300 cursor-pointer group`}>
-                      <span className="text-2xl flex-shrink-0 group-hover:scale-125 transition-transform">{item.icon}</span>
-                      <div className="flex-1">
-                        <div className="text-sm text-gray-900 dark:text-white font-bold">{item.text}</div>
-                        <div className="text-xs text-gray-600 dark:text-gray-400 mt-1 leading-relaxed">{item.detail}</div>
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-4 h-4 rounded-full bg-green-500/10 border border-green-500/30 flex items-center justify-center flex-shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-green-500"></div>
                       </div>
-                      <CheckCircle2 className={`flex-shrink-0 ${
-                        item.color === 'purple' ? 'text-accent-purple' :
-                        item.color === 'orange' ? 'text-accent-orange' :
-                        'text-accent-pink'
-                      }`} size={20} />
+                      <span className="text-sm text-gray-700 dark:text-gray-300">{item}</span>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-6 p-4 rounded-2xl bg-gradient-to-r from-green-500/10 to-green-500/5 border border-green-500/30">
-                  <div className="flex items-center gap-2 text-green-500 font-bold mb-2">
-                    <Sparkles size={16} />
-                    <span className="text-sm">The Result</span>
+                <div className="border-t border-accent-purple/20 pt-6 space-y-3">
+                  <div className="flex items-center gap-2 mb-4">
+                    <div className="text-xs font-semibold text-accent-purple uppercase tracking-wider">Plus: Integration Layer</div>
+                    <div className="flex-1 h-px bg-gradient-to-r from-accent-purple/30 to-transparent"></div>
                   </div>
-                  <p className="text-xs text-gray-700 dark:text-gray-300 leading-relaxed">
-                    Apps that understand your business because they're built on <strong className="text-gray-900 dark:text-white">all your data</strong>—not just databases, but Gmail, Salesforce, Notion, and every tool your team uses daily.
-                  </p>
+
+                  {[
+                    { text: 'Your business apps ARE data sources', detail: 'Gmail, Salesforce, Notion, Jira, Xero, QuickBooks, Fireflies, Zendesk—all queryable', color: 'purple' },
+                    { text: 'Pre-indexed, secure, ready to use', detail: 'No data sync. No security setup. No schema design. We handle everything.', color: 'orange' },
+                    { text: 'AI reasons across all your tools', detail: '"Find Salesforce deals where contact hasn\'t replied to Gmail in 2 weeks"', color: 'pink' },
+                    { text: 'Built-in AI assistants', detail: 'Chat interfaces powered by ALL your integrations—understands your business context', color: 'purple' }
+                  ].map((item, i) => (
+                    <div key={i} className={`flex items-start gap-3 p-4 rounded-xl ${
+                      item.color === 'purple' ? 'bg-gradient-to-br from-accent-purple/10 to-accent-purple/5 border border-accent-purple/20' :
+                      item.color === 'orange' ? 'bg-gradient-to-br from-accent-orange/10 to-accent-orange/5 border border-accent-orange/20' :
+                      'bg-gradient-to-br from-accent-pink/10 to-accent-pink/5 border border-accent-pink/20'
+                    }`}>
+                      <div className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0 ${
+                        item.color === 'purple' ? 'bg-accent-purple' :
+                        item.color === 'orange' ? 'bg-accent-orange' :
+                        'bg-accent-pink'
+                      }`}></div>
+                      <div className="flex-1">
+                        <div className="text-sm text-gray-900 dark:text-white font-semibold mb-1">{item.text}</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">{item.detail}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="mt-6 pt-6 border-t border-accent-purple/20">
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-green-500/20 to-green-500/10 flex items-center justify-center flex-shrink-0">
+                      <Sparkles size={16} className="text-green-600 dark:text-green-400" />
+                    </div>
+                    <div>
+                      <div className="text-sm font-semibold text-gray-900 dark:text-white mb-1">Data Ready + AI Ready</div>
+                      <p className="text-xs text-gray-600 dark:text-gray-400 leading-relaxed">
+                        Apps that understand your business from day one—built on databases AND your real business tools.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </FadeIn>
           </div>
 
-          {/* Real Example Callout */}
+          {/* Real Example with Visual */}
           <FadeIn delay={400}>
-            <div className="mt-12 p-6 rounded-3xl bg-gradient-to-br from-accent-purple/5 via-accent-orange/5 to-accent-pink/5 border-2 border-accent-purple/20 backdrop-blur-xl">
-              <div className="max-w-4xl mx-auto">
-                <div className="flex items-start gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-purple to-accent-pink flex items-center justify-center flex-shrink-0">
-                    <MessageSquare size={24} className="text-white" />
+            <div className="mt-12 rounded-3xl bg-gradient-to-br from-white via-gray-50 to-white dark:from-white/[0.03] dark:via-white/[0.01] dark:to-white/[0.03] border border-gray-200 dark:border-white/10 backdrop-blur-xl shadow-xl overflow-hidden">
+              <div className="grid lg:grid-cols-2 gap-8 p-8">
+                {/* Left: Description */}
+                <div>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-accent-purple/10 border border-accent-purple/20 mb-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-accent-purple animate-pulse"></div>
+                    <span className="text-xs font-semibold text-accent-purple uppercase tracking-wider">Real Example</span>
                   </div>
-                  <div className="flex-1">
-                    <h4 className="text-lg font-bold text-gray-900 dark:text-white mb-2">Real Example: Sales Intelligence Dashboard</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
-                      <strong className="text-gray-900 dark:text-white">Other builders:</strong> Connect Salesforce API, show a list of deals.<br/>
-                      <strong className="text-gray-900 dark:text-white">ALVIO:</strong> Build a dashboard where AI analyzes Salesforce deals + Gmail threads + Fireflies call transcripts together. Ask "Which deals need attention because the contact hasn't replied to email in 2 weeks?" or "What concerns came up in calls about Project Phoenix?" Your app understands because all your tools are data sources.
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {['Salesforce as Data', 'Gmail as Data', 'Fireflies Transcripts', 'Notion Docs', 'AI Cross-Tool Queries', 'Chat Assistant Powered'].map((tag, i) => (
-                        <span key={i} className="px-3 py-1 rounded-full bg-white/50 dark:bg-white/10 border border-accent-purple/30 text-xs font-medium text-gray-700 dark:text-gray-300">
-                          {tag}
-                        </span>
-                      ))}
+
+                  <h4 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Sales Intelligence Dashboard</h4>
+
+                  <div className="space-y-4 mb-6">
+                    <div className="p-4 rounded-xl bg-gray-100 dark:bg-white/[0.02] border border-gray-200 dark:border-white/5">
+                      <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Other Builders</div>
+                      <p className="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+                        Connect Salesforce API → Show list of deals in a table → Done.
+                      </p>
                     </div>
+
+                    <div className="p-4 rounded-xl bg-gradient-to-br from-accent-purple/10 to-accent-pink/10 border border-accent-purple/20">
+                      <div className="text-xs font-semibold text-accent-purple uppercase tracking-wider mb-2">ALVIO</div>
+                      <p className="text-sm text-gray-900 dark:text-white leading-relaxed font-medium">
+                        AI analyzes Salesforce deals + Gmail conversations + Fireflies call transcripts <strong>together</strong>.
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="space-y-3 mb-6">
+                    <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider">Ask questions like:</div>
+                    {[
+                      'Which deals need attention? Contact hasn\'t replied to email in 2 weeks',
+                      'What concerns came up in calls about Project Phoenix?',
+                      'Show me deals where last Notion update mentions "budget freeze"'
+                    ].map((q, i) => (
+                      <div key={i} className="flex items-start gap-2 p-3 rounded-lg bg-white dark:bg-white/[0.02] border border-gray-200 dark:border-white/5">
+                        <MessageSquare size={14} className="text-accent-orange mt-0.5 flex-shrink-0" />
+                        <span className="text-xs text-gray-700 dark:text-gray-300 italic">{q}</span>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className="flex flex-wrap gap-2">
+                    {['Salesforce', 'Gmail', 'Fireflies', 'Notion', 'Jira', 'Zendesk'].map((tool, i) => (
+                      <div key={i} className="px-3 py-1 rounded-lg bg-white dark:bg-white/[0.03] border border-gray-200 dark:border-white/10 text-xs font-medium text-gray-600 dark:text-gray-400">
+                        {tool}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Right: Visual Mockup */}
+                <div className="relative">
+                  <div className="rounded-2xl bg-white dark:bg-[#0a0a0a] border border-gray-300 dark:border-white/20 overflow-hidden shadow-2xl">
+                    {/* Mini App Header */}
+                    <div className="bg-gray-50 dark:bg-[#0d0d0d] border-b border-gray-200 dark:border-white/10 px-4 py-3 flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                        <div className="w-2 h-2 rounded-full bg-yellow-500"></div>
+                        <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                      </div>
+                      <div className="text-xs font-mono text-gray-500 dark:text-gray-400">sales-intelligence.app</div>
+                    </div>
+
+                    {/* Content: Deal Cards with Integration Data */}
+                    <div className="p-4 space-y-3" style={{ minHeight: '300px' }}>
+                      {/* Deal Card 1 */}
+                      <div className="p-3 rounded-lg bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/10 dark:to-orange-900/10 border border-red-200 dark:border-red-800/30">
+                        <div className="flex items-start justify-between mb-2">
+                          <div>
+                            <div className="text-sm font-semibold text-gray-900 dark:text-white">Acme Corp</div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400">$450K · Negotiation</div>
+                          </div>
+                          <div className="px-2 py-0.5 rounded-full bg-red-500/20 border border-red-500/30 text-xs font-semibold text-red-700 dark:text-red-300">
+                            Needs Attention
+                          </div>
+                        </div>
+                        <div className="space-y-1.5 text-[10px] text-gray-600 dark:text-gray-400">
+                          <div className="flex items-center gap-1.5">
+                            <Database size={10} className="text-accent-purple" />
+                            <span>Salesforce: Deal stage changed 3 days ago</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <Layers size={10} className="text-accent-orange" />
+                            <span>Gmail: No reply from contact in 14 days</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <MessageSquare size={10} className="text-accent-pink" />
+                            <span>Fireflies: Last call mentioned "need board approval"</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Deal Card 2 */}
+                      <div className="p-3 rounded-lg bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/10 dark:to-emerald-900/10 border border-green-200 dark:border-green-800/30">
+                        <div className="flex items-start justify-between mb-2">
+                          <div>
+                            <div className="text-sm font-semibold text-gray-900 dark:text-white">TechStart Inc</div>
+                            <div className="text-xs text-gray-600 dark:text-gray-400">$180K · Proposal</div>
+                          </div>
+                          <div className="px-2 py-0.5 rounded-full bg-green-500/20 border border-green-500/30 text-xs font-semibold text-green-700 dark:text-green-300">
+                            On Track
+                          </div>
+                        </div>
+                        <div className="space-y-1.5 text-[10px] text-gray-600 dark:text-gray-400">
+                          <div className="flex items-center gap-1.5">
+                            <Database size={10} className="text-accent-purple" />
+                            <span>Salesforce: Next meeting scheduled tomorrow</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <Layers size={10} className="text-accent-orange" />
+                            <span>Gmail: Positive response received 2 hours ago</span>
+                          </div>
+                          <div className="flex items-center gap-1.5">
+                            <FileText size={10} className="text-accent-blue" />
+                            <span>Notion: Contract draft reviewed by legal team</span>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* AI Assistant Preview */}
+                      <div className="p-3 rounded-lg bg-gray-50 dark:bg-white/[0.02] border border-gray-200 dark:border-white/10">
+                        <div className="flex items-center gap-2 mb-2">
+                          <Sparkles size={12} className="text-accent-purple" />
+                          <span className="text-xs font-semibold text-gray-900 dark:text-white">AI Assistant</span>
+                        </div>
+                        <div className="text-[10px] text-gray-600 dark:text-gray-400 italic leading-relaxed">
+                          "Based on your integrations, Acme Corp needs follow-up. Their last email went unanswered and the Fireflies call transcript shows they need board approval. I can draft a follow-up email referencing that call."
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Integration Icons Floating */}
+                  <div className="absolute -bottom-3 -right-3 flex gap-2">
+                    {[
+                      { name: 'SF', color: 'from-blue-500 to-cyan-500' },
+                      { name: 'GM', color: 'from-red-500 to-pink-500' },
+                      { name: 'FF', color: 'from-purple-500 to-indigo-500' }
+                    ].map((item, i) => (
+                      <div key={i} className={`w-8 h-8 rounded-lg bg-gradient-to-br ${item.color} flex items-center justify-center text-white text-[8px] font-bold shadow-lg`}>
+                        {item.name}
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
@@ -615,16 +750,17 @@ const authenticateUser = async (req, res, next) => {
 
                   {/* Orbiting Services */}
                   {[
-                    { name: 'PostgreSQL', icon: '🐘', angle: 0, color: 'purple' },
-                    { name: 'Stripe', icon: '💳', angle: 60, color: 'orange' },
-                    { name: 'Twilio', icon: '📱', angle: 120, color: 'pink' },
-                    { name: 'SendGrid', icon: '✉️', angle: 180, color: 'purple' },
-                    { name: 'Slack', icon: '💬', angle: 240, color: 'orange' },
-                    { name: 'REST API', icon: '🔌', angle: 300, color: 'pink' }
+                    { name: 'PostgreSQL', icon: Database, angle: 0, color: 'purple' },
+                    { name: 'Stripe', icon: CreditCard, angle: 60, color: 'orange' },
+                    { name: 'Twilio', icon: Smartphone, angle: 120, color: 'pink' },
+                    { name: 'SendGrid', icon: FileText, angle: 180, color: 'purple' },
+                    { name: 'Slack', icon: MessageSquare, angle: 240, color: 'orange' },
+                    { name: 'REST API', icon: Zap, angle: 300, color: 'pink' }
                   ].map((source, i) => {
                     const radius = 140;
                     const x = Math.cos((source.angle * Math.PI) / 180) * radius;
                     const y = Math.sin((source.angle * Math.PI) / 180) * radius;
+                    const IconComponent = source.icon;
 
                     return (
                       <div key={i} className="absolute z-10" style={{
@@ -636,7 +772,11 @@ const authenticateUser = async (req, res, next) => {
                           source.color === 'orange' ? 'from-accent-orange/30 to-accent-orange/10 border-accent-orange/50' :
                           'from-accent-pink/30 to-accent-pink/10 border-accent-pink/50'
                         } border-2 flex flex-col items-center justify-center backdrop-blur-md shadow-lg hover:scale-125 transition-transform duration-300 group cursor-pointer`}>
-                          <span className="text-2xl mb-1 group-hover:scale-110 transition-transform">{source.icon}</span>
+                          <IconComponent className={`mb-1 group-hover:scale-110 transition-transform ${
+                            source.color === 'purple' ? 'text-accent-purple' :
+                            source.color === 'orange' ? 'text-accent-orange' :
+                            'text-accent-pink'
+                          }`} size={20} />
                           <span className="text-[7px] text-gray-300 font-medium text-center opacity-0 group-hover:opacity-100 transition-opacity">{source.name}</span>
                         </div>
 
@@ -857,7 +997,7 @@ const authenticateUser = async (req, res, next) => {
             {[
               {
                 name: 'users',
-                icon: '👤',
+                icon: Users,
                 color: 'purple',
                 fields: [
                   { name: 'id', type: 'UUID', key: true },
@@ -868,7 +1008,7 @@ const authenticateUser = async (req, res, next) => {
               },
               {
                 name: 'orders',
-                icon: '🛒',
+                icon: ShoppingCart,
                 color: 'orange',
                 fields: [
                   { name: 'id', type: 'SERIAL', key: true },
@@ -879,7 +1019,7 @@ const authenticateUser = async (req, res, next) => {
               },
               {
                 name: 'products',
-                icon: '📦',
+                icon: Box,
                 color: 'pink',
                 fields: [
                   { name: 'id', type: 'SERIAL', key: true },
@@ -888,7 +1028,9 @@ const authenticateUser = async (req, res, next) => {
                   { name: 'stock', type: 'INTEGER' }
                 ]
               }
-            ].map((table, i) => (
+            ].map((table, i) => {
+              const IconComponent = table.icon;
+              return (
               <FadeIn key={i} delay={i * 150}>
                 <div className={`relative rounded-2xl border-2 backdrop-blur-xl overflow-hidden group hover:scale-105 transition-all duration-500 ${
                   table.color === 'purple' ? 'bg-gradient-to-br from-accent-purple/10 to-accent-purple/5 border-accent-purple/30 hover:shadow-2xl hover:shadow-accent-purple/30' :
@@ -901,7 +1043,11 @@ const authenticateUser = async (req, res, next) => {
                     table.color === 'orange' ? 'bg-accent-orange/20 border-accent-orange/30' :
                     'bg-accent-pink/20 border-accent-pink/30'
                   }`}>
-                    <span className="text-xl">{table.icon}</span>
+                    <IconComponent size={18} className={
+                      table.color === 'purple' ? 'text-accent-purple' :
+                      table.color === 'orange' ? 'text-accent-orange' :
+                      'text-accent-pink'
+                    } />
                     <span className="font-mono font-bold text-gray-900 dark:text-white">{table.name}</span>
                     <div className={`ml-auto w-2 h-2 rounded-full animate-pulse ${
                       table.color === 'purple' ? 'bg-accent-purple' :
@@ -914,9 +1060,9 @@ const authenticateUser = async (req, res, next) => {
                   <div className="p-4 space-y-2">
                     {table.fields.map((field, idx) => (
                       <div key={idx} className="flex items-center gap-2 text-sm font-mono group/field hover:bg-white/10 dark:hover:bg-white/5 p-2 rounded transition-all">
-                        {field.key && <span className="text-yellow-500 text-xs">🔑</span>}
-                        {field.foreign && <span className="text-blue-500 text-xs">🔗</span>}
-                        {field.unique && <span className="text-green-500 text-xs">⭐</span>}
+                        {field.key && <div className="w-1.5 h-1.5 rounded-full bg-yellow-500 flex-shrink-0"></div>}
+                        {field.foreign && <div className="w-1.5 h-1.5 rounded-full bg-blue-500 flex-shrink-0"></div>}
+                        {field.unique && <div className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0"></div>}
                         <span className="text-gray-900 dark:text-white font-semibold">{field.name}</span>
                         <span className="text-gray-500 dark:text-gray-400 text-xs ml-auto">{field.type}</span>
                       </div>
@@ -936,7 +1082,8 @@ const authenticateUser = async (req, res, next) => {
                   )}
                 </div>
               </FadeIn>
-            ))}
+            );
+            })}
           </div>
 
           {/* Build Log Terminal */}
@@ -962,26 +1109,26 @@ const authenticateUser = async (req, res, next) => {
 
               <div className="p-6 font-mono text-xs space-y-2 max-h-64 overflow-hidden">
                 {[
-                  { icon: '✓', text: 'Creating database schema...', color: 'text-green-400', delay: 0 },
-                  { icon: '→', text: 'Generated users table with 4 columns', color: 'text-blue-400', delay: 200 },
-                  { icon: '→', text: 'Generated orders table with foreign key to users', color: 'text-blue-400', delay: 400 },
-                  { icon: '→', text: 'Generated products table with price validation', color: 'text-blue-400', delay: 600 },
-                  { icon: '✓', text: 'Running migrations...', color: 'text-green-400', delay: 800 },
-                  { icon: '→', text: 'Applied 20241127_create_users.sql', color: 'text-purple-400', delay: 1000 },
-                  { icon: '→', text: 'Applied 20241127_create_orders.sql', color: 'text-purple-400', delay: 1200 },
-                  { icon: '→', text: 'Applied 20241127_create_products.sql', color: 'text-purple-400', delay: 1400 },
-                  { icon: '✓', text: 'Generating API endpoints...', color: 'text-green-400', delay: 1600 },
-                  { icon: '→', text: 'Created GET /api/users', color: 'text-orange-400', delay: 1800 },
-                  { icon: '→', text: 'Created POST /api/orders', color: 'text-orange-400', delay: 2000 },
-                  { icon: '✓', text: 'Building frontend components...', color: 'text-green-400', delay: 2200 },
-                  { icon: '🎉', text: 'Your app is ready to deploy!', color: 'text-pink-400 font-bold', delay: 2400 }
+                  { symbol: '✓', text: 'Creating database schema...', color: 'text-green-400', delay: 0 },
+                  { symbol: '→', text: 'Generated users table with 4 columns', color: 'text-blue-400', delay: 200 },
+                  { symbol: '→', text: 'Generated orders table with foreign key to users', color: 'text-blue-400', delay: 400 },
+                  { symbol: '→', text: 'Generated products table with price validation', color: 'text-blue-400', delay: 600 },
+                  { symbol: '✓', text: 'Running migrations...', color: 'text-green-400', delay: 800 },
+                  { symbol: '→', text: 'Applied 20241127_create_users.sql', color: 'text-purple-400', delay: 1000 },
+                  { symbol: '→', text: 'Applied 20241127_create_orders.sql', color: 'text-purple-400', delay: 1200 },
+                  { symbol: '→', text: 'Applied 20241127_create_products.sql', color: 'text-purple-400', delay: 1400 },
+                  { symbol: '✓', text: 'Generating API endpoints...', color: 'text-green-400', delay: 1600 },
+                  { symbol: '→', text: 'Created GET /api/users', color: 'text-orange-400', delay: 1800 },
+                  { symbol: '→', text: 'Created POST /api/orders', color: 'text-orange-400', delay: 2000 },
+                  { symbol: '✓', text: 'Building frontend components...', color: 'text-green-400', delay: 2200 },
+                  { symbol: '✓', text: 'Your app is ready to deploy!', color: 'text-pink-400 font-bold', delay: 2400 }
                 ].map((log, i) => (
                   <div
                     key={i}
                     className={`flex items-start gap-2 ${log.color} opacity-0 animate-slide-up-fade`}
                     style={{ animationDelay: `${log.delay}ms`, animationFillMode: 'forwards' }}
                   >
-                    <span>{log.icon}</span>
+                    <span>{log.symbol}</span>
                     <span>{log.text}</span>
                   </div>
                 ))}
