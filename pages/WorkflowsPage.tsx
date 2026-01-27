@@ -81,31 +81,99 @@ export const WorkflowsPage: React.FC = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <Section className="pt-32 pb-24 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-gradient-to-br from-accent-pink/20 via-accent-orange/15 to-transparent blur-[200px] rounded-full pointer-events-none animate-blob" />
-        <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-gradient-to-tr from-accent-purple/20 via-accent-pink/10 to-transparent blur-[180px] rounded-full pointer-events-none animate-blob-delay" />
+      <Section className="pt-32 pb-32 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-gradient-to-br from-accent-pink/20 via-accent-orange/15 to-transparent blur-[250px] rounded-full pointer-events-none animate-blob" />
+        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-gradient-to-tr from-accent-purple/20 via-accent-pink/10 to-transparent blur-[200px] rounded-full pointer-events-none animate-blob-delay" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-accent-orange/10 to-accent-pink/10 blur-[180px] rounded-full pointer-events-none animate-blob-slower" />
 
-        <div className="relative z-10 max-w-4xl mx-auto text-center">
+        <div className="relative z-10 max-w-5xl mx-auto text-center">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-4 py-2 mb-8 rounded-full border border-accent-pink/30 bg-gradient-to-r from-accent-pink/10 via-accent-orange/10 to-accent-pink/10 backdrop-blur-xl shadow-lg shadow-accent-pink/10">
-              <Workflow size={14} className="text-accent-pink animate-pulse" />
-              <span className="text-xs font-medium uppercase tracking-[0.2em] bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink bg-clip-text text-transparent">ALVIO Workflows</span>
+            <div className="inline-flex items-center gap-2 px-5 py-2.5 mb-8 rounded-full border-2 border-accent-pink/40 bg-gradient-to-r from-accent-pink/15 via-accent-orange/15 to-accent-pink/15 backdrop-blur-2xl shadow-2xl shadow-accent-pink/20 hover:scale-105 transition-all duration-500">
+              <Workflow size={16} className="text-accent-pink animate-pulse" />
+              <span className="text-sm font-bold uppercase tracking-[0.2em] bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink bg-clip-text text-transparent">ALVIO Workflows</span>
+              <div className="w-1.5 h-1.5 rounded-full bg-accent-pink animate-ping"></div>
             </div>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-6 leading-[1.1]">
+            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-8 leading-[1.05]">
               Just Describe It.<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink via-accent-orange to-accent-purple">AI Builds The Workflow.</span>
+              <span className="relative inline-block">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink via-accent-orange to-accent-purple animate-gradient">
+                  AI Builds The Workflow.
+                </span>
+                <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-accent-pink via-accent-orange to-accent-purple blur-sm opacity-50"></div>
+              </span>
             </h1>
-            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mb-10 max-w-2xl mx-auto leading-relaxed font-light">
-              No flowcharts. No node connections. No engineering knowledge required. Describe your workflow in plain English—ALVIO creates it, connects your tools, and handles the logic.
+            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+              No flowcharts. No node connections. No engineering knowledge required.<br />
+              <span className="font-semibold text-gray-800 dark:text-gray-200">Describe your workflow in plain English</span>—ALVIO creates it, connects your tools, and handles the logic.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button variant="primary" size="lg" className="group rounded-full shadow-2xl shadow-accent-pink/30 hover:shadow-accent-orange/40 transition-all duration-500 hover:scale-105">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-12">
+              <Button variant="primary" size="lg" className="group rounded-full shadow-2xl shadow-accent-pink/40 hover:shadow-accent-orange/50 transition-all duration-500 hover:scale-105 text-lg px-8 py-4">
+                <Sparkles size={18} className="mr-2 group-hover:rotate-12 transition-transform" />
                 Create Workflow
-                <Sparkles size={16} className="ml-2 group-hover:rotate-12 transition-transform" />
+                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
               </Button>
-              <Button variant="outline" size="lg" className="rounded-full backdrop-blur-xl bg-white/10 dark:bg-white/5 border-white/20 hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-300">
+              <Button variant="outline" size="lg" className="rounded-full backdrop-blur-xl bg-white/10 dark:bg-white/5 border-2 border-white/20 hover:bg-white/20 dark:hover:bg-white/10 hover:border-white/40 transition-all duration-300 text-lg px-8 py-4">
                 See Examples
               </Button>
+            </div>
+
+            {/* Hero Visual - Mini Flow Preview */}
+            <div className="max-w-4xl mx-auto">
+              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-white/60 via-white/40 to-white/60 dark:from-white/[0.08] dark:via-white/[0.04] dark:to-white/[0.08] border-2 border-gray-200 dark:border-white/20 backdrop-blur-3xl shadow-2xl">
+                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 pointer-events-none rounded-3xl"></div>
+
+                <div className="relative grid md:grid-cols-2 gap-8 items-center">
+                  {/* Prompt Side */}
+                  <div className="text-left">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-pink to-accent-orange flex items-center justify-center shadow-lg shadow-accent-pink/30">
+                        <MessageSquare size={18} className="text-white" />
+                      </div>
+                      <span className="text-sm font-bold text-gray-900 dark:text-white">Your Prompt</span>
+                    </div>
+                    <div className="p-4 rounded-xl bg-white/90 dark:bg-slate-900/90 border border-gray-300 dark:border-slate-700 backdrop-blur-xl">
+                      <p className="text-xs text-gray-700 dark:text-gray-300 italic leading-relaxed">
+                        "Alert me on Slack when a Salesforce deal is stuck for 2+ weeks"
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Arrow */}
+                  <div className="hidden md:flex justify-center">
+                    <div className="relative">
+                      <ArrowRight size={32} className="text-accent-orange animate-pulse" />
+                      <Sparkles size={16} className="absolute -top-2 -right-2 text-accent-pink animate-spin-slow" />
+                    </div>
+                  </div>
+
+                  {/* Result Side */}
+                  <div className="text-left md:col-start-2">
+                    <div className="flex items-center gap-2 mb-4">
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-500/30">
+                        <CheckCircle2 size={18} className="text-white" />
+                      </div>
+                      <span className="text-sm font-bold text-gray-900 dark:text-white">AI-Built Flow</span>
+                    </div>
+                    <div className="space-y-2">
+                      {['Monitor Salesforce', 'Check timeline', 'Send Slack alert'].map((step, i) => (
+                        <div key={i} className="flex items-center gap-2 p-3 rounded-lg bg-white/90 dark:bg-slate-900/90 border border-gray-200 dark:border-slate-700">
+                          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-accent-orange/20 to-accent-pink/20 flex items-center justify-center">
+                            <span className="text-[10px] font-bold text-accent-orange">{i + 1}</span>
+                          </div>
+                          <span className="text-xs font-medium text-gray-800 dark:text-gray-200">{step}</span>
+                          <CheckCircle2 size={12} className="text-green-500 ml-auto" />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Bottom badge */}
+                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink text-white text-xs font-bold shadow-2xl shadow-accent-pink/50 flex items-center gap-2">
+                  <Zap size={12} className="animate-pulse" />
+                  Built in 2.1 seconds
+                </div>
+              </div>
             </div>
           </FadeIn>
         </div>
@@ -160,20 +228,58 @@ export const WorkflowsPage: React.FC = () => {
                   ))}
                 </div>
 
-                {/* Visual Mockup */}
-                <div className="mt-6 p-4 rounded-2xl bg-gradient-to-br from-gray-100 to-gray-200 dark:from-white/[0.05] dark:to-white/[0.02] border border-gray-300 dark:border-white/10">
-                  <div className="text-xs text-gray-500 dark:text-gray-400 mb-3">Typical Workflow Builder:</div>
-                  <div className="flex items-center justify-center gap-3 flex-wrap">
-                    {['Trigger', 'Filter', 'API Call', 'Condition', 'Action'].map((node, i) => (
-                      <React.Fragment key={i}>
-                        <div className="px-3 py-2 rounded-lg bg-white dark:bg-white/5 border-2 border-gray-300 dark:border-white/20 text-[10px] font-mono text-gray-700 dark:text-gray-300">
-                          {node}
-                        </div>
-                        {i < 4 && <ArrowRight size={12} className="text-gray-400" />}
-                      </React.Fragment>
-                    ))}
+                {/* Visual Mockup - Traditional Builder */}
+                <div className="mt-6 p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 border-2 border-slate-700 dark:border-slate-800 overflow-hidden">
+                  <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-700">
+                    <div className="flex gap-1.5">
+                      <div className="w-2 h-2 rounded-full bg-slate-600"></div>
+                      <div className="w-2 h-2 rounded-full bg-slate-600"></div>
+                      <div className="w-2 h-2 rounded-full bg-slate-600"></div>
+                    </div>
+                    <div className="text-[10px] text-slate-400 font-mono ml-2">workflow-builder.app</div>
                   </div>
-                  <div className="mt-3 text-[10px] text-center text-gray-500 dark:text-gray-400 italic">You need to wire all this together manually</div>
+
+                  <div className="text-xs text-slate-400 mb-4 font-semibold">Traditional Flow Builder:</div>
+
+                  {/* Complex node diagram */}
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <div className="px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 text-[10px] font-mono text-slate-300 flex-shrink-0">
+                        1. Webhook Trigger
+                      </div>
+                      <ArrowRight size={10} className="text-slate-600" />
+                      <div className="px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 text-[10px] font-mono text-slate-300 flex-shrink-0">
+                        2. Filter
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2 ml-4">
+                      <ArrowRight size={10} className="text-slate-600 rotate-90" />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 text-[10px] font-mono text-slate-300 flex-shrink-0">
+                        3. API: GET data
+                      </div>
+                      <ArrowRight size={10} className="text-slate-600" />
+                      <div className="px-3 py-2 rounded-lg bg-slate-800 border border-slate-600 text-[10px] font-mono text-slate-300 flex-shrink-0">
+                        4. Condition
+                      </div>
+                    </div>
+                    <div className="flex gap-8 ml-4">
+                      <div className="flex flex-col items-center gap-2">
+                        <ArrowRight size={10} className="text-slate-600 rotate-90" />
+                        <div className="px-2 py-1 rounded bg-green-900/30 border border-green-700/50 text-[9px] font-mono text-green-400">TRUE</div>
+                      </div>
+                      <div className="flex flex-col items-center gap-2">
+                        <ArrowRight size={10} className="text-slate-600 rotate-90" />
+                        <div className="px-2 py-1 rounded bg-red-900/30 border border-red-700/50 text-[9px] font-mono text-red-400">FALSE</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="mt-4 pt-4 border-t border-slate-700 flex items-center gap-2">
+                    <AlertCircle size={12} className="text-orange-400" />
+                    <div className="text-[10px] text-slate-400 italic">Manual configuration, API setup, error handling all required</div>
+                  </div>
                 </div>
               </div>
             </FadeIn>
@@ -215,20 +321,47 @@ export const WorkflowsPage: React.FC = () => {
                     ))}
                   </div>
 
-                  {/* Prompt Example */}
-                  <div className="mt-6 p-5 rounded-2xl bg-gradient-to-br from-white/90 to-white/70 dark:from-white/[0.08] dark:to-white/[0.04] border-2 border-accent-orange/30 backdrop-blur-xl">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-accent-orange to-accent-pink flex items-center justify-center">
-                        <MessageSquare size={12} className="text-white" />
+                  {/* Prompt Example - Premium Mock */}
+                  <div className="mt-6 p-6 rounded-2xl bg-gradient-to-br from-slate-900 to-slate-800 dark:from-slate-950 dark:to-slate-900 border-2 border-accent-orange/40 backdrop-blur-xl overflow-hidden shadow-2xl shadow-accent-orange/20">
+                    <div className="flex items-center gap-2 mb-4 pb-3 border-b border-slate-700/50">
+                      <div className="flex gap-1.5">
+                        <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse"></div>
+                        <div className="w-2 h-2 rounded-full bg-yellow-400"></div>
+                        <div className="w-2 h-2 rounded-full bg-red-400"></div>
                       </div>
-                      <span className="text-xs font-bold text-gray-900 dark:text-white">Example Prompt:</span>
+                      <div className="flex items-center gap-2 ml-2">
+                        <Sparkles size={10} className="text-accent-orange" />
+                        <div className="text-[10px] text-slate-300 font-semibold">alvio.io/workflows</div>
+                      </div>
                     </div>
-                    <p className="text-xs text-gray-700 dark:text-gray-300 italic leading-relaxed">
-                      "When a high-value Salesforce deal goes quiet for 2 weeks, check Gmail and Fireflies for context, then alert me on Slack."
-                    </p>
-                    <div className="mt-3 pt-3 border-t border-accent-orange/20 flex items-center gap-2">
-                      <CheckCircle2 size={14} className="text-green-500" />
-                      <span className="text-[10px] text-gray-600 dark:text-gray-400">✨ That's it. AI builds everything.</span>
+
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-accent-orange to-accent-pink flex items-center justify-center shadow-lg shadow-accent-pink/30">
+                        <MessageSquare size={14} className="text-white" />
+                      </div>
+                      <span className="text-xs font-bold text-white">ALVIO Prompt Builder</span>
+                    </div>
+
+                    <div className="p-4 rounded-xl bg-slate-800/80 border border-slate-600 backdrop-blur-xl">
+                      <p className="text-xs text-slate-200 leading-relaxed font-light">
+                        "When a high-value Salesforce deal goes quiet for 2 weeks, check Gmail and Fireflies for context, then alert me on Slack."
+                      </p>
+                    </div>
+
+                    <div className="mt-4 flex items-center justify-between">
+                      <button className="px-4 py-2 rounded-lg bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink text-white text-xs font-bold flex items-center gap-2 shadow-lg shadow-accent-pink/30">
+                        <Wand2 size={12} />
+                        Build Flow
+                      </button>
+                      <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/40">
+                        <div className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"></div>
+                        <span className="text-[10px] font-bold text-green-300">Ready</span>
+                      </div>
+                    </div>
+
+                    <div className="mt-4 pt-4 border-t border-slate-700/50 flex items-center gap-2">
+                      <CheckCircle2 size={14} className="text-green-400" />
+                      <span className="text-[10px] text-slate-400">AI handles all connections, logic, and error handling automatically</span>
                     </div>
                   </div>
                 </div>
@@ -301,63 +434,143 @@ export const WorkflowsPage: React.FC = () => {
             </div>
           </div>
 
-          {/* Prompt to Workflow Visualization */}
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
+          {/* Prompt to Workflow Visualization - Enhanced */}
+          <div className="grid lg:grid-cols-2 gap-12 items-start">
             <FadeIn>
-              <div className="rounded-3xl bg-gradient-to-br from-white/70 via-pink-50/50 to-white/70 dark:from-white/[0.08] dark:via-accent-pink/[0.05] dark:to-white/[0.08] border-2 border-gray-200 dark:border-white/20 p-8 backdrop-blur-xl shadow-2xl">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-pink to-accent-orange flex items-center justify-center">
-                    <MessageSquare size={20} className="text-white" />
+              <div className="sticky top-24 rounded-3xl bg-gradient-to-br from-white/90 via-pink-50/70 to-white/90 dark:from-slate-900/90 dark:via-slate-800/90 dark:to-slate-900/90 border-2 border-gray-200 dark:border-slate-700 p-8 backdrop-blur-2xl shadow-2xl">
+                {/* Browser-like Header */}
+                <div className="flex items-center gap-2 mb-6 pb-4 border-b border-gray-200 dark:border-slate-700">
+                  <div className="flex gap-1.5">
+                    <div className="w-3 h-3 rounded-full bg-red-400"></div>
+                    <div className="w-3 h-3 rounded-full bg-yellow-400"></div>
+                    <div className="w-3 h-3 rounded-full bg-green-400"></div>
                   </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">Your Prompt</h3>
+                  <div className="flex-1 text-center">
+                    <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-lg bg-white/80 dark:bg-slate-800/80 border border-gray-300 dark:border-slate-600">
+                      <Sparkles size={12} className="text-accent-pink" />
+                      <span className="text-xs font-semibold text-gray-700 dark:text-gray-300">ALVIO Workflow Builder</span>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="relative p-5 rounded-2xl bg-white/90 dark:bg-black/40 border border-gray-300 dark:border-white/20 min-h-[200px] font-light">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-pink via-accent-orange to-accent-pink flex items-center justify-center shadow-lg shadow-accent-pink/30">
+                    <MessageSquare size={24} className="text-white" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white">Describe Your Workflow</h3>
+                    <p className="text-xs text-gray-600 dark:text-gray-400">In plain English</p>
+                  </div>
+                </div>
+
+                {/* Prompt Input Area */}
+                <div className="relative p-6 rounded-2xl bg-white dark:bg-slate-800 border-2 border-gray-300 dark:border-slate-600 min-h-[200px] font-light shadow-inner">
                   <p className="text-sm text-gray-800 dark:text-gray-200 leading-relaxed">
                     {promptText}
                     <span className="inline-block w-0.5 h-4 bg-accent-pink animate-cursor-blink ml-1" />
                   </p>
                 </div>
 
-                <div className="mt-6 flex items-center justify-center">
-                  <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-accent-pink/20 to-accent-orange/20 border border-accent-pink/30">
-                    <Sparkles size={14} className="text-accent-pink animate-pulse" />
-                    <span className="text-xs font-semibold text-gray-900 dark:text-white">AI Processing...</span>
+                {/* Action Button */}
+                <div className="mt-6 flex items-center gap-4">
+                  <button className="flex-1 flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink text-white font-bold shadow-2xl shadow-accent-pink/40 hover:shadow-accent-orange/50 hover:scale-[1.02] transition-all duration-300">
+                    <Wand2 size={18} />
+                    <span>Generate Workflow</span>
+                    <Sparkles size={14} className="animate-pulse" />
+                  </button>
+                </div>
+
+                {/* Stats */}
+                <div className="mt-6 grid grid-cols-3 gap-3">
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100/50 dark:from-blue-500/10 dark:to-blue-500/5 border border-blue-200 dark:border-blue-500/20 text-center">
+                    <div className="text-lg font-bold text-blue-600 dark:text-blue-400">2.1s</div>
+                    <div className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Build Time</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-green-50 to-green-100/50 dark:from-green-500/10 dark:to-green-500/5 border border-green-200 dark:border-green-500/20 text-center">
+                    <div className="text-lg font-bold text-green-600 dark:text-green-400">{workflows[activeWorkflow].integrations.length}</div>
+                    <div className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Connected</div>
+                  </div>
+                  <div className="p-3 rounded-xl bg-gradient-to-br from-purple-50 to-purple-100/50 dark:from-purple-500/10 dark:to-purple-500/5 border border-purple-200 dark:border-purple-500/20 text-center">
+                    <div className="text-lg font-bold text-purple-600 dark:text-purple-400">{workflows[activeWorkflow].steps.length}</div>
+                    <div className="text-[10px] text-gray-600 dark:text-gray-400 font-medium">Steps</div>
                   </div>
                 </div>
               </div>
             </FadeIn>
 
             <FadeIn delay={200}>
-              <div className="rounded-3xl bg-gradient-to-br from-white/70 via-orange-50/50 to-white/70 dark:from-white/[0.08] dark:via-accent-orange/[0.05] dark:to-white/[0.08] border-2 border-gray-200 dark:border-white/20 p-8 backdrop-blur-xl shadow-2xl">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-orange to-accent-pink flex items-center justify-center">
-                    <Workflow size={20} className="text-white" />
-                  </div>
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white">Generated Workflow</h3>
-                </div>
-
-                <div className="space-y-3">
-                  {workflows[activeWorkflow].steps.map((step, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-3 p-3 rounded-xl bg-white/90 dark:bg-white/[0.05] border border-gray-200 dark:border-white/10 hover:scale-[1.02] transition-all duration-300 group cursor-pointer"
-                    >
-                      <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-orange/20 to-accent-pink/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform">
-                        <span className="text-xs font-bold text-accent-orange">{i + 1}</span>
+              <div className="space-y-6">
+                {/* Generated Workflow Header */}
+                <div className="rounded-3xl bg-gradient-to-br from-white/90 via-orange-50/70 to-white/90 dark:from-slate-900/90 dark:via-slate-800/90 dark:to-slate-900/90 border-2 border-gray-200 dark:border-slate-700 p-8 backdrop-blur-2xl shadow-2xl">
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-orange via-accent-pink to-accent-orange flex items-center justify-center shadow-lg shadow-accent-orange/30 animate-pulse-slow">
+                      <Workflow size={24} className="text-white" />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">Generated Workflow</h3>
+                      <p className="text-xs text-gray-600 dark:text-gray-400">Ready to deploy</p>
+                    </div>
+                    <div className="ml-auto">
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-green-500/20 border border-green-500/40">
+                        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+                        <span className="text-xs font-bold text-green-700 dark:text-green-400">Active</span>
                       </div>
-                      <span className="text-sm text-gray-800 dark:text-gray-200 font-medium">{step}</span>
-                      <CheckCircle2 size={16} className="text-green-500 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
-                  ))}
+                  </div>
+
+                  <div className="space-y-3">
+                    {workflows[activeWorkflow].steps.map((step, i) => (
+                      <div
+                        key={i}
+                        className="group flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-800 border-2 border-gray-200 dark:border-slate-700 hover:scale-[1.02] hover:border-accent-orange/40 hover:shadow-lg hover:shadow-accent-orange/20 transition-all duration-300 cursor-pointer"
+                      >
+                        <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-orange/20 via-accent-pink/20 to-accent-orange/20 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform shadow-lg">
+                          <span className="text-sm font-bold text-accent-orange">{i + 1}</span>
+                        </div>
+                        <div className="flex-1">
+                          <span className="text-sm text-gray-800 dark:text-gray-200 font-semibold block">{step}</span>
+                          <span className="text-xs text-gray-500 dark:text-gray-400">Automated step</span>
+                        </div>
+                        <CheckCircle2 size={18} className="text-green-500 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Connected Integrations */}
+                  <div className="mt-6 pt-6 border-t border-gray-200 dark:border-slate-700">
+                    <div className="text-xs font-bold text-gray-600 dark:text-gray-400 mb-3 uppercase tracking-wider">Connected Services</div>
+                    <div className="flex flex-wrap gap-2">
+                      {workflows[activeWorkflow].integrations.map((integration, i) => (
+                        <div key={i} className="group relative px-4 py-2.5 rounded-xl bg-gradient-to-r from-white to-gray-50 dark:from-slate-800 dark:to-slate-700 border-2 border-gray-300 dark:border-slate-600 hover:border-accent-orange/50 text-xs font-bold text-gray-700 dark:text-gray-300 backdrop-blur-xl hover:scale-105 transition-all duration-300 shadow-lg cursor-pointer">
+                          <div className="flex items-center gap-2">
+                            <div className={`w-2 h-2 rounded-full ${
+                              i === 0 ? 'bg-blue-500' :
+                              i === 1 ? 'bg-green-500' :
+                              i === 2 ? 'bg-purple-500' :
+                              'bg-orange-500'
+                            } animate-pulse`}></div>
+                            {integration}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="mt-6 flex flex-wrap gap-2">
-                  {workflows[activeWorkflow].integrations.map((integration, i) => (
-                    <div key={i} className="px-3 py-1.5 rounded-lg bg-gradient-to-r from-white/90 to-white/70 dark:from-white/10 dark:to-white/5 border border-accent-orange/30 text-xs font-semibold text-gray-700 dark:text-gray-300 backdrop-blur-xl hover:scale-105 transition-transform duration-300 shadow-sm">
-                      {integration}
+                {/* Deploy Banner */}
+                <div className="p-6 rounded-2xl bg-gradient-to-r from-accent-pink/10 via-accent-orange/10 to-accent-pink/10 border-2 border-accent-orange/30 backdrop-blur-xl">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-500/30">
+                      <Play size={20} className="text-white ml-0.5" />
                     </div>
-                  ))}
+                    <div className="flex-1">
+                      <div className="text-sm font-bold text-gray-900 dark:text-white">Ready to Deploy</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-400">Workflow will run automatically based on triggers</div>
+                    </div>
+                    <button className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white text-sm font-bold hover:scale-105 transition-transform shadow-lg shadow-green-500/30">
+                      Deploy
+                    </button>
+                  </div>
                 </div>
               </div>
             </FadeIn>
@@ -427,54 +640,135 @@ export const WorkflowsPage: React.FC = () => {
                   </div>
                 </div>
 
-                {/* Workflow Visualization */}
+                {/* Workflow Visual Flow */}
                 <div className="relative">
-                  <div className="rounded-2xl bg-gradient-to-br from-gray-50 to-white dark:from-white/[0.08] dark:to-white/[0.04] border-2 border-gray-200 dark:border-white/20 p-6 overflow-hidden">
-                    <div className="space-y-4">
+                  <div className="rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border-2 border-slate-700 dark:border-slate-800 p-8 overflow-hidden shadow-2xl">
+                    {/* Grid Pattern Background */}
+                    <div className="absolute inset-0 opacity-20" style={{
+                      backgroundImage: 'linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px)',
+                      backgroundSize: '20px 20px'
+                    }}></div>
+
+                    {/* Workflow Flow */}
+                    <div className="relative space-y-6">
                       {workflows[activeWorkflow].integrations.map((integration, i) => (
-                        <div
-                          key={i}
-                          className="relative"
-                        >
-                          <div className={`p-4 rounded-xl border-2 backdrop-blur-xl hover:scale-[1.02] transition-all duration-300 ${
-                            i === 0 ? 'bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-800/20 border-blue-300 dark:border-blue-600/40' :
-                            i === 1 ? 'bg-gradient-to-r from-green-50 to-green-100 dark:from-green-900/20 dark:to-green-800/20 border-green-300 dark:border-green-600/40' :
-                            i === 2 ? 'bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-900/20 dark:to-purple-800/20 border-purple-300 dark:border-purple-600/40' :
-                            'bg-gradient-to-r from-orange-50 to-orange-100 dark:from-orange-900/20 dark:to-orange-800/20 border-orange-300 dark:border-orange-600/40'
-                          }`}>
-                            <div className="flex items-center gap-3">
-                              <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
-                                i === 0 ? 'bg-blue-500/20' :
-                                i === 1 ? 'bg-green-500/20' :
-                                i === 2 ? 'bg-purple-500/20' :
-                                'bg-orange-500/20'
-                              }`}>
-                                <Globe size={18} className={
-                                  i === 0 ? 'text-blue-600 dark:text-blue-400' :
-                                  i === 1 ? 'text-green-600 dark:text-green-400' :
-                                  i === 2 ? 'text-purple-600 dark:text-purple-400' :
-                                  'text-orange-600 dark:text-orange-400'
-                                } />
+                        <div key={i} className="relative">
+                          {/* Connection Line */}
+                          {i > 0 && (
+                            <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-0.5 h-6 bg-gradient-to-b from-slate-600 via-accent-pink/60 to-transparent"></div>
+                          )}
+
+                          {/* Node */}
+                          <div className="relative group">
+                            <div className={`relative p-5 rounded-2xl border-2 backdrop-blur-xl transform transition-all duration-500 hover:scale-[1.02] hover:z-10 ${
+                              i === 0 ? 'bg-gradient-to-br from-blue-500/20 via-blue-600/10 to-transparent border-blue-400/50 shadow-lg shadow-blue-500/20' :
+                              i === 1 ? 'bg-gradient-to-br from-green-500/20 via-green-600/10 to-transparent border-green-400/50 shadow-lg shadow-green-500/20' :
+                              i === 2 ? 'bg-gradient-to-br from-purple-500/20 via-purple-600/10 to-transparent border-purple-400/50 shadow-lg shadow-purple-500/20' :
+                              'bg-gradient-to-br from-orange-500/20 via-orange-600/10 to-transparent border-orange-400/50 shadow-lg shadow-orange-500/20'
+                            }`}>
+                              <div className="flex items-center gap-4">
+                                {/* Icon */}
+                                <div className={`relative w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0 ${
+                                  i === 0 ? 'bg-blue-500/30 shadow-lg shadow-blue-500/30' :
+                                  i === 1 ? 'bg-green-500/30 shadow-lg shadow-green-500/30' :
+                                  i === 2 ? 'bg-purple-500/30 shadow-lg shadow-purple-500/30' :
+                                  'bg-orange-500/30 shadow-lg shadow-orange-500/30'
+                                }`}>
+                                  <Database size={24} className={
+                                    i === 0 ? 'text-blue-300' :
+                                    i === 1 ? 'text-green-300' :
+                                    i === 2 ? 'text-purple-300' :
+                                    'text-orange-300'
+                                  } />
+                                  {/* Pulse effect */}
+                                  <div className={`absolute inset-0 rounded-xl animate-ping opacity-20 ${
+                                    i === 0 ? 'bg-blue-400' :
+                                    i === 1 ? 'bg-green-400' :
+                                    i === 2 ? 'bg-purple-400' :
+                                    'bg-orange-400'
+                                  }`}></div>
+                                </div>
+
+                                {/* Content */}
+                                <div className="flex-1">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <div className="text-base font-bold text-white">{integration}</div>
+                                    <div className={`px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider ${
+                                      i === 0 ? 'bg-blue-400/20 text-blue-300' :
+                                      i === 1 ? 'bg-green-400/20 text-green-300' :
+                                      i === 2 ? 'bg-purple-400/20 text-purple-300' :
+                                      'bg-orange-400/20 text-orange-300'
+                                    }`}>
+                                      Step {i + 1}
+                                    </div>
+                                  </div>
+                                  <div className="text-xs text-slate-400 font-medium">{workflows[activeWorkflow].steps[i]}</div>
+                                </div>
+
+                                {/* Status Indicator */}
+                                <div className="flex-shrink-0">
+                                  <div className={`w-3 h-3 rounded-full animate-pulse ${
+                                    i === 0 ? 'bg-blue-400 shadow-lg shadow-blue-400/50' :
+                                    i === 1 ? 'bg-green-400 shadow-lg shadow-green-400/50' :
+                                    i === 2 ? 'bg-purple-400 shadow-lg shadow-purple-400/50' :
+                                    'bg-orange-400 shadow-lg shadow-orange-400/50'
+                                  }`}></div>
+                                </div>
                               </div>
-                              <div>
-                                <div className="text-sm font-bold text-gray-900 dark:text-white">{integration}</div>
-                                <div className="text-xs text-gray-600 dark:text-gray-400">{workflows[activeWorkflow].steps[i]}</div>
+
+                              {/* Data Flow Animation */}
+                              {i < workflows[activeWorkflow].integrations.length - 1 && (
+                                <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1">
+                                  <ArrowRight size={16} className="text-accent-pink rotate-90 animate-bounce" style={{ animationDuration: '2s' }} />
+                                </div>
+                              )}
+                            </div>
+
+                            {/* Hover Card - Shows additional info */}
+                            <div className="absolute left-full ml-4 top-1/2 -translate-y-1/2 opacity-0 group-hover:opacity-100 pointer-events-none transition-all duration-300 z-20 hidden xl:block">
+                              <div className="px-4 py-2 rounded-xl bg-slate-800/95 border border-slate-600 backdrop-blur-xl shadow-2xl whitespace-nowrap">
+                                <div className="text-xs text-slate-300">AI Processing</div>
+                                <div className="text-[10px] text-slate-500 mt-0.5">Connected & Active</div>
                               </div>
                             </div>
                           </div>
-                          {i < workflows[activeWorkflow].integrations.length - 1 && (
-                            <div className="flex justify-center py-2">
-                              <ArrowRight size={20} className="text-gray-400 rotate-90" />
-                            </div>
-                          )}
                         </div>
                       ))}
                     </div>
 
+                    {/* Final Output */}
+                    <div className="mt-6 pt-6 border-t border-slate-700">
+                      <div className="p-5 rounded-2xl bg-gradient-to-br from-accent-pink/20 via-accent-orange/20 to-accent-pink/20 border-2 border-accent-pink/40 backdrop-blur-xl">
+                        <div className="flex items-center gap-4">
+                          <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-accent-pink to-accent-orange flex items-center justify-center shadow-lg shadow-accent-pink/50">
+                            <CheckCircle2 size={24} className="text-white" />
+                          </div>
+                          <div className="flex-1">
+                            <div className="text-base font-bold text-white mb-1">Workflow Complete</div>
+                            <div className="text-xs text-slate-300">Alert sent with AI-generated insights</div>
+                          </div>
+                          <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse shadow-lg shadow-green-400/50"></div>
+                        </div>
+                      </div>
+                    </div>
+
                     {/* AI Badge */}
-                    <div className="absolute -bottom-3 -right-3 px-4 py-2 rounded-full bg-gradient-to-r from-accent-pink to-accent-orange shadow-lg flex items-center gap-2">
-                      <Bot size={14} className="text-white" />
-                      <span className="text-xs font-bold text-white">AI-Powered</span>
+                    <div className="absolute -top-3 -right-3 px-4 py-2 rounded-full bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink shadow-2xl shadow-accent-pink/50 flex items-center gap-2 border-2 border-white/10">
+                      <Bot size={14} className="text-white animate-pulse" />
+                      <span className="text-xs font-bold text-white">AI-Powered Flow</span>
+                    </div>
+
+                    {/* Execution Stats */}
+                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-3 px-5 py-2 rounded-full bg-slate-800/95 border border-slate-600 backdrop-blur-xl shadow-xl">
+                      <div className="flex items-center gap-1.5">
+                        <Clock size={12} className="text-green-400" />
+                        <span className="text-[10px] font-bold text-slate-300">~2.3s</span>
+                      </div>
+                      <div className="w-px h-3 bg-slate-600"></div>
+                      <div className="flex items-center gap-1.5">
+                        <Zap size={12} className="text-yellow-400" />
+                        <span className="text-[10px] font-bold text-slate-300">Auto</span>
+                      </div>
                     </div>
                   </div>
                 </div>

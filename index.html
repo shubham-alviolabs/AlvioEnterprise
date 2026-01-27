@@ -55,6 +55,8 @@
               'grid-move': 'grid-move 20s linear infinite',
               'blob': 'blob 7s infinite',
               'blob-delay': 'blob 7s infinite 2s',
+              'blob-slower': 'blob 10s infinite 1s',
+              'gradient': 'gradient 8s linear infinite',
               'morph': 'morph 8s ease-in-out infinite',
               'scatter-1': 'scatter-1 12s ease-in-out infinite',
               'scatter-2': 'scatter-2 12s ease-in-out infinite',
@@ -154,6 +156,10 @@
               'pulse-slow': {
                 '0%, 100%': { opacity: 0.6, transform: 'scale(1)' },
                 '50%': { opacity: 1, transform: 'scale(1.05)' },
+              },
+              gradient: {
+                '0%, 100%': { backgroundSize: '200% 200%', backgroundPosition: 'left center' },
+                '50%': { backgroundSize: '200% 200%', backgroundPosition: 'right center' },
               }
             },
             backgroundImage: {
