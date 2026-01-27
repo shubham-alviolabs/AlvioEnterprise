@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { Section } from '../components/ui/Section';
@@ -7,32 +7,133 @@ import { Button } from '../components/ui/Button';
 import {
   Layout, Sparkles, Code, Palette, Database,
   Zap, MessageSquare, ArrowRight, CheckCircle2,
-  Layers, Box, Wand2, Globe, Smartphone
+  Layers, Box, Wand2, Globe, Smartphone, Lock,
+  Users, TrendingUp, ShoppingCart, FileText, BarChart3
 } from 'lucide-react';
 
 export const AppsPage: React.FC = () => {
   const [activeExample, setActiveExample] = useState<'dashboard' | 'crm' | 'portal'>('dashboard');
+  const [buildingStep, setBuildingStep] = useState(0);
+  const [typedText, setTypedText] = useState('');
+  const [isTyping, setIsTyping] = useState(true);
 
   const examples = {
     dashboard: {
       title: 'Analytics Dashboard',
       desc: 'Real-time metrics with live database connections',
       prompt: '"Build an analytics dashboard showing revenue, user growth, and KPIs. Connect to Stripe API and our PostgreSQL database. Include charts, filters, and export features."',
-      features: ['Live database queries', 'API integrations', 'Interactive charts', 'Real-time updates']
+      features: ['Live database queries', 'API integrations', 'Interactive charts', 'Real-time updates'],
+      stats: [
+        { label: 'Monthly Revenue', value: '$847,392', change: '+23.5%', color: 'purple' },
+        { label: 'Active Users', value: '12,483', change: '+18.2%', color: 'orange' },
+        { label: 'Conversion Rate', value: '3.24%', change: '+0.8%', color: 'pink' }
+      ],
+      code: `// Auto-generated API endpoint
+app.get('/api/analytics', async (req, res) => {
+  const revenue = await db.query(
+    'SELECT SUM(amount) FROM payments WHERE date >= $1',
+    [startDate]
+  );
+  const users = await db.query(
+    'SELECT COUNT(*) FROM users WHERE active = true'
+  );
+  return res.json({ revenue, users });
+});`
     },
     crm: {
       title: 'Custom CRM',
       desc: 'Full-stack sales management system',
       prompt: '"Create a CRM with contact management, deal pipeline, and email automation. Store data in PostgreSQL, integrate with Gmail API, and add custom fields for our workflow."',
-      features: ['Database schema creation', 'Email integration', 'Custom workflows', 'Team collaboration']
+      features: ['Database schema creation', 'Email integration', 'Custom workflows', 'Team collaboration'],
+      stats: [
+        { label: 'Active Deals', value: '47', change: '+12', color: 'purple' },
+        { label: 'Pipeline Value', value: '$2.3M', change: '+340K', color: 'orange' },
+        { label: 'Close Rate', value: '28%', change: '+5%', color: 'pink' }
+      ],
+      code: `// Database schema
+CREATE TABLE deals (
+  id SERIAL PRIMARY KEY,
+  company TEXT NOT NULL,
+  value DECIMAL(10,2),
+  stage TEXT CHECK (stage IN ('lead', 'qualified', 'proposal', 'negotiation', 'closed')),
+  owner_id INTEGER REFERENCES users(id),
+  created_at TIMESTAMPTZ DEFAULT NOW()
+);`
     },
     portal: {
       title: 'Customer Portal',
       desc: 'Consumer-facing self-service app',
       prompt: '"Build a customer portal with authentication, order tracking, and support tickets. Connect to our database, Stripe for billing, and Zendesk API for support."',
-      features: ['User authentication', 'Database CRUD', 'Payment processing', 'Third-party APIs']
+      features: ['User authentication', 'Database CRUD', 'Payment processing', 'Third-party APIs'],
+      stats: [
+        { label: 'Total Orders', value: '8,291', change: '+1,203', color: 'purple' },
+        { label: 'Active Tickets', value: '34', change: '-12', color: 'orange' },
+        { label: 'Satisfaction', value: '4.8/5', change: '+0.3', color: 'pink' }
+      ],
+      code: `// Authentication middleware
+const authenticateUser = async (req, res, next) => {
+  const token = req.headers.authorization;
+  const user = await verifyToken(token);
+  if (!user) return res.status(401).json({ error: 'Unauthorized' });
+  req.user = user;
+  next();
+};`
     }
   };
+
+  const buildSteps = [
+    {
+      title: 'Understanding Requirements',
+      desc: 'AI analyzes your description and identifies components',
+      icon: MessageSquare,
+      duration: 1500
+    },
+    {
+      title: 'Generating Database Schema',
+      desc: 'Creating tables, relationships, and migrations',
+      icon: Database,
+      duration: 2000
+    },
+    {
+      title: 'Building API Endpoints',
+      desc: 'RESTful APIs with authentication and validation',
+      icon: Code,
+      duration: 1800
+    },
+    {
+      title: 'Creating UI Components',
+      desc: 'Responsive interface with modern design',
+      icon: Palette,
+      duration: 2200
+    }
+  ];
+
+  // Animated build process
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setBuildingStep((prev) => (prev + 1) % buildSteps.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Typewriter effect for code
+  useEffect(() => {
+    const fullText = examples[activeExample].code;
+    if (isTyping && typedText.length < fullText.length) {
+      const timeout = setTimeout(() => {
+        setTypedText(fullText.slice(0, typedText.length + 1));
+      }, 30);
+      return () => clearTimeout(timeout);
+    } else if (typedText.length === fullText.length) {
+      setTimeout(() => {
+        setIsTyping(false);
+      }, 2000);
+      setTimeout(() => {
+        setTypedText('');
+        setIsTyping(true);
+      }, 4000);
+    }
+  }, [typedText, isTyping, activeExample]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-white via-purple-50/20 to-orange-50/30 dark:from-black dark:via-[#050a0a] dark:to-[#0a0505] text-gray-900 dark:text-white transition-colors duration-700">
@@ -138,95 +239,129 @@ export const AppsPage: React.FC = () => {
             </div>
           </FadeIn>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-center mb-24">
-            <FadeIn>
-              <div>
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-orange/20 to-accent-pink/20 border-2 border-accent-orange/40 flex items-center justify-center text-accent-orange font-bold text-lg shadow-lg shadow-accent-orange/20">1</div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Describe What You Need</h3>
-                </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  Just tell ALVIO what the app should do. No need to draw wireframes or write specs. Use natural language like you're talking to a developer.
-                </p>
-                <div className="space-y-4">
-                  {[
-                    { title: 'Define the App', desc: 'Internal tool or customer-facing product?' },
-                    { title: 'Specify Integrations', desc: 'Which databases, APIs, and services to connect' },
-                    { title: 'Describe Features', desc: 'Authentication, payments, notifications, etc.' }
-                  ].map((item, i) => (
-                    <div key={i} className="flex items-start gap-3">
-                      <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-accent-orange/20 to-accent-pink/20 flex items-center justify-center flex-shrink-0 mt-1">
-                        <CheckCircle2 size={14} className="text-accent-orange" />
-                      </div>
-                      <div>
-                        <div className="text-gray-900 dark:text-white font-semibold">{item.title}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-400 font-light">{item.desc}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </FadeIn>
+          {/* Progressive Build Animation */}
+          <div className="relative">
+            <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-accent-orange via-accent-pink to-accent-purple opacity-20" />
 
-            <FadeIn delay={200}>
-              <div className="relative rounded-3xl bg-gradient-to-br from-[#0A0A0A] to-[#1A0A12] border border-white/20 p-8 overflow-hidden shadow-2xl">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent-orange/10 via-accent-pink/10 to-accent-purple/10 opacity-60" />
-                <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white/5 to-transparent rounded-t-3xl" />
-                <div className="relative">
-                  <div className="flex items-center gap-2 mb-5 text-gray-400 text-xs font-medium">
-                    <MessageSquare size={18} />
-                    <span>Chat with ALVIO</span>
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative">
+              {buildSteps.map((step, i) => (
+                <FadeIn key={i} delay={i * 100}>
+                  <div className={`relative transition-all duration-700 ${
+                    i === buildingStep ? 'scale-105' : 'scale-100'
+                  }`}>
+                    {/* Connection Line */}
+                    {i < buildSteps.length - 1 && (
+                      <div className="hidden md:block absolute top-12 left-full w-full h-0.5 -z-10">
+                        <div className={`h-full transition-all duration-1000 ${
+                          i < buildingStep ? 'bg-gradient-to-r from-accent-orange to-accent-pink' : 'bg-gray-300 dark:bg-white/10'
+                        }`} style={{ width: i < buildingStep ? '100%' : '0%' }} />
+                      </div>
+                    )}
+
+                    <div className={`p-6 rounded-3xl border-2 transition-all duration-700 ${
+                      i === buildingStep
+                        ? 'bg-gradient-to-br from-accent-orange/10 via-accent-pink/10 to-accent-purple/10 border-accent-orange/40 shadow-2xl shadow-accent-orange/20'
+                        : i < buildingStep
+                        ? 'bg-white/70 dark:bg-white/[0.05] border-green-500/40'
+                        : 'bg-white/50 dark:bg-white/[0.02] border-gray-200 dark:border-white/10'
+                    } backdrop-blur-xl`}>
+                      <div className={`w-16 h-16 rounded-2xl mb-4 flex items-center justify-center mx-auto transition-all duration-700 ${
+                        i === buildingStep
+                          ? 'bg-gradient-to-br from-accent-orange/30 to-accent-pink/30 shadow-lg shadow-accent-orange/30 scale-110'
+                          : i < buildingStep
+                          ? 'bg-green-500/20 border-2 border-green-500/40'
+                          : 'bg-gray-100 dark:bg-white/5'
+                      }`}>
+                        {i < buildingStep ? (
+                          <CheckCircle2 className="text-green-500" size={32} />
+                        ) : (
+                          <step.icon className={i === buildingStep ? 'text-accent-orange animate-pulse' : 'text-gray-400'} size={32} />
+                        )}
+                      </div>
+
+                      <div className="text-center">
+                        <h4 className="font-bold text-gray-900 dark:text-white mb-2">{step.title}</h4>
+                        <p className="text-xs text-gray-600 dark:text-gray-400 font-light">{step.desc}</p>
+                      </div>
+
+                      {i === buildingStep && (
+                        <div className="mt-4 h-1 bg-gray-200 dark:bg-white/10 rounded-full overflow-hidden">
+                          <div className="h-full bg-gradient-to-r from-accent-orange via-accent-pink to-accent-purple animate-pulse" style={{ width: '70%' }} />
+                        </div>
+                      )}
+                    </div>
                   </div>
-                  <div className="bg-white/5 backdrop-blur-2xl rounded-2xl p-6 border border-white/10 shadow-lg">
-                    <p className="text-white text-sm sm:text-base leading-relaxed font-light">
-                      "Build a sales analytics dashboard with charts showing monthly revenue, pipeline value, and conversion rates. Connect to our PostgreSQL database and Salesforce API. Include filters by team and date range. Add user authentication with team-based access."
-                    </p>
-                  </div>
-                  <div className="mt-5 flex items-center gap-2 text-accent-orange text-sm font-medium">
-                    <Sparkles size={18} className="animate-pulse" />
-                    <span>ALVIO is building your app...</span>
-                  </div>
-                </div>
-              </div>
-            </FadeIn>
+                </FadeIn>
+              ))}
+            </div>
           </div>
 
+          {/* Live Code Generation */}
           <div className="grid lg:grid-cols-2 gap-12 items-center mb-24">
             <FadeIn className="order-2 lg:order-1">
-              <div className="relative rounded-3xl bg-gradient-to-br from-gray-50 via-pink-50/50 to-purple-50/50 dark:from-white/[0.05] dark:via-accent-pink/[0.03] dark:to-accent-purple/[0.03] border-2 border-gray-200/50 dark:border-white/10 p-8 aspect-video flex items-center justify-center backdrop-blur-xl shadow-2xl">
-                <div className="absolute inset-0 grid grid-cols-3 gap-4 p-8 opacity-15">
-                  <div className="rounded-2xl bg-gradient-to-br from-gray-300 to-gray-400 dark:from-white/40 dark:to-white/20 shadow-lg" />
-                  <div className="rounded-2xl bg-gradient-to-br from-gray-300 to-gray-400 dark:from-white/40 dark:to-white/20 col-span-2 shadow-lg" />
-                  <div className="rounded-2xl bg-gradient-to-br from-gray-300 to-gray-400 dark:from-white/40 dark:to-white/20 col-span-2 row-span-2 shadow-lg" />
-                  <div className="rounded-2xl bg-gradient-to-br from-gray-300 to-gray-400 dark:from-white/40 dark:to-white/20 shadow-lg" />
-                  <div className="rounded-2xl bg-gradient-to-br from-gray-300 to-gray-400 dark:from-white/40 dark:to-white/20 col-span-3 shadow-lg" />
+              <div className="relative rounded-3xl bg-[#0D1117] border-2 border-white/20 overflow-hidden shadow-2xl">
+                {/* VS Code Header */}
+                <div className="bg-[#161B22] border-b border-white/10 px-4 py-3 flex items-center gap-2">
+                  <div className="flex gap-2">
+                    <div className="w-3 h-3 rounded-full bg-[#FF5F57]" />
+                    <div className="w-3 h-3 rounded-full bg-[#FEBC2E]" />
+                    <div className="w-3 h-3 rounded-full bg-[#28C840]" />
+                  </div>
+                  <div className="ml-4 flex items-center gap-2 text-gray-400 text-xs">
+                    <Code size={14} />
+                    <span>server.js</span>
+                  </div>
                 </div>
-                <div className="absolute inset-0 bg-gradient-to-tr from-accent-orange/10 via-transparent to-accent-pink/10 rounded-3xl" />
-                <Wand2 size={72} className="text-accent-orange relative z-10 drop-shadow-2xl" />
+
+                {/* Code Editor */}
+                <div className="p-6 font-mono text-xs sm:text-sm overflow-hidden" style={{ minHeight: '300px' }}>
+                  <div className="text-gray-300">
+                    <pre className="whitespace-pre-wrap">
+                      <code>
+                        {typedText}
+                        <span className="inline-block w-2 h-4 bg-accent-orange animate-pulse ml-1" />
+                      </code>
+                    </pre>
+                  </div>
+                </div>
+
+                {/* Status Bar */}
+                <div className="bg-accent-purple/90 px-4 py-2 text-xs flex items-center justify-between">
+                  <div className="flex items-center gap-4 text-white">
+                    <div className="flex items-center gap-2">
+                      <Sparkles size={12} className="animate-pulse" />
+                      <span>AI Generating...</span>
+                    </div>
+                    <span className="opacity-60">Line {typedText.split('\n').length}</span>
+                  </div>
+                  <div className="text-white opacity-60">TypeScript • Node.js</div>
+                </div>
               </div>
             </FadeIn>
 
             <FadeIn delay={200} className="order-1 lg:order-2">
               <div>
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-pink/20 to-accent-purple/20 border-2 border-accent-pink/40 flex items-center justify-center text-accent-pink font-bold text-lg shadow-lg shadow-accent-pink/20">2</div>
-                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">AI Builds the Interface</h3>
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-pink/20 to-accent-purple/20 border-2 border-accent-pink/40 flex items-center justify-center text-accent-pink font-bold text-lg shadow-lg shadow-accent-pink/20">
+                    <Sparkles size={24} />
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-white">Watch It Build Live</h3>
                 </div>
-                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
-                  ALVIO generates the complete application: database schema, API endpoints, authentication, and a beautiful responsive interface.
+                <p className="text-gray-600 dark:text-gray-400 mb-6 leading-relaxed text-lg">
+                  See your application come to life in real-time. ALVIO generates production-ready code, complete with error handling, validation, and best practices.
                 </p>
                 <ul className="space-y-4">
                   {[
-                    { title: 'Database Schema', desc: 'Tables, relationships, and migrations' },
-                    { title: 'Backend APIs', desc: 'CRUD endpoints, authentication, business logic' },
-                    { title: 'Frontend UI', desc: 'Modern, responsive, accessible interfaces' }
+                    { title: 'Database Migrations', desc: 'PostgreSQL schemas with relationships', icon: Database },
+                    { title: 'REST API Endpoints', desc: 'CRUD operations with authentication', icon: Code },
+                    { title: 'React Components', desc: 'Modern UI with TypeScript', icon: Palette }
                   ].map((item, i) => (
                     <li key={i} className="flex items-start gap-3">
-                      <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-accent-pink/20 to-accent-purple/20 flex items-center justify-center flex-shrink-0 mt-1">
-                        <CheckCircle2 size={14} className="text-accent-pink" />
+                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-pink/20 to-accent-purple/20 flex items-center justify-center flex-shrink-0">
+                        <item.icon size={18} className="text-accent-pink" />
                       </div>
                       <div>
-                        <div className="text-gray-900 dark:text-white font-semibold">{item.title}</div>
+                        <div className="text-gray-900 dark:text-white font-bold text-lg">{item.title}</div>
                         <div className="text-sm text-gray-600 dark:text-gray-400 font-light">{item.desc}</div>
                       </div>
                     </li>
@@ -346,6 +481,23 @@ export const AppsPage: React.FC = () => {
                   <p className="text-gray-700 dark:text-gray-300 italic font-light text-base leading-relaxed">
                     {examples[activeExample].prompt}
                   </p>
+                </div>
+
+                {/* Live Stats Grid */}
+                <div className="grid grid-cols-3 gap-3 mb-6">
+                  {examples[activeExample].stats.map((stat, i) => (
+                    <div key={i} className={`p-4 rounded-2xl border-2 backdrop-blur-xl ${
+                      stat.color === 'purple' ? 'bg-gradient-to-br from-accent-purple/10 to-accent-purple/5 border-accent-purple/30' :
+                      stat.color === 'orange' ? 'bg-gradient-to-br from-accent-orange/10 to-accent-orange/5 border-accent-orange/30' :
+                      'bg-gradient-to-br from-accent-pink/10 to-accent-pink/5 border-accent-pink/30'
+                    }`}>
+                      <div className="text-xs text-gray-600 dark:text-gray-400 mb-1">{stat.label}</div>
+                      <div className="text-xl font-bold text-gray-900 dark:text-white">{stat.value}</div>
+                      <div className={`text-xs font-semibold ${
+                        stat.change.startsWith('+') ? 'text-green-500' : 'text-red-500'
+                      }`}>{stat.change}</div>
+                    </div>
+                  ))}
                 </div>
 
                 <div className="space-y-3">
