@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Cookie, X, Settings, Shield, BarChart, Megaphone, Sparkles, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
-
-interface CookiePreferences {
-  essential: boolean;
-  functional: boolean;
-  analytics: boolean;
-  marketing: boolean;
-}
+import { useConsent, CookiePreferences } from '../contexts/ConsentContext';
 
 export default function CookieConsent() {
+  const { hasConsent, updatePreferences, showPreferencesModal, closePreferences, preferences: savedPreferences } = useConsent();
   const [showBanner, setShowBanner] = useState(false);
-  const [showSettings, setShowSettings] = useState(false);
   const [preferences, setPreferences] = useState<CookiePreferences>({
     essential: true,
     functional: true,
@@ -20,17 +14,21 @@ export default function CookieConsent() {
   });
 
   useEffect(() => {
-    const consent = localStorage.getItem('alvio_cookie_consent');
-    if (!consent) {
+    if (!hasConsent) {
       setTimeout(() => setShowBanner(true), 1000);
     }
-  }, []);
+  }, [hasConsent]);
+
+  useEffect(() => {
+    if (showPreferencesModal && savedPreferences) {
+      setPreferences(savedPreferences);
+    }
+  }, [showPreferencesModal, savedPreferences]);
 
   const savePreferences = (prefs: CookiePreferences) => {
-    localStorage.setItem('alvio_cookie_consent', JSON.stringify(prefs));
-    localStorage.setItem('alvio_consent_date', new Date().toISOString());
+    updatePreferences(prefs);
     setShowBanner(false);
-    setShowSettings(false);
+    closePreferences();
   };
 
   const acceptAll = () => {
@@ -55,7 +53,7 @@ export default function CookieConsent() {
     savePreferences(preferences);
   };
 
-  if (!showBanner) return null;
+  if (!showBanner && !showPreferencesModal) return null;
 
   return (
     <>
@@ -117,7 +115,12 @@ export default function CookieConsent() {
                   Reject Non-Essential
                 </button>
                 <button
-                  onClick={() => setShowSettings(true)}
+                  onClick={() => {
+                    setShowBanner(false);
+                    setTimeout(() => {
+                      openPreferences();
+                    }, 100);
+                  }}
                   className="flex-1 px-6 py-3.5 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-xl font-bold border-2 border-slate-300 dark:border-slate-600 hover:border-blue-400 dark:hover:border-blue-500 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-300 flex items-center justify-center gap-2 shadow-sm hover:shadow-md hover:scale-[1.02]"
                 >
                   <Settings className="w-5 h-5" />
@@ -129,9 +132,9 @@ export default function CookieConsent() {
         </div>
       </div>
 
-      {showSettings && (
+      {showPreferencesModal && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 animate-fade-in">
-          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/60 backdrop-blur-md" onClick={() => setShowSettings(false)} />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-black/50 to-black/60 backdrop-blur-md" onClick={closePreferences} />
           <div className="relative bg-white dark:bg-slate-900 rounded-3xl shadow-2xl max-w-3xl w-full max-h-[90vh] overflow-hidden border-2 border-slate-200 dark:border-slate-700 animate-scale-in">
             <div className="sticky top-0 bg-gradient-to-r from-blue-50 via-emerald-50 to-blue-50 dark:from-slate-800 dark:via-slate-800 dark:to-slate-800 border-b-2 border-slate-200 dark:border-slate-700 p-6 flex items-center justify-between backdrop-blur-xl z-10">
               <div className="flex items-center gap-3">
@@ -144,7 +147,7 @@ export default function CookieConsent() {
                 </div>
               </div>
               <button
-                onClick={() => setShowSettings(false)}
+                onClick={closePreferences}
                 className="p-2.5 hover:bg-slate-200 dark:hover:bg-slate-700 rounded-xl transition-colors"
               >
                 <X className="w-6 h-6 text-slate-600 dark:text-slate-400" />
@@ -260,7 +263,7 @@ export default function CookieConsent() {
                 </span>
               </button>
               <button
-                onClick={() => setShowSettings(false)}
+                onClick={closePreferences}
                 className="px-6 py-3.5 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-200 rounded-xl font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition-all duration-300 shadow-sm hover:shadow-md hover:scale-[1.02]"
               >
                 Cancel

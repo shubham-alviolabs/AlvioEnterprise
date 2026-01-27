@@ -1,8 +1,11 @@
 import React from 'react';
 import { Button } from './ui/Button';
 import { ArrowUpRight } from 'lucide-react';
+import { useConsent } from '../contexts/ConsentContext';
 
 export const Footer: React.FC = () => {
+  const { openPreferences } = useConsent();
+
   return (
     <footer className="relative bg-white dark:bg-black overflow-hidden transition-colors duration-500">
 
@@ -107,6 +110,15 @@ export const Footer: React.FC = () => {
                         <span className="w-0 h-px bg-gray-900 dark:bg-white group-hover:w-2 transition-all duration-300"></span>
                         Cookies
                       </a>
+                    </li>
+                    <li>
+                      <button
+                        onClick={openPreferences}
+                        className="group text-xs sm:text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors flex items-center gap-1"
+                      >
+                        <span className="w-0 h-px bg-gray-900 dark:bg-white group-hover:w-2 transition-all duration-300"></span>
+                        Manage Cookies
+                      </button>
                     </li>
                   </ul>
                 </div>
