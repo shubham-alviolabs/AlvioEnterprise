@@ -80,98 +80,228 @@ export const WorkflowsPage: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-white via-orange-50/20 to-pink-50/30 dark:from-black dark:via-[#0a0505] dark:to-[#050a0a] text-gray-900 dark:text-white transition-colors duration-700">
       <Navbar />
 
-      {/* Hero Section */}
-      <Section className="pt-32 pb-32 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[1000px] h-[1000px] bg-gradient-to-br from-accent-pink/20 via-accent-orange/15 to-transparent blur-[250px] rounded-full pointer-events-none animate-blob" />
-        <div className="absolute bottom-0 left-0 w-[800px] h-[800px] bg-gradient-to-tr from-accent-purple/20 via-accent-pink/10 to-transparent blur-[200px] rounded-full pointer-events-none animate-blob-delay" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-r from-accent-orange/10 to-accent-pink/10 blur-[180px] rounded-full pointer-events-none animate-blob-slower" />
+      {/* Hero Section - Enhanced with Live Demo */}
+      <Section className="pt-32 pb-40 relative overflow-hidden">
+        {/* Animated Background Orbs */}
+        <div className="absolute top-0 right-0 w-[1200px] h-[1200px] bg-gradient-to-br from-accent-pink/20 via-accent-orange/15 to-transparent blur-[250px] rounded-full pointer-events-none animate-blob" />
+        <div className="absolute bottom-0 left-0 w-[1000px] h-[1000px] bg-gradient-to-tr from-accent-purple/20 via-accent-pink/10 to-transparent blur-[200px] rounded-full pointer-events-none animate-blob-delay" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-accent-orange/10 to-accent-pink/10 blur-[180px] rounded-full pointer-events-none animate-blob-slower" />
 
-        <div className="relative z-10 max-w-5xl mx-auto text-center">
+        <div className="relative z-10 max-w-7xl mx-auto">
           <FadeIn>
-            <div className="inline-flex items-center gap-2 px-5 py-2.5 mb-8 rounded-full border-2 border-accent-pink/40 bg-gradient-to-r from-accent-pink/15 via-accent-orange/15 to-accent-pink/15 backdrop-blur-2xl shadow-2xl shadow-accent-pink/20 hover:scale-105 transition-all duration-500">
-              <Workflow size={16} className="text-accent-pink animate-pulse" />
-              <span className="text-sm font-bold uppercase tracking-[0.2em] bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink bg-clip-text text-transparent">ALVIO Workflows</span>
-              <div className="w-1.5 h-1.5 rounded-full bg-accent-pink animate-ping"></div>
-            </div>
-            <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-8 leading-[1.05]">
-              Just Describe It.<br />
-              <span className="relative inline-block">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink via-accent-orange to-accent-purple animate-gradient">
-                  AI Builds The Workflow.
+            {/* Header Content */}
+            <div className="text-center mb-16">
+              <div className="inline-flex items-center gap-2 px-5 py-2.5 mb-8 rounded-full border-2 border-accent-pink/40 bg-gradient-to-r from-accent-pink/15 via-accent-orange/15 to-accent-pink/15 backdrop-blur-2xl shadow-2xl shadow-accent-pink/20 hover:scale-105 transition-all duration-500 cursor-pointer">
+                <Workflow size={16} className="text-accent-pink animate-pulse" />
+                <span className="text-sm font-bold uppercase tracking-[0.2em] bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink bg-clip-text text-transparent">ALVIO Workflows</span>
+                <div className="w-1.5 h-1.5 rounded-full bg-accent-pink animate-ping"></div>
+              </div>
+              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-extrabold tracking-tighter text-gray-900 dark:text-white mb-8 leading-[1.05]">
+                Just Describe It.<br />
+                <span className="relative inline-block">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-pink via-accent-orange to-accent-purple" style={{backgroundSize: '200% 200%', animation: 'gradient 8s linear infinite'}}>
+                    AI Builds The Workflow.
+                  </span>
+                  <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-accent-pink via-accent-orange to-accent-purple blur-sm opacity-50 animate-pulse"></div>
                 </span>
-                <div className="absolute -bottom-3 left-0 right-0 h-1 bg-gradient-to-r from-accent-pink via-accent-orange to-accent-purple blur-sm opacity-50"></div>
-              </span>
-            </h1>
-            <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-              No flowcharts. No node connections. No engineering knowledge required.<br />
-              <span className="font-semibold text-gray-800 dark:text-gray-200">Describe your workflow in plain English</span>—ALVIO creates it, connects your tools, and handles the logic.
-            </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-5 mb-12">
-              <Button variant="primary" size="lg" className="group rounded-full shadow-2xl shadow-accent-pink/40 hover:shadow-accent-orange/50 transition-all duration-500 hover:scale-105 text-lg px-8 py-4">
-                <Sparkles size={18} className="mr-2 group-hover:rotate-12 transition-transform" />
-                Create Workflow
-                <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
-              </Button>
-              <Button variant="outline" size="lg" className="rounded-full backdrop-blur-xl bg-white/10 dark:bg-white/5 border-2 border-white/20 hover:bg-white/20 dark:hover:bg-white/10 hover:border-white/40 transition-all duration-300 text-lg px-8 py-4">
-                See Examples
-              </Button>
+              </h1>
+              <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
+                No flowcharts. No node connections. No engineering knowledge required.<br />
+                <span className="font-semibold text-gray-800 dark:text-gray-200">Describe your workflow in plain English</span>—ALVIO creates it instantly.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+                <Button variant="primary" size="lg" className="group rounded-full shadow-2xl shadow-accent-pink/40 hover:shadow-accent-orange/50 transition-all duration-500 hover:scale-105 text-lg px-8 py-4">
+                  <Sparkles size={18} className="mr-2 group-hover:rotate-12 transition-transform" />
+                  Create Workflow
+                  <ArrowRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
+                </Button>
+                <Button variant="outline" size="lg" className="rounded-full backdrop-blur-xl bg-white/10 dark:bg-white/5 border-2 border-white/20 hover:bg-white/20 dark:hover:bg-white/10 hover:border-white/40 transition-all duration-300 text-lg px-8 py-4">
+                  See Examples
+                </Button>
+              </div>
             </div>
 
-            {/* Hero Visual - Mini Flow Preview */}
-            <div className="max-w-4xl mx-auto">
-              <div className="relative p-8 rounded-3xl bg-gradient-to-br from-white/60 via-white/40 to-white/60 dark:from-white/[0.08] dark:via-white/[0.04] dark:to-white/[0.08] border-2 border-gray-200 dark:border-white/20 backdrop-blur-3xl shadow-2xl">
-                <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-30 pointer-events-none rounded-3xl"></div>
+            {/* Interactive Workflow Demo */}
+            <div className="relative max-w-6xl mx-auto">
+              {/* Main Demo Container */}
+              <div className="relative p-10 rounded-3xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 border-2 border-slate-700 dark:border-slate-800 shadow-2xl overflow-hidden">
+                {/* Animated Grid Background */}
+                <div className="absolute inset-0 opacity-20" style={{
+                  backgroundImage: 'linear-gradient(rgba(148, 163, 184, 0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(148, 163, 184, 0.1) 1px, transparent 1px)',
+                  backgroundSize: '30px 30px',
+                  animation: 'grid-move 20s linear infinite'
+                }}></div>
 
-                <div className="relative grid md:grid-cols-2 gap-8 items-center">
-                  {/* Prompt Side */}
-                  <div className="text-left">
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-accent-pink to-accent-orange flex items-center justify-center shadow-lg shadow-accent-pink/30">
-                        <MessageSquare size={18} className="text-white" />
+                {/* Glowing corners */}
+                <div className="absolute top-0 left-0 w-40 h-40 bg-accent-pink/20 rounded-full blur-[100px] animate-pulse-slow"></div>
+                <div className="absolute bottom-0 right-0 w-40 h-40 bg-accent-orange/20 rounded-full blur-[100px] animate-pulse-slow" style={{animationDelay: '1s'}}></div>
+
+                <div className="relative grid lg:grid-cols-[1fr_auto_1fr] gap-8 items-center">
+                  {/* Left: Prompt Input */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-accent-pink via-accent-orange to-accent-pink flex items-center justify-center shadow-lg shadow-accent-pink/50 animate-pulse-slow">
+                        <MessageSquare size={20} className="text-white" />
                       </div>
-                      <span className="text-sm font-bold text-gray-900 dark:text-white">Your Prompt</span>
+                      <div>
+                        <div className="text-sm font-bold text-white">Your Description</div>
+                        <div className="text-xs text-slate-400">Plain English input</div>
+                      </div>
                     </div>
-                    <div className="p-4 rounded-xl bg-white/90 dark:bg-slate-900/90 border border-gray-300 dark:border-slate-700 backdrop-blur-xl">
-                      <p className="text-xs text-gray-700 dark:text-gray-300 italic leading-relaxed">
-                        "Alert me on Slack when a Salesforce deal is stuck for 2+ weeks"
-                      </p>
+
+                    <div className="relative group">
+                      <div className="absolute -inset-0.5 bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink rounded-2xl blur opacity-40 group-hover:opacity-70 transition-opacity"></div>
+                      <div className="relative p-6 rounded-2xl bg-slate-800 border-2 border-slate-700 backdrop-blur-xl">
+                        <p className="text-sm text-slate-200 leading-relaxed font-light">
+                          "When a high-value Salesforce deal goes quiet for 2 weeks, check Gmail and Fireflies for context, then alert me on Slack"
+                          <span className="inline-block w-0.5 h-4 bg-accent-pink animate-cursor-blink ml-1"></span>
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Input Stats */}
+                    <div className="flex items-center gap-3">
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-500/20 border border-blue-500/30">
+                        <Database size={12} className="text-blue-400" />
+                        <span className="text-xs text-blue-300 font-semibold">4 integrations detected</span>
+                      </div>
+                      <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-green-500/20 border border-green-500/30">
+                        <CheckCircle2 size={12} className="text-green-400" />
+                        <span className="text-xs text-green-300 font-semibold">Ready</span>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Arrow */}
-                  <div className="hidden md:flex justify-center">
+                  {/* Center: AI Processing Animation */}
+                  <div className="flex flex-col items-center gap-4 lg:px-8">
                     <div className="relative">
-                      <ArrowRight size={32} className="text-accent-orange animate-pulse" />
-                      <Sparkles size={16} className="absolute -top-2 -right-2 text-accent-pink animate-spin-slow" />
+                      {/* Orbiting particles */}
+                      <div className="relative w-24 h-24">
+                        <div className="absolute inset-0 rounded-full bg-gradient-to-br from-accent-pink via-accent-orange to-accent-purple animate-spin-slow opacity-20 blur-xl"></div>
+                        <div className="absolute inset-2 rounded-full bg-gradient-to-br from-accent-orange via-accent-pink to-accent-purple animate-spin-reverse-slow opacity-30 blur-lg"></div>
+                        <div className="absolute inset-0 flex items-center justify-center">
+                          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-pink via-accent-orange to-accent-purple flex items-center justify-center shadow-2xl shadow-accent-pink/50 animate-pulse-glow">
+                            <Sparkles size={28} className="text-white animate-pulse" />
+                          </div>
+                        </div>
+
+                        {/* Orbiting dots */}
+                        <div className="absolute inset-0 animate-orbit-1">
+                          <div className="w-2 h-2 rounded-full bg-accent-pink shadow-lg shadow-accent-pink/50"></div>
+                        </div>
+                        <div className="absolute inset-0 animate-orbit-2">
+                          <div className="w-2 h-2 rounded-full bg-accent-orange shadow-lg shadow-accent-orange/50"></div>
+                        </div>
+                        <div className="absolute inset-0 animate-orbit-3">
+                          <div className="w-2 h-2 rounded-full bg-accent-purple shadow-lg shadow-accent-purple/50"></div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Processing indicator */}
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-accent-pink/30 backdrop-blur-xl">
+                        <Bot size={14} className="text-accent-pink animate-pulse" />
+                        <span className="text-xs font-bold text-white">AI Building...</span>
+                      </div>
+                      <div className="text-[10px] text-slate-500 font-mono">2.1s elapsed</div>
+                    </div>
+
+                    {/* Animated arrow */}
+                    <div className="hidden lg:block">
+                      <ArrowRight size={24} className="text-accent-orange animate-pulse" />
                     </div>
                   </div>
 
-                  {/* Result Side */}
-                  <div className="text-left md:col-start-2">
-                    <div className="flex items-center gap-2 mb-4">
-                      <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-500/30">
-                        <CheckCircle2 size={18} className="text-white" />
+                  {/* Right: Generated Workflow */}
+                  <div className="space-y-4">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg shadow-green-500/50">
+                        <Workflow size={20} className="text-white" />
                       </div>
-                      <span className="text-sm font-bold text-gray-900 dark:text-white">AI-Built Flow</span>
+                      <div>
+                        <div className="text-sm font-bold text-white">Generated Workflow</div>
+                        <div className="text-xs text-slate-400">Ready to deploy</div>
+                      </div>
                     </div>
-                    <div className="space-y-2">
-                      {['Monitor Salesforce', 'Check timeline', 'Send Slack alert'].map((step, i) => (
-                        <div key={i} className="flex items-center gap-2 p-3 rounded-lg bg-white/90 dark:bg-slate-900/90 border border-gray-200 dark:border-slate-700">
-                          <div className="w-6 h-6 rounded-lg bg-gradient-to-br from-accent-orange/20 to-accent-pink/20 flex items-center justify-center">
-                            <span className="text-[10px] font-bold text-accent-orange">{i + 1}</span>
+
+                    <div className="space-y-3">
+                      {[
+                        { icon: Database, label: 'Monitor Salesforce deals', color: 'blue' },
+                        { icon: Clock, label: 'Check 2-week timeline', color: 'purple' },
+                        { icon: Globe, label: 'Scan Gmail & Fireflies', color: 'orange' },
+                        { icon: Zap, label: 'Alert on Slack', color: 'green' }
+                      ].map((step, i) => (
+                        <div key={i} className="relative group" style={{animationDelay: `${i * 0.2}s`}}>
+                          <div className={`absolute -inset-0.5 bg-gradient-to-r ${
+                            step.color === 'blue' ? 'from-blue-500 to-blue-600' :
+                            step.color === 'purple' ? 'from-purple-500 to-purple-600' :
+                            step.color === 'orange' ? 'from-orange-500 to-orange-600' :
+                            'from-green-500 to-green-600'
+                          } rounded-xl blur opacity-0 group-hover:opacity-40 transition-opacity`}></div>
+
+                          <div className={`relative flex items-center gap-3 p-4 rounded-xl border-2 backdrop-blur-xl ${
+                            step.color === 'blue' ? 'bg-blue-500/10 border-blue-500/30' :
+                            step.color === 'purple' ? 'bg-purple-500/10 border-purple-500/30' :
+                            step.color === 'orange' ? 'bg-orange-500/10 border-orange-500/30' :
+                            'bg-green-500/10 border-green-500/30'
+                          } hover:scale-[1.02] transition-all duration-300`}>
+                            <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${
+                              step.color === 'blue' ? 'bg-blue-500/20' :
+                              step.color === 'purple' ? 'bg-purple-500/20' :
+                              step.color === 'orange' ? 'bg-orange-500/20' :
+                              'bg-green-500/20'
+                            }`}>
+                              <step.icon size={18} className={
+                                step.color === 'blue' ? 'text-blue-400' :
+                                step.color === 'purple' ? 'text-purple-400' :
+                                step.color === 'orange' ? 'text-orange-400' :
+                                'text-green-400'
+                              } />
+                            </div>
+                            <span className="text-sm font-semibold text-white flex-1">{step.label}</span>
+                            <div className={`w-2 h-2 rounded-full animate-pulse ${
+                              step.color === 'blue' ? 'bg-blue-400 shadow-lg shadow-blue-400/50' :
+                              step.color === 'purple' ? 'bg-purple-400 shadow-lg shadow-purple-400/50' :
+                              step.color === 'orange' ? 'bg-orange-400 shadow-lg shadow-orange-400/50' :
+                              'bg-green-400 shadow-lg shadow-green-400/50'
+                            }`}></div>
                           </div>
-                          <span className="text-xs font-medium text-gray-800 dark:text-gray-200">{step}</span>
-                          <CheckCircle2 size={12} className="text-green-500 ml-auto" />
                         </div>
                       ))}
                     </div>
+
+                    {/* Deploy button */}
+                    <button className="w-full flex items-center justify-center gap-2 px-6 py-4 rounded-xl bg-gradient-to-r from-green-500 to-emerald-500 text-white font-bold shadow-2xl shadow-green-500/40 hover:shadow-green-500/60 hover:scale-[1.02] transition-all duration-300 group">
+                      <Play size={18} className="group-hover:scale-110 transition-transform" />
+                      <span>Deploy Workflow</span>
+                      <CheckCircle2 size={18} />
+                    </button>
                   </div>
                 </div>
 
-                {/* Bottom badge */}
-                <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-5 py-2 rounded-full bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink text-white text-xs font-bold shadow-2xl shadow-accent-pink/50 flex items-center gap-2">
-                  <Zap size={12} className="animate-pulse" />
-                  Built in 2.1 seconds
+                {/* Bottom Stats Bar */}
+                <div className="relative mt-8 pt-6 border-t border-slate-700/50 flex items-center justify-center gap-8">
+                  <div className="flex items-center gap-2">
+                    <Zap size={14} className="text-yellow-400" />
+                    <span className="text-xs text-slate-300 font-semibold">Built in 2.1s</span>
+                  </div>
+                  <div className="w-px h-4 bg-slate-600"></div>
+                  <div className="flex items-center gap-2">
+                    <Database size={14} className="text-blue-400" />
+                    <span className="text-xs text-slate-300 font-semibold">4 Integrations</span>
+                  </div>
+                  <div className="w-px h-4 bg-slate-600"></div>
+                  <div className="flex items-center gap-2">
+                    <CheckCircle2 size={14} className="text-green-400" />
+                    <span className="text-xs text-slate-300 font-semibold">100% Automated</span>
+                  </div>
+                </div>
+
+                {/* Floating badge */}
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-6 py-2 rounded-full bg-gradient-to-r from-accent-pink via-accent-orange to-accent-pink text-white text-xs font-bold shadow-2xl shadow-accent-pink/50 flex items-center gap-2 border-2 border-white/10">
+                  <Sparkles size={12} className="animate-pulse" />
+                  <span>Live Demo</span>
                 </div>
               </div>
             </div>
