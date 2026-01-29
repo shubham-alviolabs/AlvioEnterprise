@@ -57,27 +57,22 @@ export default function CookieConsent() {
 
   return (
     <>
-      {showBanner && (
-        <div className="fixed bottom-6 right-6 z-50 pointer-events-auto animate-slide-in-bounce group">
-          <div className="relative">
-            <div className="absolute -top-8 -right-2 animate-float-fast">
-              <Sparkles className="w-4 h-4 text-accent-orange" />
-            </div>
-            <div className="absolute -top-6 -left-3 animate-float-medium">
-              <Sparkles className="w-3 h-3 text-accent-pink" />
-            </div>
+      {showBanner && !showPreferencesModal && (
+        <>
+          <div className="fixed inset-0 bg-black/60 z-[55] backdrop-blur-sm animate-fade-in" />
+          <div className="fixed bottom-6 right-6 z-[60] pointer-events-auto animate-slide-in-bounce group">
+            <div className="relative">
+              <div className="absolute -top-8 -right-2 animate-float-fast">
+                <Sparkles className="w-4 h-4 text-accent-orange" />
+              </div>
+              <div className="absolute -top-6 -left-3 animate-float-medium">
+                <Sparkles className="w-3 h-3 text-accent-pink" />
+              </div>
 
-            <div className="relative bg-gradient-to-br from-white/95 via-white/90 to-white/95 dark:from-black/95 dark:via-black/90 dark:to-black/95 rounded-3xl shadow-2xl border-2 border-black/10 dark:border-white/10 overflow-hidden backdrop-blur-2xl w-80 transform transition-all duration-500 hover:scale-105">
-              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-orange via-accent-pink to-accent-purple"></div>
+              <div className="relative bg-gradient-to-br from-white/95 via-white/90 to-white/95 dark:from-black/95 dark:via-black/90 dark:to-black/95 rounded-3xl shadow-2xl border-2 border-black/10 dark:border-white/10 overflow-hidden backdrop-blur-2xl w-80 transform transition-all duration-500 hover:scale-105">
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-orange via-accent-pink to-accent-purple"></div>
 
-              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-orange/20 via-accent-pink/10 to-transparent rounded-full blur-3xl animate-pulse-slow"></div>
-
-              <button
-                onClick={() => setShowBanner(false)}
-                className="absolute top-3 right-3 p-1.5 rounded-full hover:bg-black/5 dark:hover:bg-white/5 transition-colors z-10"
-              >
-                <X className="w-4 h-4 text-gray-500 dark:text-gray-400" />
-              </button>
+                <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-accent-orange/20 via-accent-pink/10 to-transparent rounded-full blur-3xl animate-pulse-slow"></div>
 
               <div className="p-6">
                 <div className="flex items-start gap-4 mb-4">
@@ -120,12 +115,7 @@ export default function CookieConsent() {
 
                   <div className="grid grid-cols-2 gap-2">
                     <button
-                      onClick={() => {
-                        setShowBanner(false);
-                        setTimeout(() => {
-                          openPreferences();
-                        }, 100);
-                      }}
+                      onClick={openPreferences}
                       className="group/btn relative px-3 py-2.5 text-xs font-semibold text-gray-700 dark:text-gray-300 rounded-xl transition-all border-2 border-black/10 dark:border-white/10 hover:border-accent-purple/50 dark:hover:border-accent-purple/40 overflow-hidden hover:scale-105"
                     >
                       <div className="absolute inset-0 bg-gradient-to-r from-accent-purple/5 to-transparent opacity-0 group-hover/btn:opacity-100 transition-opacity"></div>
@@ -157,11 +147,12 @@ export default function CookieConsent() {
             </div>
           </div>
         </div>
+        </>
       )}
 
       {showPreferencesModal && (
-        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 animate-fade-in">
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-md" onClick={closePreferences} />
+        <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 animate-fade-in">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-md" />
           <div className="relative bg-white/95 dark:bg-black/95 rounded-3xl shadow-2xl max-w-2xl w-full max-h-[85vh] overflow-hidden border-2 border-black/10 dark:border-white/10 animate-scale-in backdrop-blur-2xl">
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent-orange via-accent-pink to-accent-purple"></div>
 
@@ -182,7 +173,10 @@ export default function CookieConsent() {
                 </div>
               </div>
               <button
-                onClick={closePreferences}
+                onClick={() => {
+                  closePreferences();
+                  setShowBanner(true);
+                }}
                 className="p-2 hover:bg-black/5 dark:hover:bg-white/5 rounded-xl transition-all hover:rotate-90 duration-300"
               >
                 <X className="w-5 h-5 text-gray-500 dark:text-gray-400" />
@@ -305,10 +299,13 @@ export default function CookieConsent() {
                 </span>
               </button>
               <button
-                onClick={closePreferences}
+                onClick={() => {
+                  closePreferences();
+                  setShowBanner(true);
+                }}
                 className="px-5 py-3 bg-black/5 dark:bg-white/5 text-gray-700 dark:text-gray-300 rounded-xl text-sm font-bold hover:bg-black/10 dark:hover:bg-white/10 transition-all border-2 border-black/10 dark:border-white/10 hover:scale-105"
               >
-                Cancel
+                Back
               </button>
             </div>
           </div>
